@@ -3,235 +3,247 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Quasar Pulse — token & kuota semua model bot</title>
-<meta name="description" content="Papan langsung token, kuota dan kesihatan model untuk bot Quasar.">
+<title>Quasar Pulse — pemandangan anime · token &amp; kuota semua model bot</title>
+<meta name="description" content="Papan langsung token, kuota dan kesihatan model bot Quasar, dibalut pemandangan anime yang hidup.">
 <style>
-/* Token warna: bg #0f0f0f · panel #171717 · garis #2a2a2a · teks #e8e8e8 · malap #888
-   aksen amber #f59e0b · dalam #b45309 · hijau #3fb950 · biru #58a6ff */
+/* ==========================================================================
+   QUASAR PULSE — edisi pemandangan anime
+   langit #3f7fb5→#87CEEB→#FFE6B3 · gunung #7f9fb8/#4e7a5f · tasik #1E90FF
+   hutan #228B22 · dek #8B5A2B · aksen senja #e0762f
+   ========================================================================== */
 :root{
-  --bg:#0d0d0f; --panel:#171717; --panel2:#1c1c1c; --line:#2a2a2a;
-  --fg:#e8e8e8; --dim:#8b8b8b; --dim2:#6f6f6f;
-  --acc:#f59e0b; --deep:#b45309; --ink:#1a1204;
-  --ok:#3fb950; --bad:#f85149; --blue:#58a6ff; --pink:#ff7ab6;
-  --r:16px;
+  --panel:rgba(255,255,255,.80); --panel2:rgba(255,255,255,.62);
+  --line:rgba(23,60,90,.16); --line2:rgba(23,60,90,.10);
+  --fg:#1f3242; --dim:#5c7488; --dim2:#7c93a6;
+  --acc:#e0762f; --deep:#b8561c; --ok:#2f9e6f; --bad:#d9534f; --blue:#3a7ca5;
+  --r:16px; --kaca:blur(14px) saturate(1.15);
 }
 *{box-sizing:border-box}
-html,body{margin:0;background:var(--bg);color:var(--fg);
-  font:15px/1.5 "Inter Variable",Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;
+html{scroll-behavior:smooth}
+html,body{margin:0;background:#cfe6f4;color:var(--fg);
+  font:15px/1.55 "Inter Variable",Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;
   -webkit-font-smoothing:antialiased}
 body{overflow-x:hidden}
 
-/* ================= LATAR KARTUN ================= */
-.langit{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
-.bintang{position:absolute;border-radius:50%;background:#fff;opacity:.6;
-  animation:kelip 3s ease-in-out infinite}
-@keyframes kelip{0%,100%{opacity:.15;transform:scale(.7)}50%{opacity:.9;transform:scale(1.15)}}
-.nebula{position:absolute;border-radius:50%;filter:blur(72px);opacity:.15;
-  background:radial-gradient(circle at 30% 30%,var(--acc),transparent 65%);
-  animation:drift 26s ease-in-out infinite}
-.nebula.b{bottom:-170px;right:-110px;animation-duration:36s;animation-delay:-9s;
-  background:radial-gradient(circle at 60% 40%,var(--deep),transparent 65%)}
-.nebula.c{top:36%;left:-150px;opacity:.10;animation-duration:44s;
-  background:radial-gradient(circle at 50% 50%,var(--blue),transparent 68%)}
-@keyframes drift{0%,100%{transform:translate3d(0,0,0) scale(1)}
-  33%{transform:translate3d(58px,42px,0) scale(1.09)}
-  66%{transform:translate3d(-42px,28px,0) scale(.94)}}
-/* bulan bermuka */
-.bulan{position:absolute;top:74px;right:6vw;width:86px;height:86px;opacity:.9;
-  animation:bulan-apung 9s ease-in-out infinite}
-@keyframes bulan-apung{0%,100%{transform:translateY(0) rotate(-3deg)}
-  50%{transform:translateY(-14px) rotate(3deg)}}
-/* komet melintas */
-.komet{position:absolute;top:12%;left:-20%;width:3px;height:3px;border-radius:50%;
-  background:#fff;box-shadow:0 0 12px 3px rgba(255,255,255,.75);
-  animation:komet-jalan 9s linear infinite}
-.komet::after{content:"";position:absolute;top:1px;right:2px;width:130px;height:1.5px;
-  background:linear-gradient(90deg,rgba(255,255,255,.9),transparent);transform:rotate(180deg)}
-.komet.k2{top:34%;animation-duration:13s;animation-delay:4.5s}
-.komet.k3{top:6%;animation-duration:16s;animation-delay:8s;opacity:.75}
-@keyframes komet-jalan{0%{transform:translate3d(0,0,0)}
-  8%{transform:translate3d(70vw,26vh,0)}100%{transform:translate3d(70vw,26vh,0)}}
+/* ====================== LAPISAN PEMANDANGAN ====================== */
+#pemandangan{position:fixed;left:0;right:0;bottom:0;width:100%;height:100%;z-index:0;
+  pointer-events:none;will-change:transform}
+#langit{position:fixed;inset:0;width:100%;height:100%;z-index:1;pointer-events:none}
+/* Kanvas hadapan: kelopak & habuk cahaya terapung DI ATAS kad data (z-index tinggi,
+   pointer-events:none) supaya rasa "dunia anime hidup" kekal walau skrol jauh. */
+#serbuk{position:fixed;inset:0;width:100%;height:100%;z-index:7;pointer-events:none}
+#hutan-depan{position:fixed;left:0;right:0;bottom:0;width:100%;height:100%;z-index:2;
+  pointer-events:none;will-change:transform}
+.sinar{position:fixed;left:24%;top:30%;width:180vmax;height:180vmax;margin:-90vmax 0 0 -90vmax;
+  z-index:1;pointer-events:none;opacity:.45;
+  background:conic-gradient(from 0deg,rgba(255,240,205,.16) 0 3deg,transparent 3deg 26deg,
+    rgba(255,236,196,.10) 26deg 28deg,transparent 28deg 52deg,
+    rgba(255,240,205,.14) 52deg 55deg,transparent 55deg 84deg,
+    rgba(255,236,196,.09) 84deg 86deg,transparent 86deg 118deg,
+    rgba(255,240,205,.12) 118deg 121deg,transparent 121deg 152deg,
+    rgba(255,236,196,.10) 152deg 154deg,transparent 154deg 190deg,
+    rgba(255,240,205,.13) 190deg 193deg,transparent 193deg 228deg,
+    rgba(255,236,196,.09) 228deg 230deg,transparent 230deg 268deg,
+    rgba(255,240,205,.12) 268deg 271deg,transparent 271deg 306deg,
+    rgba(255,236,196,.10) 306deg 308deg,transparent 308deg 360deg);
+  animation:sinar-pusing 150s linear infinite}
+@keyframes sinar-pusing{to{transform:rotate(360deg)}}
 
-/* planet & roket */
-.planet{position:absolute;left:7vw;top:26%;width:104px;height:86px;opacity:.5;
-  animation:planet-apung 13s ease-in-out infinite}
-@keyframes planet-apung{0%,100%{transform:translateY(0) rotate(-4deg)}
-  50%{transform:translateY(-22px) rotate(4deg)}}
-.roket{position:absolute;right:-14%;top:58%;width:74px;height:56px;opacity:.85;
-  animation:roket-jalan 19s linear infinite}
-@keyframes roket-jalan{0%{transform:translate3d(0,0,0) rotate(-6deg);opacity:0}
-  6%{opacity:.85}
-  46%{transform:translate3d(-96vw,-34vh,0) rotate(-6deg);opacity:.85}
-  47%,100%{transform:translate3d(-96vw,-34vh,0) rotate(-6deg);opacity:0}}
-/* robot kecil di tajuk */
-.robot{width:30px;height:30px;display:inline-block;animation:robot-bob 2.4s ease-in-out infinite}
-@keyframes robot-bob{0%,100%{transform:translateY(0) rotate(-3deg)}
-  50%{transform:translateY(-4px) rotate(3deg)}}
-.robot .antena{animation:antena-kedip 1.6s ease-in-out infinite}
-@keyframes antena-kedip{0%,100%{opacity:.35;fill:#f59e0b}50%{opacity:1;fill:#ffd08a}}
-/* gelembung cakap maskot */
-#bual{position:fixed;left:150px;bottom:64px;z-index:4;max-width:280px;
-  background:var(--panel2);border:1px solid var(--line);border-radius:14px;padding:9px 13px;
-  font-size:12.5px;color:var(--fg);box-shadow:0 6px 22px rgba(0,0,0,.45);
-  opacity:0;transform:translateY(8px) scale(.96);transition:.3s ease;pointer-events:none}
-#bual.tunjuk{opacity:1;transform:none}
-#bual::after{content:"";position:absolute;left:-9px;bottom:16px;border:7px solid transparent;
-  border-right-color:var(--panel2)}
-#bual b{color:var(--acc)}
-@media (max-width:900px){#bual{left:auto;right:12px;bottom:100px;max-width:210px}}
-/* kerlip bintang pada tajuk kad */
-.kotak h4::before{content:"✦";color:var(--acc);margin-right:6px;opacity:.5;
-  display:inline-block;animation:kerlip 2.6s ease-in-out infinite}
-@keyframes kerlip{0%,100%{opacity:.25;transform:scale(.85)}50%{opacity:.95;transform:scale(1.12)}}
+/* tumbuhan bergoyang */
+.goyang{transform-box:fill-box;transform-origin:50% 100%;animation:goyang-angin 6s ease-in-out infinite}
+@keyframes goyang-angin{0%,100%{transform:rotate(-1.6deg)}50%{transform:rotate(1.6deg)}}
+.rumput{transform-box:fill-box;transform-origin:50% 100%;animation:rumput-goyang 3.6s ease-in-out infinite}
+@keyframes rumput-goyang{0%,100%{transform:skewX(-5deg) rotate(-3deg)}50%{transform:skewX(6deg) rotate(4deg)}}
+.bunga{transform-box:fill-box;transform-origin:50% 100%;animation:bunga-goyang 4.4s ease-in-out infinite}
+@keyframes bunga-goyang{0%,100%{transform:rotate(-4deg)}50%{transform:rotate(5deg)}}
+.daun{transform-box:fill-box;transform-origin:0% 100%;animation:daun-goyang 5.2s ease-in-out infinite}
+@keyframes daun-goyang{0%,100%{transform:rotate(-2.4deg)}50%{transform:rotate(3deg)}}
+.lampu{animation:lampu-kedip 3.6s ease-in-out infinite}
+@keyframes lampu-kedip{0%,100%{opacity:.95}45%{opacity:.5}70%{opacity:1}}
+.kilau-tasik rect{animation:tasik-gerak 9s ease-in-out infinite}
+@keyframes tasik-gerak{0%,100%{transform:translateX(-46px);opacity:.16}
+  50%{transform:translateX(46px);opacity:.34}}
 
-/* panel kesihatan model */
-.sehat{display:grid;gap:7px;margin-top:12px}
-.sbar{display:grid;grid-template-columns:1fr auto auto;gap:10px;align-items:center;
-  padding:8px 11px;border:1px solid var(--line);border-radius:11px;background:rgba(255,255,255,.02);
-  font-size:12.5px}
-.sbar:hover{background:rgba(245,158,11,.06)}
-.sbar .nm{font-family:ui-monospace,monospace;font-size:12px;overflow:hidden;text-overflow:ellipsis;
-  white-space:nowrap}
-.sbar .ms{color:var(--mut);font-variant-numeric:tabular-nums}
-.sbar .cip2{font-size:10.5px;letter-spacing:.06em;padding:3px 8px;border-radius:999px;font-weight:700}
-.c-lancar{background:rgba(52,211,153,.16);color:#34d399;border:1px solid rgba(52,211,153,.35)}
-.c-sederhana{background:rgba(245,158,11,.16);color:#f59e0b;border:1px solid rgba(245,158,11,.35)}
-.c-lambat{background:rgba(251,146,60,.16);color:#fb923c;border:1px solid rgba(251,146,60,.35)}
-.c-gagal{background:rgba(248,113,113,.16);color:#f87171;border:1px solid rgba(248,113,113,.35)}
-
-/* ================= MASKOT ================= */
-.maskot{position:fixed;z-index:3;pointer-events:none}
-/* Quasar-kun duduk di penjuru bawah kiri */
-#quasarkun{left:18px;bottom:14px;width:118px;height:118px;pointer-events:auto;cursor:pointer;
-  animation:apung 5.2s ease-in-out infinite}
-@keyframes apung{0%,100%{transform:translateY(0) rotate(-1.5deg)}
-  50%{transform:translateY(-13px) rotate(1.5deg)}}
-#quasarkun .mata{animation:kelip-mata 5.4s infinite}
-@keyframes kelip-mata{0%,92%,100%{transform:scaleY(1)}95%{transform:scaleY(.08)}}
-#quasarkun .ekor{transform-origin:78% 88%;animation:goyang-ekor 1.6s ease-in-out infinite}
-@keyframes goyang-ekor{0%,100%{transform:rotate(-13deg)}50%{transform:rotate(15deg)}}
-#quasarkun.lompat{animation:lompat .7s cubic-bezier(.3,1.6,.4,1)}
+/* ====================== WATAK ANIME ====================== */
+#quasarkun{position:fixed;right:16px;bottom:10px;width:196px;height:196px;z-index:5;
+  pointer-events:auto;cursor:pointer;filter:drop-shadow(0 10px 18px rgba(20,60,90,.28));
+  animation:nafas 6.4s ease-in-out infinite}
+@keyframes nafas{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-3px) scale(1.012)}}
+#quasarkun .mata{transform-box:fill-box;transform-origin:center;animation:kelip-mata 5.6s infinite}
+@keyframes kelip-mata{0%,93%,100%{transform:scaleY(1)}96%{transform:scaleY(.08)}}
+#quasarkun .rambut path,#quasarkun .selendang{transform-box:fill-box;transform-origin:right center;
+  animation:rambut-angin 4.6s ease-in-out infinite}
+@keyframes rambut-angin{0%,100%{transform:rotate(-2.5deg)}50%{transform:rotate(4deg)}}
+#quasarkun .lengan{transform-box:fill-box;transform-origin:right center;
+  animation:seruput 12s ease-in-out infinite}
+@keyframes seruput{0%,70%,100%{transform:rotate(0)}80%{transform:rotate(-10deg)}92%{transform:rotate(-2deg)}}
+#quasarkun .wap{animation:wap-naik 3.2s ease-in-out infinite}
+#quasarkun .wap.w2{animation-delay:.9s}
+@keyframes wap-naik{0%{opacity:0;transform:translateY(6px)}40%{opacity:.65}
+  100%{opacity:0;transform:translateY(-16px)}}
+#quasarkun .ekorkucing{transform-box:fill-box;transform-origin:left center;
+  animation:ekor-kucing 2.6s ease-in-out infinite}
+@keyframes ekor-kucing{0%,100%{transform:rotate(-6deg)}50%{transform:rotate(9deg)}}
+#quasarkun.lompat{animation:lompat .8s cubic-bezier(.3,1.6,.4,1)}
 @keyframes lompat{0%{transform:translateY(0) scale(1)}
-  35%{transform:translateY(-42px) scale(1.09) rotate(-6deg)}
-  100%{transform:translateY(0) scale(1)}}
-/* bintang kecil melambai di penjuru bawah kanan */
-#bintangku{right:16px;bottom:12px;width:78px;height:78px;animation:apung 6.4s ease-in-out infinite}
-#bintangku .tangan{transform-origin:50% 20%;animation:lambai 1.9s ease-in-out infinite}
-@keyframes lambai{0%,100%{transform:rotate(6deg)}50%{transform:rotate(-24deg)}}
-/* kucing mengintai dari tepi kad */
-.intai{position:absolute;left:50%;bottom:-46px;width:74px;margin-left:-37px;opacity:0;
-  transition:bottom .35s ease,opacity .35s ease;pointer-events:none;z-index:2}
-.kotak:hover .intai{bottom:-6px;opacity:1}
+  35%{transform:translateY(-40px) scale(1.07) rotate(-4deg)}100%{transform:translateY(0) scale(1)}}
 
-/* ================= tajuk ================= */
-header{position:sticky;top:0;z-index:6;backdrop-filter:blur(14px);
-  background:rgba(13,13,15,.84);border-bottom:1px solid var(--line)}
-.bar{max-width:1480px;margin:0 auto;display:flex;align-items:center;gap:14px;
-  padding:15px 26px;flex-wrap:wrap}
-.logo{display:flex;align-items:center;gap:11px;font-weight:640;letter-spacing:-.03em;font-size:17px}
+/* ====================== GELEMBUNG CAKAP ====================== */
+#bual{position:fixed;right:214px;bottom:86px;z-index:6;max-width:290px;
+  background:rgba(255,255,255,.94);border:1px solid rgba(255,255,255,.85);border-radius:16px;
+  padding:10px 14px;font-size:12.8px;color:var(--fg);
+  box-shadow:0 12px 30px rgba(20,60,90,.22);backdrop-filter:var(--kaca);
+  opacity:0;transform:translateY(8px) scale(.96);transition:.32s ease;pointer-events:none}
+#bual.tunjuk{opacity:1;transform:none}
+#bual::after{content:"";position:absolute;right:-8px;bottom:20px;border:8px solid transparent;
+  border-left-color:rgba(255,255,255,.94)}
+#bual b{color:var(--acc)}
+
+/* ====================== TAJUK ====================== */
+header{position:sticky;top:0;z-index:8;background:rgba(255,255,255,.66);
+  backdrop-filter:var(--kaca);border-bottom:1px solid rgba(255,255,255,.6);
+  box-shadow:0 6px 22px rgba(20,60,90,.10)}
+.bar{max-width:1480px;margin:0 auto;display:flex;align-items:center;gap:12px;
+  padding:13px 26px;flex-wrap:wrap}
+.logo{display:flex;align-items:center;gap:10px;font-weight:650;letter-spacing:-.02em;font-size:17px;
+  color:#16303f}
+.logo small{font-weight:450;font-size:11.5px;color:var(--dim);letter-spacing:.04em}
 .dot{width:11px;height:11px;border-radius:50%;background:var(--acc);
-  box-shadow:0 0 0 4px rgba(245,158,11,.15);animation:denyut 2.1s ease-in-out infinite}
-@keyframes denyut{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(.7);opacity:.5}}
+  box-shadow:0 0 0 4px rgba(224,118,47,.16);animation:denyut 2.1s ease-in-out infinite}
+@keyframes denyut{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(.7);opacity:.55}}
 .bar .sep{flex:1}
-.chip{border:1px solid var(--line);background:var(--panel);border-radius:999px;
+.chip{border:1px solid rgba(255,255,255,.75);background:rgba(255,255,255,.72);border-radius:999px;
   padding:6px 13px;font-size:12.5px;color:var(--dim);display:inline-flex;gap:7px;align-items:center;
-  white-space:nowrap}
+  white-space:nowrap;box-shadow:0 3px 10px rgba(20,60,90,.07)}
 .chip b{color:var(--fg);font-variant-numeric:tabular-nums}
-.chip.live{color:var(--acc);border-color:rgba(245,158,11,.35);background:rgba(245,158,11,.07)}
-.chip.snap{color:var(--blue);border-color:rgba(88,166,255,.35);background:rgba(88,166,255,.07)}
+.chip.live{color:#12603f;border-color:rgba(47,158,111,.45);background:rgba(226,247,238,.9)}
+.chip.snap{color:#235b7d;border-color:rgba(58,124,165,.42);background:rgba(228,242,250,.9)}
 
-/* ================= pita berjalan ================= */
-.pita{position:relative;z-index:1;border-bottom:1px solid var(--line);
-  background:linear-gradient(90deg,rgba(245,158,11,.06),transparent 40%);
-  overflow:hidden;white-space:nowrap}
-.pita>div{display:inline-block;padding:9px 0;animation:pita-jalan 48s linear infinite}
-.pita span{margin:0 22px;font-size:12.5px;color:var(--dim)}
-.pita span b{color:var(--fg);font-variant-numeric:tabular-nums}
+/* ====================== PITA BERGILIR ====================== */
+.pita{position:relative;z-index:3;border-bottom:1px solid rgba(255,255,255,.55);
+  background:linear-gradient(90deg,rgba(255,244,224,.78),rgba(255,255,255,.34) 45%,rgba(226,242,250,.5));
+  backdrop-filter:var(--kaca);overflow:hidden;white-space:nowrap}
+.pita>div{display:inline-block;padding:8px 0;animation:pita-jalan 52s linear infinite}
+.pita span{margin:0 22px;font-size:12.4px;color:#3c5568}
+.pita span b{color:#16303f;font-variant-numeric:tabular-nums}
 .pita i{color:var(--acc);font-style:normal}
 @keyframes pita-jalan{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
-main{position:relative;z-index:1;max-width:1480px;margin:0 auto;padding:28px 26px 120px}
+main{position:relative;z-index:3;max-width:1480px;margin:0 auto;padding:0 26px 150px}
 
-/* ================= kad ================= */
+/* ====================== HERO ====================== */
+.hero{position:relative;text-align:center;padding:64px 10px 78px;
+  animation:hero-masuk 1.5s cubic-bezier(.2,.7,.2,1) both}
+@keyframes hero-masuk{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+.hero .kana{font-size:12.5px;letter-spacing:.42em;color:#2f4f68;text-transform:uppercase;
+  margin:0 0 10px;opacity:.85}
+.hero h1{margin:0;font-size:clamp(38px,6.4vw,78px);line-height:1.02;letter-spacing:-.045em;
+  font-weight:700;color:#12293a;
+  text-shadow:0 2px 18px rgba(255,255,255,.75),0 1px 2px rgba(255,255,255,.6)}
+.hero h1 em{font-style:normal;color:var(--acc)}
+.hero .sub{margin:14px auto 0;max-width:660px;font-size:15.5px;color:#2b4a61;
+  text-shadow:0 1px 10px rgba(255,255,255,.85)}
+.hero .jepun{margin:16px 0 0;font-size:13px;color:#3c5a72;letter-spacing:.16em;opacity:.9}
+.turun{margin-top:26px;display:inline-flex;flex-direction:column;align-items:center;gap:5px;
+  font-size:11.5px;letter-spacing:.2em;color:#3c5a72;text-transform:uppercase}
+.turun svg{animation:turun-bob 2.6s ease-in-out infinite}
+@keyframes turun-bob{0%,100%{transform:translateY(0);opacity:.6}50%{transform:translateY(7px);opacity:1}}
+
+/* ====================== KAD ====================== */
+h2{font-size:19px;font-weight:640;letter-spacing:-.025em;margin:36px 0 4px;color:#12293a;
+  text-shadow:0 1px 12px rgba(255,255,255,.8)}
+h2 small{display:block;font-size:12.5px;color:#42627a;font-weight:430;letter-spacing:0;margin-top:3px;
+  text-shadow:0 1px 8px rgba(255,255,255,.8)}
+h2 code{background:rgba(255,255,255,.7);padding:1px 6px;border-radius:6px;font-size:11.5px}
 .kad{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(232px,1fr))}
-.kotak{position:relative;overflow:visible;background:var(--panel);border:1px solid var(--line);
-  border-radius:var(--r);padding:16px 18px;min-height:134px;
-  animation:tkx-in .55s cubic-bezier(.2,.7,.2,1) both}
+.kotak{position:relative;overflow:visible;background:var(--panel);border:1px solid rgba(255,255,255,.75);
+  border-radius:var(--r);padding:16px 18px;min-height:134px;backdrop-filter:var(--kaca);
+  box-shadow:0 10px 26px rgba(20,60,90,.13);
+  transition:transform .25s ease,border-color .25s ease;
+  animation:tkx-in .6s cubic-bezier(.2,.7,.2,1) both}
 .kotak:nth-child(2){animation-delay:.06s}.kotak:nth-child(3){animation-delay:.12s}
 .kotak:nth-child(4){animation-delay:.18s}.kotak:nth-child(5){animation-delay:.24s}
 .kotak:nth-child(6){animation-delay:.30s}.kotak:nth-child(7){animation-delay:.36s}
-@keyframes tkx-in{from{opacity:0;transform:translateY(18px) scale(.98)}to{opacity:1;transform:none}}
+@keyframes tkx-in{from{opacity:0;transform:translateY(20px) scale(.98)}to{opacity:1;transform:none}}
 .kotak::after{content:"";position:absolute;inset:0;border-radius:var(--r);overflow:hidden;
   pointer-events:none;
-  background:linear-gradient(105deg,transparent 35%,rgba(245,158,11,.10) 50%,transparent 65%);
+  background:linear-gradient(105deg,transparent 35%,rgba(255,242,214,.55) 50%,transparent 65%);
   transform:translateX(-130%)}
 .kotak:hover::after{animation:sapu .9s ease}
 @keyframes sapu{to{transform:translateX(130%)}}
-.kotak:hover{border-color:rgba(245,158,11,.34)}
+.kotak:hover{border-color:rgba(224,118,47,.5);transform:translateY(-2px)}
 .kotak h4{margin:0;font-size:12px;text-transform:uppercase;letter-spacing:.13em;color:var(--dim);
-  font-weight:560}
+  font-weight:580}
+.kotak h4::before{content:"\2726";color:var(--acc);margin-right:6px;opacity:.55;display:inline-block;
+  animation:kerlip 2.8s ease-in-out infinite}
+@keyframes kerlip{0%,100%{opacity:.3;transform:scale(.85)}50%{opacity:.95;transform:scale(1.12)}}
 .isikad{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:6px 0 2px}
-.besar{flex:1 1 auto;min-width:0;font-size:clamp(21px, 1.5vw + 11px, 29px);font-weight:640;
-  letter-spacing:-.045em;font-variant-numeric:tabular-nums;line-height:1.15;white-space:nowrap}
+.besar{flex:1 1 auto;min-width:0;font-size:clamp(21px,1.5vw + 11px,29px);font-weight:660;
+  letter-spacing:-.045em;font-variant-numeric:tabular-nums;line-height:1.15;white-space:nowrap;
+  color:#10293a}
 .besar i{font-style:normal;font-size:16px;color:var(--acc);margin-left:5px}
 .kecil{font-size:12.5px;color:var(--dim2)}
 .tolok{flex:0 0 auto;width:58px;height:58px;position:relative}
 .tolok svg{transform:rotate(-90deg);display:block}
 .tolok circle{fill:none;stroke-width:6;stroke-linecap:round}
-.tolok .trek{stroke:#242424}
+.tolok .trek{stroke:rgba(23,60,90,.12)}
 .tolok .nadi{stroke:var(--acc);animation:nadi 2.6s ease-in-out infinite alternate}
-@keyframes nadi{from{opacity:.6}to{opacity:1}}
+@keyframes nadi{from{opacity:.55}to{opacity:1}}
+/* rubah mengintai dari tepi kad */
+.intai{position:absolute;left:50%;bottom:-44px;width:78px;margin-left:-39px;opacity:0;
+  transition:bottom .35s ease,opacity .35s ease;pointer-events:none;z-index:2;
+  filter:drop-shadow(0 6px 12px rgba(20,60,90,.22))}
+.kotak:hover .intai{bottom:-4px;opacity:1}
 
-/* ================= seksyen ================= */
-h2{font-size:19px;font-weight:620;letter-spacing:-.03em;margin:36px 0 4px}
-h2 small{display:block;font-size:12.5px;color:var(--dim);font-weight:420;letter-spacing:0;margin-top:3px}
+/* ====================== PANEL ====================== */
 .grid2{display:grid;gap:16px;grid-template-columns:1.35fr 1fr}
-.panel{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:6px 16px 14px;
-  animation:tkx-in .55s cubic-bezier(.2,.7,.2,1) both}
+.panel{background:var(--panel);border:1px solid rgba(255,255,255,.75);border-radius:var(--r);
+  padding:6px 16px 14px;backdrop-filter:var(--kaca);box-shadow:0 10px 26px rgba(20,60,90,.12);
+  animation:tkx-in .6s cubic-bezier(.2,.7,.2,1) both}
 .panel h3{margin:14px 0 12px;font-size:12px;text-transform:uppercase;letter-spacing:.12em;
-  color:var(--dim);font-weight:560}
+  color:var(--dim);font-weight:580}
 .baris{display:grid;grid-template-columns:minmax(150px,1.5fr) 74px 1fr 96px;gap:12px;align-items:center;
-  padding:9px 6px;border-bottom:1px solid #212121;font-size:13.5px}
+  padding:9px 6px;border-bottom:1px solid var(--line2);font-size:13.5px}
 .baris:last-child{border-bottom:none}
-.baris:hover{background:var(--panel2)}
+.baris:hover{background:rgba(255,255,255,.55)}
 .nama{display:flex;align-items:center;gap:9px;min-width:0}
-.nama b{font-weight:550;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.nama b{font-weight:560;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .pil{font-size:10.5px;padding:2px 8px;border-radius:999px;border:1px solid var(--line);color:var(--dim);
-  white-space:nowrap}
-.pil.acc{color:var(--acc);border-color:rgba(245,158,11,.35);background:rgba(245,158,11,.08)}
-.pil.ok{color:var(--ok);border-color:rgba(63,185,80,.3);background:rgba(63,185,80,.08)}
-.pil.bad{color:var(--bad);border-color:rgba(248,81,73,.3);background:rgba(248,81,73,.08)}
-.pil.blue{color:var(--blue);border-color:rgba(88,166,255,.3);background:rgba(88,166,255,.08)}
-.trel{height:7px;border-radius:999px;background:#242424;overflow:hidden;position:relative}
+  white-space:nowrap;background:rgba(255,255,255,.5)}
+.pil.acc{color:#a2501a;border-color:rgba(224,118,47,.45);background:rgba(255,236,214,.85)}
+.pil.ok{color:#1c6b4a;border-color:rgba(47,158,111,.4);background:rgba(226,247,238,.85)}
+.pil.bad{color:#8f2f2b;border-color:rgba(217,83,79,.4);background:rgba(253,233,232,.85)}
+.pil.blue{color:#245a78;border-color:rgba(58,124,165,.4);background:rgba(228,242,250,.85)}
+.trel{height:7px;border-radius:999px;background:rgba(23,60,90,.12);overflow:hidden;position:relative}
 .trel i{display:block;height:100%;border-radius:999px;
-  background:linear-gradient(90deg,var(--deep),var(--acc));
+  background:linear-gradient(90deg,var(--deep),#f6b26b);
   transition:width .9s cubic-bezier(.2,.8,.2,1)}
 .trel::after{content:"";position:absolute;inset:0;
-  background:linear-gradient(90deg,transparent,rgba(255,255,255,.16),transparent);
-  animation:kilau 2.4s linear infinite}
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.65),transparent);
+  animation:kilau 2.6s linear infinite}
 @keyframes kilau{from{transform:translateX(-100%)}to{transform:translateX(100%)}}
 .angka{text-align:right;font-variant-numeric:tabular-nums;color:var(--fg)}
 .mm{display:grid;gap:11px;grid-template-columns:repeat(auto-fill,minmax(198px,1fr));
   max-height:430px;overflow:auto;padding:2px}
-.mmk{background:var(--panel2);border:1px solid var(--line);border-radius:13px;padding:12px 13px;
-  position:relative;animation:tkx-in .45s ease both}
-.mmk:hover{border-color:rgba(245,158,11,.3);transform:translateY(-2px)}
-.mmk{transition:transform .2s ease,border-color .2s ease}
+.mmk{background:var(--panel2);border:1px solid rgba(255,255,255,.7);border-radius:13px;padding:12px 13px;
+  position:relative;animation:tkx-in .5s ease both;backdrop-filter:var(--kaca);
+  transition:transform .2s ease,border-color .2s ease}
+.mmk:hover{border-color:rgba(224,118,47,.45);transform:translateY(-2px)}
 .mmk .mail{font-size:12px;color:var(--fg);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .mmk .meta{font-size:11px;color:var(--dim);margin-top:6px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
 .cincin{position:absolute;right:10px;top:10px;width:34px;height:34px}
 .cincin svg{transform:rotate(-90deg)}
 .cincin circle{fill:none;stroke-width:4;stroke-linecap:round}
 .ringkasbaki{display:grid;gap:11px;grid-template-columns:repeat(auto-fit,minmax(172px,1fr));margin:2px 0 14px}
-.rb{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:11px 13px}
+.rb{background:var(--panel2);border:1px solid rgba(255,255,255,.7);border-radius:12px;padding:11px 13px}
 .rb span{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--dim)}
-.rb b{display:block;font-size:21px;font-weight:620;letter-spacing:-.035em;margin-top:4px;
-  font-variant-numeric:tabular-nums}
+.rb b{display:block;font-size:21px;font-weight:630;letter-spacing:-.035em;margin-top:4px;
+  font-variant-numeric:tabular-nums;color:#10293a}
 .rb em{font-style:normal;font-size:12px;color:var(--acc)}
-.barbaki{height:5px;border-radius:999px;background:#242424;margin-top:9px;overflow:hidden}
-.barbaki i{display:block;height:100%;background:linear-gradient(90deg,var(--deep),var(--acc));
+.barbaki{height:5px;border-radius:999px;background:rgba(23,60,90,.12);margin-top:9px;overflow:hidden}
+.barbaki i{display:block;height:100%;background:linear-gradient(90deg,var(--deep),#f6b26b);
   transition:width .9s cubic-bezier(.2,.8,.2,1)}
-.amar{display:flex;gap:11px;align-items:flex-start;padding:10px 6px;border-bottom:1px solid #212121;
+.amar{display:flex;gap:11px;align-items:flex-start;padding:10px 6px;border-bottom:1px solid var(--line2);
   font-size:13px}
 .amar:last-child{border-bottom:none}
 .amar .isi{min-width:0;flex:1}
@@ -240,132 +252,355 @@ h2 small{display:block;font-size:12.5px;color:var(--dim);font-weight:420;letter-
 .tbatang{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:7px;
   height:100%}
 .tbatang .tggi{width:100%;max-width:74px;border-radius:9px 9px 3px 3px;
-  background:linear-gradient(180deg,var(--acc),rgba(180,83,9,.35));
+  background:linear-gradient(180deg,#f6b26b,rgba(184,86,28,.45));
   transition:height 1s cubic-bezier(.2,.8,.2,1);min-height:3px}
 .tbatang span{font-size:11px;color:var(--dim);font-variant-numeric:tabular-nums}
 .alat{display:flex;gap:9px;flex-wrap:wrap;align-items:center;margin:14px 0 6px}
-input[type=search]{flex:1;min-width:210px;background:#141414;border:1px solid var(--line);color:var(--fg);
-  border-radius:11px;padding:10px 14px;font:inherit;font-size:13px;outline:none}
-input[type=search]:focus{border-color:rgba(245,158,11,.45)}
+input[type=search]{flex:1;min-width:210px;background:rgba(255,255,255,.8);
+  border:1px solid rgba(255,255,255,.8);color:var(--fg);border-radius:11px;padding:10px 14px;
+  font:inherit;font-size:13px;outline:none;box-shadow:inset 0 1px 3px rgba(20,60,90,.08)}
+input[type=search]::placeholder{color:var(--dim2)}
+input[type=search]:focus{border-color:rgba(224,118,47,.6);background:#fff}
 .cip{display:flex;gap:7px;flex-wrap:wrap;margin:12px 0 4px;max-height:118px;overflow:auto}
-.cip button{background:var(--panel);border:1px solid var(--line);color:var(--dim);border-radius:999px;
-  padding:5px 12px;font:inherit;font-size:12px;cursor:pointer;transition:.18s}
-.cip button:hover{color:var(--fg);border-color:#3a3a3a;transform:translateY(-1px)}
-.cip button.on{color:var(--acc);border-color:rgba(245,158,11,.45);background:rgba(245,158,11,.09)}
+.cip button{background:rgba(255,255,255,.68);border:1px solid rgba(255,255,255,.8);color:var(--dim);
+  border-radius:999px;padding:5px 12px;font:inherit;font-size:12px;cursor:pointer;transition:.18s}
+.cip button:hover{color:var(--fg);border-color:rgba(224,118,47,.5);transform:translateY(-1px)}
+.cip button.on{color:#8f4413;border-color:rgba(224,118,47,.55);background:rgba(255,236,214,.95)}
 .inv{max-height:470px;overflow:auto}
-.kaki{margin-top:44px;padding-top:18px;border-top:1px solid var(--line);color:var(--dim2);font-size:12px}
-.kaki a{color:var(--acc);text-decoration:none}
+.kaki{margin-top:44px;padding-top:18px;border-top:1px solid rgba(255,255,255,.6);color:#43607a;
+  font-size:12px;text-shadow:0 1px 8px rgba(255,255,255,.7)}
+.kaki a{color:var(--deep)}
 
-/* letupan bintang */
-.letup{position:fixed;width:8px;height:8px;border-radius:50%;pointer-events:none;z-index:9;
-  background:var(--acc);box-shadow:0 0 10px 2px rgba(245,158,11,.7);
+/* kesihatan model */
+.sehat{display:grid;gap:7px;margin-top:12px}
+.sbar{display:grid;grid-template-columns:1fr auto auto;gap:10px;align-items:center;
+  padding:8px 11px;border:1px solid rgba(255,255,255,.7);border-radius:11px;
+  background:rgba(255,255,255,.5);font-size:12.5px}
+.sbar:hover{background:rgba(255,255,255,.78)}
+.sbar .nm{font-family:ui-monospace,monospace;font-size:12px;overflow:hidden;text-overflow:ellipsis;
+  white-space:nowrap}
+.sbar .ms{color:var(--dim);font-variant-numeric:tabular-nums}
+.sbar .cip2{font-size:10.5px;letter-spacing:.06em;padding:3px 8px;border-radius:999px;font-weight:700}
+.c-lancar{background:rgba(47,158,111,.16);color:#1c6b4a;border:1px solid rgba(47,158,111,.4)}
+.c-sederhana{background:rgba(224,118,47,.16);color:#8f4413;border:1px solid rgba(224,118,47,.42)}
+.c-lambat{background:rgba(217,140,60,.18);color:#8a5019;border:1px solid rgba(217,140,60,.45)}
+.c-gagal{background:rgba(217,83,79,.16);color:#8f2f2b;border:1px solid rgba(217,83,79,.42)}
+
+/* letupan kelopak */
+.letup{position:fixed;width:9px;height:9px;border-radius:50%;pointer-events:none;z-index:9;
+  background:var(--acc);box-shadow:0 0 10px 2px rgba(224,118,47,.45);
   animation:letup .95s ease-out forwards}
 @keyframes letup{0%{transform:translate(0,0) scale(1);opacity:1}
   100%{transform:translate(var(--dx),var(--dy)) scale(.2);opacity:0}}
 
 /* skrin muat */
-#muat{position:fixed;inset:0;z-index:20;background:var(--bg);display:flex;
-  flex-direction:column;align-items:center;justify-content:center;gap:16px;transition:opacity .5s}
+#muat{position:fixed;inset:0;z-index:20;display:flex;flex-direction:column;align-items:center;
+  justify-content:center;gap:16px;transition:opacity .6s;
+  background:linear-gradient(180deg,#4f8fc0,#87CEEB 46%,#ffe6b3 78%,#f7d9a8)}
 #muat.tutup{opacity:0;pointer-events:none}
-#muat p{color:var(--dim);font-size:13px;margin:0}
-#muat svg{animation:apung 2.6s ease-in-out infinite}
+#muat p{color:#1d3b52;font-size:13px;margin:0;text-shadow:0 1px 8px rgba(255,255,255,.8)}
+#muat svg{animation:nafas 3.4s ease-in-out infinite}
+
+/* kemunculan seksyen */
+.boleh-muncul{opacity:0;transform:translateY(26px);
+  transition:opacity .85s cubic-bezier(.2,.7,.2,1),transform .85s cubic-bezier(.2,.7,.2,1)}
+.boleh-muncul.muncul{opacity:1;transform:none}
 
 @media (prefers-reduced-motion: reduce){
-  *{animation-duration:.001s !important;animation-iteration-count:1 !important;transition-duration:.001s !important}
+  *{animation-duration:.001s !important;animation-iteration-count:1 !important;
+    transition-duration:.001s !important;scroll-behavior:auto !important}
+  .boleh-muncul{opacity:1 !important;transform:none !important}
 }
-@media (max-width:900px){
+@media (max-width:1000px){
   .grid2{grid-template-columns:1fr}
   .baris{grid-template-columns:1.3fr 64px 1fr}
-  #quasarkun{width:82px;height:82px}
-  #bintangku{width:56px;height:56px}
-  .bulan{width:60px;height:60px;top:58px}
+  #quasarkun{width:130px;height:130px;right:8px;bottom:6px}
+  #bual{right:146px;bottom:64px;max-width:210px}
+  .hero{padding:44px 6px 58px}
+  main{padding-bottom:110px}
+}
+@media (max-width:640px){
+  .bar{padding:11px 15px;gap:9px}
+  main{padding:0 15px 96px}
+  #quasarkun{width:106px;height:106px}
+  .chip{font-size:11.5px;padding:5px 10px}
+  .hero h1{font-size:34px}
 }
 </style>
 </head>
 <body>
 
-<!-- ============ latar kartun ============ -->
-<div class="langit" id="langit">
-  <div class="nebula a"></div><div class="nebula b"></div><div class="nebula c"></div>
-  <svg class="bulan" viewBox="0 0 100 100" aria-hidden="true">
-    <defs><radialGradient id="gBulan" cx="36%" cy="32%">
-      <stop offset="0%" stop-color="#fff8e2"/><stop offset="100%" stop-color="#f0c25c"/></radialGradient>
-      <radialGradient id="gCahaya" cx="50%" cy="50%">
-        <stop offset="0%" stop-color="#f9d68a" stop-opacity=".38"/>
-        <stop offset="100%" stop-color="#f9d68a" stop-opacity="0"/></radialGradient></defs>
-    <circle cx="50" cy="50" r="48" fill="url(#gCahaya)"/>
-    <path d="M62 8 a42 42 0 1 0 0 84 a34 34 0 1 1 0 -84z" fill="url(#gBulan)"/>
-    <circle cx="34" cy="36" r="5.4" fill="#e2ad46" opacity=".55"/>
-    <circle cx="28" cy="56" r="3.6" fill="#e2ad46" opacity=".45"/>
-    <circle cx="40" cy="68" r="4.4" fill="#e2ad46" opacity=".4"/>
-    <circle cx="45" cy="24" r="2.6" fill="#fff" opacity=".85"/>
-  </svg>
-  <svg class="planet" viewBox="0 0 120 100" aria-hidden="true">
-    <ellipse cx="60" cy="52" rx="52" ry="12" fill="none" stroke="#7dd3fc" stroke-width="4" opacity=".55"/>
-    <circle cx="60" cy="50" r="26" fill="#a78bfa" opacity=".75"/>
-    <path d="M40 40 q20 -8 38 4" stroke="#c4b5fd" stroke-width="4" fill="none" opacity=".7"/>
-    <path d="M38 56 q22 8 44 -2" stroke="#c4b5fd" stroke-width="4" fill="none" opacity=".7"/>
-    <ellipse cx="60" cy="52" rx="52" ry="12" fill="none" stroke="#7dd3fc" stroke-width="4" opacity=".35"
-      stroke-dasharray="6 10"/>
-  </svg>
-  <svg class="roket" viewBox="0 0 80 60" aria-hidden="true">
-    <path d="M14 30 q16 -18 42 -10 q-10 14 -42 10z" fill="#e5e7eb" stroke="#8a4b06" stroke-width="2.5"/>
-    <path d="M54 20 q10 -4 14 4 q-8 6 -14 -4z" fill="#f87171" stroke="#8a4b06" stroke-width="2.5"/>
-    <circle cx="34" cy="26" r="4" fill="#7dd3fc" stroke="#8a4b06" stroke-width="2"/>
-    <path d="M12 28 l-10 4 l10 4" fill="#fbbf24" stroke="#8a4b06" stroke-width="2.5" stroke-linejoin="round"/>
-    <path d="M50 32 l6 8M44 34 l4 8" stroke="#fbbf24" stroke-width="3" stroke-linecap="round"/>
-  </svg>
-  <div class="komet"></div><div class="komet k2"></div><div class="komet k3"></div>
-</div>
+<!-- ==================== PEMANDANGAN: gunung, tasik, kampung, hutan ==================== -->
+<svg id="pemandangan" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+  <defs>
+    <linearGradient id="gLangit" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#3f7fb5"/><stop offset="42%" stop-color="#87CEEB"/>
+      <stop offset="78%" stop-color="#ffe6b3"/><stop offset="100%" stop-color="#ffd9a6"/>
+    </linearGradient>
+    <linearGradient id="gJauh" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#a8c4d8"/><stop offset="100%" stop-color="#7f9fb8"/>
+    </linearGradient>
+    <linearGradient id="gTengah" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#6f9d7f"/><stop offset="100%" stop-color="#4e7a5f"/>
+    </linearGradient>
+    <linearGradient id="gTasik" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#bfe4f6"/><stop offset="34%" stop-color="#7fc4e8"/>
+      <stop offset="100%" stop-color="#3f86bd"/>
+    </linearGradient>
+    <linearGradient id="gBukit" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#8fd072"/><stop offset="100%" stop-color="#3f7a45"/>
+    </linearGradient>
+    <linearGradient id="gSalji" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffffff"/><stop offset="100%" stop-color="#cfe0ea"/>
+    </linearGradient>
+    <linearGradient id="gKilau" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity=".9"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+    <clipPath id="potongTasik">
+      <path d="M0 470 q300 26 620 10 q360 -18 980 14 v300 h-1600z"/>
+    </clipPath>
+    <g id="pokok">
+      <path d="M0 0 l0 -24" stroke="#5b4126" stroke-width="5" stroke-linecap="round"/>
+      <circle cx="-11" cy="-33" r="14" fill="#2f6a45"/>
+      <circle cx="11" cy="-37" r="16" fill="#377a4e"/>
+      <circle cx="0" cy="-50" r="15" fill="#2b6240"/>
+    </g>
+    <g id="rumah">
+      <rect x="-13" y="-13" width="26" height="14" fill="#e8d3b5"/>
+      <path d="M-17 -13 l17 -12 l17 12z" fill="#b8623f"/>
+      <rect class="lampu" x="-6" y="-9" width="7" height="6" fill="#ffd28a"/>
+    </g>
+  </defs>
 
-<!-- ============ maskot ============ -->
-<svg class="maskot" id="quasarkun" viewBox="0 0 120 120" aria-hidden="true">
-  <ellipse cx="60" cy="110" rx="30" ry="6" fill="#000" opacity=".22"/>
-  <path class="ekor" d="M84 84 q26 6 20 -18 q14 22 -8 30 q-8 3 -12 -12z" fill="#f2a33c"
-        stroke="#8a4b06" stroke-width="2.5" stroke-linejoin="round"/>
-  <ellipse cx="58" cy="86" rx="26" ry="20" fill="#ffd08a" stroke="#8a4b06" stroke-width="3"/>
-  <circle cx="60" cy="52" r="32" fill="#ffe1ac" stroke="#8a4b06" stroke-width="3"/>
-  <path d="M32 34 l-6 -20 l22 8z" fill="#ffe1ac" stroke="#8a4b06" stroke-width="3" stroke-linejoin="round"/>
-  <path d="M88 34 l6 -20 l-22 8z" fill="#ffe1ac" stroke="#8a4b06" stroke-width="3" stroke-linejoin="round"/>
-  <path d="M31 33 l-2 -13 l13 5z" fill="#ffb3c7"/><path d="M89 33 l2 -13 l-13 5z" fill="#ffb3c7"/>
-  <g class="mata">
-    <ellipse cx="47" cy="52" rx="6.4" ry="7.6" fill="#3a2408"/>
-    <ellipse cx="73" cy="52" rx="6.4" ry="7.6" fill="#3a2408"/>
-    <circle cx="49.4" cy="49" r="2.3" fill="#fff"/><circle cx="75.4" cy="49" r="2.3" fill="#fff"/>
+  <!-- langit -->
+  <rect x="0" y="0" width="1600" height="500" fill="url(#gLangit)"/>
+  <rect x="0" y="420" width="1600" height="90" fill="#fff3d2" opacity=".55"/>
+
+  <!-- banjaran jauh + salji -->
+  <path d="M-20 470 L120 300 L210 372 L330 236 L430 340 L540 268 L660 372 L760 300
+           L880 214 L1000 322 L1120 250 L1240 356 L1350 288 L1470 388 L1620 300 L1620 470z"
+        fill="url(#gJauh)"/>
+  <path d="M330 236 L370 292 L300 292z M880 214 L930 286 L840 286z M540 268 L580 312 L500 312z
+           M1120 250 L1160 300 L1080 300z M1350 288 L1385 330 L1315 330z"
+        fill="url(#gSalji)" opacity=".95"/>
+  <!-- banjaran tengah -->
+  <path d="M-20 470 L90 386 L200 424 L320 350 L470 424 L600 370 L740 432 L880 366
+           L1030 428 L1180 372 L1320 434 L1450 386 L1620 440 L1620 500 L-20 500z"
+        fill="url(#gTengah)"/>
+  <path d="M-20 470 L120 430 L260 470 L420 436 L560 476 L700 442 L860 480 L1010 446
+           L1160 482 L1320 448 L1480 484 L1620 452 L1620 520 L-20 520z" fill="#3d6a52"/>
+
+  <!-- tasik -->
+  <path d="M0 470 q300 26 620 10 q360 -18 980 14 v300 h-1600z" fill="url(#gTasik)"/>
+  <g clip-path="url(#potongTasik)">
+    <path d="M120 640 L340 560 L560 640z M900 660 L1120 566 L1340 660z" fill="#2b5f8a" opacity=".22"/>
+    <g class="kilau-tasik" opacity=".3">
+      <rect x="-80" y="512" width="1760" height="7" rx="3" fill="url(#gKilau)"/>
+      <rect x="-80" y="556" width="1760" height="5" rx="2" fill="url(#gKilau)" opacity=".8"/>
+      <rect x="-80" y="606" width="1760" height="6" rx="3" fill="url(#gKilau)" opacity=".6"/>
+      <rect x="-80" y="668" width="1760" height="8" rx="4" fill="url(#gKilau)" opacity=".45"/>
+    </g>
   </g>
-  <circle cx="34" cy="62" r="5.4" fill="#ff9db8" opacity=".65"/>
-  <circle cx="86" cy="62" r="5.4" fill="#ff9db8" opacity=".65"/>
-  <path d="M56 62 q4 4 8 0" stroke="#8a4b06" stroke-width="2.6" fill="none" stroke-linecap="round"/>
-  <path d="M44 66 q-9 1 -13 -3M76 66 q9 1 13 -3" stroke="#8a4b06" stroke-width="1.6" opacity=".6" fill="none"/>
-  <ellipse cx="46" cy="92" rx="6" ry="4.4" fill="#fff"/><ellipse cx="70" cy="92" rx="6" ry="4.4" fill="#fff"/>
-  <path d="M96 22 l3.4 7.4 l8 1.1 l-5.8 5.5 l1.4 8 l-7-3.9 l-7 3.9 l1.4 -8 l-5.8 -5.5 l8 -1.1z"
-        fill="#f59e0b" stroke="#8a4b06" stroke-width="2" stroke-linejoin="round"/>
+
+  <!-- pulau kecil -->
+  <ellipse cx="1180" cy="620" rx="118" ry="26" fill="#48715a"/>
+  <ellipse cx="1180" cy="614" rx="104" ry="20" fill="#5d8a55"/>
+  <g class="goyang" style="animation-duration:7.4s">
+    <use href="#pokok" transform="translate(1130 606) scale(1.15)"/>
+  </g>
+  <g class="goyang" style="animation-duration:5.9s;animation-delay:-1.6s">
+    <use href="#pokok" transform="translate(1214 604) scale(1.32)"/>
+  </g>
+  <g class="goyang" style="animation-duration:6.8s;animation-delay:-3.1s">
+    <use href="#pokok" transform="translate(1172 612) scale(.95)"/>
+  </g>
+
+  <!-- kampung di tepi tasik -->
+  <g opacity=".98">
+    <g class="goyang" style="animation-duration:9s"><use href="#rumah" transform="translate(238 596) scale(.9)"/></g>
+    <use href="#rumah" transform="translate(268 600) scale(1)"/>
+    <use href="#rumah" transform="translate(300 594) scale(.82)"/>
+    <use href="#rumah" transform="translate(330 600) scale(1.05)"/>
+    <use href="#rumah" transform="translate(364 596) scale(.9)"/>
+    <use href="#rumah" transform="translate(520 604) scale(.95)"/>
+    <use href="#rumah" transform="translate(552 600) scale(1.1)"/>
+    <use href="#rumah" transform="translate(588 606) scale(.85)"/>
+    <use href="#rumah" transform="translate(760 598) scale(1)"/>
+    <use href="#rumah" transform="translate(792 602) scale(.88)"/>
+    <use href="#rumah" transform="translate(940 604) scale(.92)"/>
+    <use href="#rumah" transform="translate(972 600) scale(1.06)"/>
+  </g>
+  <path d="M200 604 q160 -12 320 0" stroke="#8B7D6B" stroke-width="4" fill="none" opacity=".7"/>
+  <path d="M900 606 q120 -10 240 2" stroke="#8B7D6B" stroke-width="3.4" fill="none" opacity=".6"/>
+
+  <!-- hutan/bukit hadapan -->
+  <path d="M-20 760 q220 -110 480 -76 q240 32 520 -20 q220 -40 480 30 q120 34 180 70 L1620 920 L-20 920z"
+        fill="url(#gBukit)"/>
+  <g>
+    <g class="goyang" style="animation-duration:6.2s"><use href="#pokok" transform="translate(96 792) scale(1.5)"/></g>
+    <g class="goyang" style="animation-duration:7.1s;animation-delay:-1.2s"><use href="#pokok" transform="translate(168 800) scale(1.25)"/></g>
+    <g class="goyang" style="animation-duration:5.6s;animation-delay:-2.4s"><use href="#pokok" transform="translate(252 806) scale(1.6)"/></g>
+    <g class="goyang" style="animation-duration:6.9s;animation-delay:-3.6s"><use href="#pokok" transform="translate(348 812) scale(1.3)"/></g>
+    <g class="goyang" style="animation-duration:7.6s;animation-delay:-1.9s"><use href="#pokok" transform="translate(452 816) scale(1.5)"/></g>
+    <g class="goyang" style="animation-duration:6.4s;animation-delay:-2.8s"><use href="#pokok" transform="translate(1180 812) scale(1.45)"/></g>
+    <g class="goyang" style="animation-duration:7.2s;animation-delay:-.9s"><use href="#pokok" transform="translate(1272 818) scale(1.25)"/></g>
+    <g class="goyang" style="animation-duration:5.8s;animation-delay:-3.3s"><use href="#pokok" transform="translate(1372 824) scale(1.6)"/></g>
+    <g class="goyang" style="animation-duration:6.6s;animation-delay:-2.1s"><use href="#pokok" transform="translate(1486 828) scale(1.35)"/></g>
+    <g class="goyang" style="animation-duration:7.8s;animation-delay:-1.4s"><use href="#pokok" transform="translate(1560 834) scale(1.5)"/></g>
+  </g>
+
+  <!-- rumput & bunga bergoyang -->
+  <g stroke="#3f7a45" stroke-width="3" fill="none" stroke-linecap="round">
+    <path class="rumput" style="animation-delay:-.2s" d="M120 900 q10 -34 4 -54"/>
+    <path class="rumput" style="animation-delay:-1.1s" d="M164 906 q-8 -30 -2 -50"/>
+    <path class="rumput" style="animation-delay:-.6s" d="M210 900 q12 -36 5 -56"/>
+    <path class="rumput" style="animation-delay:-1.7s" d="M268 908 q-9 -32 -3 -52"/>
+    <path class="rumput" style="animation-delay:-2.2s" d="M330 902 q11 -38 4 -58"/>
+    <path class="rumput" style="animation-delay:-.9s" d="M392 908 q-10 -30 -2 -48"/>
+    <path class="rumput" style="animation-delay:-1.4s" d="M470 904 q12 -34 5 -54"/>
+    <path class="rumput" style="animation-delay:-2.6s" d="M545 910 q-8 -34 -3 -56"/>
+    <path class="rumput" style="animation-delay:-.4s" d="M640 904 q10 -36 4 -56"/>
+    <path class="rumput" style="animation-delay:-1.9s" d="M760 908 q-11 -32 -4 -52"/>
+    <path class="rumput" style="animation-delay:-2.9s" d="M880 902 q12 -38 5 -58"/>
+    <path class="rumput" style="animation-delay:-1.2s" d="M990 910 q-9 -30 -2 -50"/>
+    <path class="rumput" style="animation-delay:-.7s" d="M1090 904 q11 -36 4 -56"/>
+    <path class="rumput" style="animation-delay:-2.4s" d="M1200 908 q-10 -34 -3 -54"/>
+    <path class="rumput" style="animation-delay:-1.6s" d="M1310 902 q12 -38 5 -60"/>
+    <path class="rumput" style="animation-delay:-3.1s" d="M1420 908 q-9 -32 -3 -52"/>
+    <path class="rumput" style="animation-delay:-.3s" d="M1520 904 q11 -36 4 -56"/>
+  </g>
+  <g>
+    <g class="bunga" style="animation-delay:-.5s"><path d="M172 900 l0 -22" stroke="#3f7a45" stroke-width="2.4"/>
+      <circle cx="172" cy="874" r="5" fill="#FF69B4"/><circle cx="172" cy="874" r="2" fill="#FFD700"/></g>
+    <g class="bunga" style="animation-delay:-1.8s"><path d="M300 906 l0 -20" stroke="#3f7a45" stroke-width="2.4"/>
+      <circle cx="300" cy="882" r="5" fill="#fff3f7"/><circle cx="300" cy="882" r="2" fill="#FFD700"/></g>
+    <g class="bunga" style="animation-delay:-2.7s"><path d="M520 906 l0 -24" stroke="#3f7a45" stroke-width="2.4"/>
+      <circle cx="520" cy="878" r="5.4" fill="#FF69B4"/><circle cx="520" cy="878" r="2" fill="#fff0b0"/></g>
+    <g class="bunga" style="animation-delay:-1.1s"><path d="M700 908 l0 -20" stroke="#3f7a45" stroke-width="2.4"/>
+      <circle cx="700" cy="884" r="5" fill="#FFD700"/><circle cx="700" cy="884" r="2" fill="#fff"/></g>
+    <g class="bunga" style="animation-delay:-2.2s"><path d="M960 906 l0 -22" stroke="#3f7a45" stroke-width="2.4"/>
+      <circle cx="960" cy="880" r="5.2" fill="#e9769f"/><circle cx="960" cy="880" r="2" fill="#FFD700"/></g>
+    <g class="bunga" style="animation-delay:-3.4s"><path d="M1380 906 l0 -22" stroke="#3f7a45" stroke-width="2.4"/>
+      <circle cx="1380" cy="880" r="5" fill="#ffe6b3"/><circle cx="1380" cy="880" r="2" fill="#e0762f"/></g>
+  </g>
 </svg>
 
-<svg class="maskot" id="bintangku" viewBox="0 0 100 100" aria-hidden="true">
-  <path d="M50 8 l12 26 l28 3 l-21 19 l6 28 l-25 -14 l-25 14 l6 -28 l-21 -19 l28 -3z"
-        fill="#fde68a" stroke="#8a4b06" stroke-width="3" stroke-linejoin="round"/>
-  <ellipse cx="41" cy="47" rx="4.6" ry="5.6" fill="#3a2408"/>
-  <ellipse cx="59" cy="47" rx="4.6" ry="5.6" fill="#3a2408"/>
-  <circle cx="42.8" cy="45" r="1.7" fill="#fff"/><circle cx="60.8" cy="45" r="1.7" fill="#fff"/>
-  <path d="M43 58 q7 6 14 0" stroke="#8a4b06" stroke-width="2.6" fill="none" stroke-linecap="round"/>
-  <circle cx="33" cy="55" r="4" fill="#ff9db8" opacity=".7"/><circle cx="67" cy="55" r="4" fill="#ff9db8" opacity=".7"/>
-  <path class="tangan" d="M19 40 l-13 -9" stroke="#8a4b06" stroke-width="3.4" stroke-linecap="round"/>
+<!-- ==================== LANGIT: awan, matahari, burung, kelopak (canvas) ==================== -->
+<canvas id="langit" aria-hidden="true"></canvas>
+<canvas id="serbuk" aria-hidden="true"></canvas>
+<div class="sinar" aria-hidden="true"></div>
+
+<!-- ==================== DEK KAYU + DAUN HADAPAN (paralaks kuat) ==================== -->
+<svg id="hutan-depan" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+  <defs>
+    <linearGradient id="gKayu" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#CD853F"/><stop offset="100%" stop-color="#8B5A2B"/>
+    </linearGradient>
+    <linearGradient id="gDaun" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#3f8b4e"/><stop offset="100%" stop-color="#20572f"/>
+    </linearGradient>
+  </defs>
+  <g>
+    <path d="M-20 862 L1620 838 L1620 900 L-20 900z" fill="#5C4033"/>
+    <path d="M-20 846 L1620 820 L1620 852 L-20 878z" fill="url(#gKayu)"/>
+    <path d="M-20 812 L1620 784 L1620 800 L-20 828z" fill="#a9713a"/>
+    <g stroke="#5C4033" stroke-width="3" opacity=".55">
+      <path d="M240 848 L242 900"/><path d="M520 842 L524 900"/><path d="M800 836 L806 900"/>
+      <path d="M1080 830 L1088 900"/><path d="M1360 824 L1370 900"/>
+    </g>
+    <path d="M-20 806 L1620 778 L1620 812 L-20 840z" fill="#b9803f" opacity=".85"/>
+  </g>
+  <g class="goyang" style="animation-duration:7.6s">
+    <path d="M60 900 q-6 -120 22 -196 q16 -44 40 -58 l10 14 q-26 22 -40 66 q-22 76 -14 174z" fill="#3b2a1c"/>
+    <circle cx="118" cy="612" r="66" fill="#2b6240"/>
+    <circle cx="58" cy="652" r="52" fill="#2f6a45"/>
+    <circle cx="164" cy="660" r="46" fill="#377a4e"/>
+  </g>
+  <g class="goyang" style="animation-duration:8.4s;animation-delay:-2.2s">
+    <path d="M1544 900 q8 -128 -20 -204 q-16 -44 -40 -58 l-10 14 q26 22 40 66 q22 76 14 182z" fill="#3b2a1c"/>
+    <circle cx="1488" cy="620" r="70" fill="#2b6240"/>
+    <circle cx="1552" cy="662" r="54" fill="#2f6a45"/>
+    <circle cx="1436" cy="668" r="48" fill="#377a4e"/>
+  </g>
+  <g class="daun" style="animation-duration:5.4s">
+    <path d="M0 700 q86 -34 130 22 q-70 40 -130 8z" fill="url(#gDaun)"/>
+  </g>
+  <g class="daun" style="animation-duration:6.2s;animation-delay:-1.4s">
+    <path d="M0 796 q100 -22 138 34 q-78 34 -138 4z" fill="#2f6a45"/>
+  </g>
+  <g class="daun" style="animation-duration:5.9s;animation-delay:-2.6s">
+    <path d="M1600 706 q-86 -34 -130 22 q70 40 130 8z" fill="url(#gDaun)"/>
+  </g>
+  <g class="daun" style="animation-duration:6.6s;animation-delay:-.8s">
+    <path d="M1600 800 q-100 -22 -138 34 q78 34 138 4z" fill="#2f6a45"/>
+  </g>
+  <g class="bunga" style="animation-delay:-1.2s">
+    <path d="M120 900 l0 -34" stroke="#3f7a45" stroke-width="3"/>
+    <circle cx="120" cy="860" r="8" fill="#FF69B4"/><circle cx="120" cy="860" r="3" fill="#FFD700"/>
+  </g>
+  <g class="bunga" style="animation-delay:-2.9s">
+    <path d="M1440 900 l0 -34" stroke="#3f7a45" stroke-width="3"/>
+    <circle cx="1440" cy="860" r="8" fill="#ffe6b3"/><circle cx="1440" cy="860" r="3" fill="#e0762f"/>
+  </g>
 </svg>
 
-<!-- ============ tajuk ============ -->
+<!-- ==================== WATAK ANIME (profil, duduk di dek, memegang cawan) ==================== -->
+<svg class="maskot" id="quasarkun" viewBox="0 0 220 220" aria-hidden="true" role="button" tabindex="0">
+  <ellipse cx="110" cy="206" rx="64" ry="9" fill="#2b4a63" opacity=".2"/>
+  <g class="badan">
+    <path d="M60 198 q10 -36 50 -36 q40 0 50 36 q-50 10 -100 0z" fill="#556B2F"/>
+    <path d="M78 198 q8 -24 32 -24 q24 0 32 24z" fill="#4c5f2a" opacity=".75"/>
+    <path d="M68 170 q-10 -48 42 -48 q52 0 42 48 q-42 12 -84 0z" fill="#2F4F4F"/>
+    <path d="M110 122 q22 0 34 12 q-16 8 -34 8 q-18 0 -34 -8 q12 -12 34 -12z" fill="#3a5c5c"/>
+    <g class="lengan">
+      <path d="M126 156 q26 -8 30 -26" stroke="#2F4F4F" stroke-width="16" fill="none" stroke-linecap="round"/>
+      <g class="cawan">
+        <rect x="146" y="114" width="26" height="22" rx="5" fill="#f3e2cd" stroke="#b99b7a" stroke-width="2"/>
+        <path d="M172 120 q10 5 0 12" stroke="#b99b7a" stroke-width="3" fill="none"/>
+        <path class="wap" d="M152 110 q4 -9 0 -15" stroke="#ffffff" stroke-width="2.6" fill="none"
+              stroke-linecap="round"/>
+        <path class="wap w2" d="M162 110 q-4 -10 0 -17" stroke="#ffffff" stroke-width="2.6" fill="none"
+              stroke-linecap="round"/>
+      </g>
+    </g>
+    <path d="M92 134 q18 9 38 3 q-5 11 -19 13 q-15 -1 -19 -16z" fill="#c96a4a"/>
+    <path class="selendang" d="M124 144 q18 13 13 33 q-11 -15 -20 -22z" fill="#c96a4a" opacity=".92"/>
+    <g class="kepala">
+      <path d="M74 122 q-6 -46 38 -46 q44 0 38 46 q-38 12 -76 0z" fill="#2b2b33"/>
+      <path d="M108 76 q30 2 34 38 q3 24 -17 30 q-15 4 -19 -8 q-5 -13 6 -19 q-13 -7 -11 -23 q2 -15 7 -18z"
+            fill="#f5deb3"/>
+      <path d="M124 118 q6 2 8 6" stroke="#c98f76" stroke-width="2.3" fill="none" stroke-linecap="round"/>
+      <ellipse class="mata" cx="117" cy="99" rx="3.6" ry="4.2" fill="#33333a"/>
+      <path d="M84 76 q-16 -6 -20 12 q-4 18 10 22 q-3 -20 10 -34z" fill="#2b2b33"/>
+      <circle cx="84" cy="72" r="8" fill="#33333d"/>
+      <g class="rambut">
+        <path d="M92 74 q-24 -16 -38 -4 q18 6 34 16z" fill="#33333d"/>
+        <path d="M76 92 q-22 0 -34 14 q20 -2 34 -4z" fill="#33333d" opacity=".92"/>
+      </g>
+      <path d="M104 76 q20 -6 30 10" stroke="#3a3a44" stroke-width="3" fill="none" opacity=".7"/>
+    </g>
+  </g>
+  <g class="kucing">
+    <ellipse cx="46" cy="198" rx="21" ry="12" fill="#e9d8c4"/>
+    <circle cx="35" cy="184" r="11" fill="#e9d8c4"/>
+    <path d="M28 176 l-4 -10 l9 3z M42 176 l4 -10 l-9 3z" fill="#e9d8c4"/>
+    <path class="ekorkucing" d="M64 200 q15 -5 12 -19" stroke="#e9d8c4" stroke-width="6" fill="none"
+          stroke-linecap="round"/>
+    <circle cx="31" cy="184" r="1.9" fill="#3a3030"/><circle cx="39" cy="184" r="1.9" fill="#3a3030"/>
+  </g>
+</svg>
+
+<!-- ==================== TAJUK ==================== -->
 <header><div class="bar">
   <div class="logo">
-    <svg class="robot" viewBox="0 0 40 40" aria-hidden="true">
-      <path d="M20 3 l0 6" stroke="#8a4b06" stroke-width="2.4" stroke-linecap="round"/>
-      <circle class="antena" cx="20" cy="3" r="3.4"/>
-      <rect x="7" y="11" width="26" height="21" rx="9" fill="#ffe1ac" stroke="#8a4b06" stroke-width="2.6"/>
-      <circle cx="15" cy="21" r="3.2" fill="#3a2408"/><circle cx="25" cy="21" r="3.2" fill="#3a2408"/>
-      <circle cx="16.2" cy="20" r="1.2" fill="#fff"/><circle cx="26.2" cy="20" r="1.2" fill="#fff"/>
-      <path d="M15 27 q5 4 10 0" stroke="#8a4b06" stroke-width="2" fill="none" stroke-linecap="round"/>
-      <path d="M4 19 l-2 3 M36 19 l2 3" stroke="#8a4b06" stroke-width="2.4" stroke-linecap="round"/>
+    <svg width="34" height="30" viewBox="0 0 40 34" aria-hidden="true">
+      <path d="M4 30 L4 12 L20 3 L36 12 L36 30" fill="none" stroke="#b8561c" stroke-width="3"
+            stroke-linejoin="round"/>
+      <path d="M0 11 q10 -6 20 0 q10 6 20 0" fill="none" stroke="#3a7ca5" stroke-width="2.6"/>
+      <circle cx="20" cy="19" r="4" fill="#e0762f"/>
     </svg>
-    <span class="dot"></span> QUASAR PULSE</div>
+    <span class="dot"></span> QUASAR PULSE <small>&#12463;&#12456;&#12540;&#12469;&#12540;&#12539;&#12497;&#12523;&#12473;</small></div>
   <span class="chip" id="dada">…menghubung</span>
   <span class="chip">WIB <b id="jam">—</b></span>
   <span class="chip">kitar <b id="kira">15s</b></span>
@@ -376,6 +611,21 @@ input[type=search]:focus{border-color:rgba(245,158,11,.45)}
 <div class="pita"><div id="pitaisi"></div></div>
 
 <main>
+  <section class="hero">
+    <p class="kana">Living landscape dashboard</p>
+    <h1>Pemandangan yang <em>hidup</em>,<br>angka yang benar</h1>
+    <p class="sub">Setiap awan, daun dan riak di halaman ini bergerak — sama seperti data di belakangnya.
+      Token, kuota dan kesihatan model bot Quasar, dipapar dalam satu dunia anime yang bernafas.</p>
+    <p class="jepun">&#23665; · &#28246; · &#31354; · &#20809; — gunung · tasik · langit · cahaya</p>
+    <div class="turun">
+      <span>tatal ke bawah</span>
+      <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M12 4 L12 18 M6 13 L12 19 L18 13" fill="none" stroke="#3c5a72" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+  </section>
+
   <h2>Gambaran hari ini
     <small>Setiap angka diambil daripada rekod panggilan 9router — bukan agakan.</small></h2>
   <div class="kad" id="kad"></div>
@@ -439,11 +689,14 @@ input[type=search]:focus{border-color:rgba(245,158,11,.45)}
 <div id="bual"></div>
 
 <div id="muat">
-  <svg width="86" height="86" viewBox="0 0 120 120" aria-hidden="true">
-    <circle cx="60" cy="52" r="32" fill="#ffe1ac" stroke="#8a4b06" stroke-width="3"/>
-    <path d="M32 34 l-6 -20 l22 8z M88 34 l6 -20 l-22 8z" fill="#ffe1ac" stroke="#8a4b06" stroke-width="3"/>
-    <circle cx="47" cy="52" r="6" fill="#3a2408"/><circle cx="73" cy="52" r="6" fill="#3a2408"/>
-    <path d="M50 66 q10 7 20 0" stroke="#8a4b06" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+  <svg width="104" height="104" viewBox="0 0 220 220" aria-hidden="true">
+    <ellipse cx="110" cy="206" rx="64" ry="9" fill="#2b4a63" opacity=".18"/>
+    <path d="M60 198 q10 -36 50 -36 q40 0 50 36 q-50 10 -100 0z" fill="#556B2F"/>
+    <path d="M68 170 q-10 -48 42 -48 q52 0 42 48 q-42 12 -84 0z" fill="#2F4F4F"/>
+    <path d="M74 122 q-6 -46 38 -46 q44 0 38 46 q-38 12 -76 0z" fill="#2b2b33"/>
+    <path d="M108 76 q30 2 34 38 q3 24 -17 30 q-15 4 -19 -8 q-5 -13 6 -19 q-13 -7 -11 -23 q2 -15 7 -18z"
+          fill="#f5deb3"/>
+    <ellipse cx="117" cy="99" rx="3.6" ry="4.2" fill="#33333a"/>
   </svg>
   <p>menarik data daripada 9router…</p>
 </div>
@@ -454,21 +707,8 @@ const T = n => n >= 1e9 ? (n/1e9).toFixed(2)+'B' : n >= 1e6 ? (n/1e6).toFixed(2)
               : n >= 1e3 ? (n/1e3).toFixed(1)+'k' : String(n||0);
 const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const rup = (v, min, max) => Math.max(min, Math.min(max, v));
+const WARNA_SENJA = '#e0762f';
 let D = null, tapis = '', provpilih = '', modSumber = '';
-
-/* ---------- bintang berkelip ---------- */
-(function bintangi(){
-  const l = document.getElementById('langit');
-  for (let i = 0; i < 46; i++){
-    const b = document.createElement('div');
-    b.className = 'bintang';
-    const s = (Math.random() * 2.2 + 1).toFixed(1);
-    b.style.cssText = `width:${s}px;height:${s}px;left:${(Math.random()*100).toFixed(2)}%;`
-      + `top:${(Math.random()*100).toFixed(2)}%;animation-delay:${(Math.random()*3).toFixed(2)}s;`
-      + `animation-duration:${(2 + Math.random()*3).toFixed(2)}s`;
-    l.appendChild(b);
-  }
-})();
 
 /* ---------- angka naik perlahan ---------- */
 const lihir = new Map();
@@ -484,7 +724,7 @@ function naik(el, sasaran){
   })(t0);
 }
 
-/* ---------- gelembung cakap maskot ---------- */
+/* ---------- gelembung cakap watak ---------- */
 let bualTimer = null;
 function bual(teks, ms = 5200){
   const b = document.getElementById('bual');
@@ -495,47 +735,48 @@ function bual(teks, ms = 5200){
   bualTimer = setTimeout(() => b.classList.remove('tunjuk'), ms);
 }
 
-/* ---------- letupan bintang + maskot melompat ---------- */
+/* ---------- letupan kelopak + watak melompat ---------- */
 function letupBintang(x, y){
-  for (let i = 0; i < 10; i++){
+  for (let i = 0; i < 12; i++){
     const p = document.createElement('div');
     p.className = 'letup';
-    const a = Math.random() * Math.PI * 2, j = 34 + Math.random() * 52;
+    const a = Math.random() * Math.PI * 2, j = 34 + Math.random() * 54;
     p.style.cssText = `left:${x}px;top:${y}px;--dx:${(Math.cos(a)*j).toFixed(0)}px;`
       + `--dy:${(Math.sin(a)*j).toFixed(0)}px;`
-      + `background:${['#f59e0b','#fde68a','#ff7ab6','#58a6ff'][i % 4]}`;
+      + `background:${['#ff9dc0','#ffd08a','#fff3c4','#9fd4f0'][i % 4]}`;
     document.body.appendChild(p);
     setTimeout(() => p.remove(), 1000);
   }
   const k = document.getElementById('quasarkun');
+  if (!k) return;
   k.classList.remove('lompat'); void k.offsetWidth; k.classList.add('lompat');
 }
 
 function cincin(p, saiz, warna){
   const r = (saiz - 6) / 2, c = 2 * Math.PI * r, pct = rup(p, 0, 1);
   return `<svg width="${saiz}" height="${saiz}">
-    <circle class="trek" cx="${saiz/2}" cy="${saiz/2}" r="${r}" stroke="#242424"/>
+    <circle class="trek" cx="${saiz/2}" cy="${saiz/2}" r="${r}" stroke="rgba(23,60,90,.14)"/>
     <circle cx="${saiz/2}" cy="${saiz/2}" r="${r}" stroke="${warna}"
       stroke-dasharray="${(c*pct).toFixed(1)} ${c.toFixed(1)}"
       style="fill:none;stroke-width:5;stroke-linecap:round"/>
   </svg>`;
 }
 
-const IKON = {t1:'🌙',t2:'✨',t3:'🪐',t4:'💫'};
+const IKON = {t1:'&#127800;', t2:'&#127811;', t3:'&#9968;&#65039;', t4:'&#127754;'};
 
 function pita(d){
   const r = d.ringkas;
   const b = [
-    `${IKON.t3} TOKEN HARI INI <b>${F(r.token_hari)}</b>`,
-    `✨ TOKEN 7 HARI <b>${F(r.token_7)}</b>`,
-    `🚀 PERMINTAAN <b>${F(r.req_hari)}</b>`,
-    `🪐 MODEL TERSEDIA <b>${F(r.model_tersedia)}</b>`,
-    `💫 CONNECTION SIHAT <b>${F(r.connection_sihat)}/${F(r.connection)}</b>`,
-    `🌙 MINIMAX CLAIM <b>${F(r.mm_claim_hari)}/${F(r.mm_akaun)}</b>`,
-    `⭐ KOLAM POIN <b>${F(r.mm_pool_minggu)}</b>`,
+    `${IKON.t1} TOKEN HARI INI <b>${F(r.token_hari)}</b>`,
+    `${IKON.t2} TOKEN 7 HARI <b>${F(r.token_7)}</b>`,
+    `${IKON.t3} MODEL TERSEDIA <b>${F(r.model_tersedia)}</b>`,
+    `${IKON.t4} CONNECTION SIHAT <b>${F(r.connection_sihat)}/${F(r.connection)}</b>`,
+    `&#9728;&#65039; PERMINTAAN <b>${F(r.req_hari)}</b>`,
+    `&#10022; MINIMAX CLAIM <b>${F(r.mm_claim_hari)}/${F(r.mm_akaun)}</b>`,
+    `&#10047; KOLAM POIN <b>${F(r.mm_pool_minggu)}</b>`,
     ...d.model.slice(0, 10).map(m => `${esc(m.model)} <b>${T(m.in_7 + m.out_7)}</b>`),
   ];
-  const isi = b.map(x => `<span><i>◆</i> ${x}</span>`).join('');
+  const isi = b.map(x => `<span><i>&#9670;</i> ${x}</span>`).join('');
   document.getElementById('pitaisi').innerHTML = isi + isi;
 }
 
@@ -544,34 +785,40 @@ function kad(d){
   const maks = Math.max(1, ...m.map(x => x.in_7 + x.out_7));
   const senarai = [
     ['Token hari ini', r.token_hari, `${F(r.req_hari)} permintaan`, 0.72],
-    ['Token 7 hari', r.token_7, `${F(r.model_diguna)} model aktif`, rup(r.token_7 / (maks * Math.max(1, m.length)), .15, .95)],
+    ['Token 7 hari', r.token_7, `${F(r.model_diguna)} model aktif`,
+      rup(r.token_7 / (maks * Math.max(1, m.length)), .15, .95)],
     ['Model tersedia', r.model_tersedia, `${F(r.provider)} provider`, 1],
-    ['Connection sihat', r.connection_sihat, `daripada ${F(r.connection)}`, r.connection ? r.connection_sihat / r.connection : 0],
-    ['Akaun MiniMax', r.mm_akaun, `${F(r.mm_claim_hari)} sudah claim hari ini`, r.mm_akaun ? r.mm_claim_hari / r.mm_akaun : 0],
+    ['Connection sihat', r.connection_sihat, `daripada ${F(r.connection)}`,
+      r.connection ? r.connection_sihat / r.connection : 0],
+    ['Akaun MiniMax', r.mm_akaun, `${F(r.mm_claim_hari)} sudah claim hari ini`,
+      r.mm_akaun ? r.mm_claim_hari / r.mm_akaun : 0],
     ['Kolam poin MiniMax', r.mm_pool_minggu, 'poin / minggu', 0.55],
-    ['Baki token per minit', r.baki_tok_min, `had ${T(r.had_tok_min)} / minit`, r.had_tok_min ? r.baki_tok_min / r.had_tok_min : 0],
+    ['Baki token per minit', r.baki_tok_min, `had ${T(r.had_tok_min)} / minit`,
+      r.had_tok_min ? r.baki_tok_min / r.had_tok_min : 0],
   ];
   const wadah = document.getElementById('kad');
   if (wadah.children.length !== senarai.length){
     wadah.innerHTML = senarai.map(([t, v, k, p]) =>
       `<div class="kotak"><h4>${t}</h4>
         <div class="isikad"><div class="besar">0</div>
-          <div class="tolok">${cincin(p, 58, '#f59e0b')}</div></div>
+          <div class="tolok">${cincin(p, 58, WARNA_SENJA)}</div></div>
         <div class="kecil">${k}</div>
-        <svg class="intai" viewBox="0 0 90 60" aria-hidden="true">
-          <ellipse cx="45" cy="56" rx="34" ry="5" fill="#000" opacity=".2"/>
-          <circle cx="45" cy="30" r="22" fill="#ffe1ac" stroke="#8a4b06" stroke-width="3"/>
-          <path d="M25 16 l-4 -13 l14 6z M65 16 l4 -13 l-14 6z" fill="#ffe1ac" stroke="#8a4b06" stroke-width="3"/>
-          <ellipse cx="37" cy="31" rx="4.4" ry="5.4" fill="#3a2408"/>
-          <ellipse cx="53" cy="31" rx="4.4" ry="5.4" fill="#3a2408"/>
-          <path d="M40 40 q5 4 10 0" stroke="#8a4b06" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+        <svg class="intai" viewBox="0 0 90 62" aria-hidden="true">
+          <path d="M12 50 q34 -14 62 2 q-30 12 -62 -2z" fill="#e8a15c"/>
+          <circle cx="52" cy="30" r="19" fill="#f0b877"/>
+          <path d="M36 18 l-5 -14 l15 7z M68 18 l5 -14 l-15 7z" fill="#f0b877"/>
+          <path d="M38 15 l-2 -7 l8 4z M66 15 l2 -7 l-8 4z" fill="#ffd9b0"/>
+          <path d="M70 34 q13 2 10 -9 q10 12 -4 16 q-8 2 -6 -7z" fill="#e8a15c"/>
+          <ellipse cx="45" cy="29" rx="3.4" ry="4" fill="#3a3030"/>
+          <ellipse cx="60" cy="29" rx="3.4" ry="4" fill="#3a3030"/>
+          <path d="M50 38 q4 3 8 0" stroke="#8a4b26" stroke-width="2" fill="none" stroke-linecap="round"/>
         </svg></div>`).join('');
     wadah.querySelectorAll('.besar').forEach(el => lihir.set(el, 0));
   }
   wadah.querySelectorAll('.kotak').forEach((k, i) => {
     naik(k.querySelector('.besar'), senarai[i][1]);
     k.querySelector('.kecil').textContent = senarai[i][2];
-    k.querySelector('.tolok').innerHTML = cincin(senarai[i][3], 58, '#f59e0b');
+    k.querySelector('.tolok').innerHTML = cincin(senarai[i][3], 58, WARNA_SENJA);
   });
 }
 
@@ -641,7 +888,7 @@ function mm(d){
   document.getElementById('mm').innerHTML = d.minimax.length ? d.minimax.map(a => {
     const hidup = a.token === 'hidup';
     const pct = hidup ? (a.poin_hari ? a.poin_hari / 400 : 0) : 0;
-    const warna = !hidup ? '#f85149' : (a.sudah_claim ? '#f59e0b' : '#3fb950');
+    const warna = !hidup ? '#d9534f' : (a.sudah_claim ? WARNA_SENJA : '#2f9e6f');
     return `<div class="mmk">
       <div class="cincin">${cincin(pct, 34, warna)}</div>
       <div class="mail" style="padding-right:40px" title="${esc(a.emel)}">${esc(a.emel)}</div>
@@ -727,7 +974,6 @@ async function tarik(){
   if (!d){ dada.textContent = 'tiada data'; dada.className = 'chip snap'; return; }
   if (d.masa_ringkas === undefined) d.masa_ringkas = '—';
 
-  const tukar = modSumber && modSumber !== mod;
   modSumber = mod;
   if (mod === 'langsung'){
     dada.textContent = '● LANGSUNG — laptop aktif';
@@ -747,8 +993,8 @@ async function tarik(){
     letupBintang(b.left + 60, b.top + 40);
     bual(`Token naik <b>+${F(d.ringkas.token_hari - lama)}</b> sejak kitaran lalu!`);
   } else if (!lama){
-    bual(`Hai BOZ! Aku Quasar-kun. <b>${F(d.ringkas.model_tersedia)}</b> model dipantau, `
-       + `<b>${F(d.ringkas.connection_sihat)}</b> connection sihat.`);
+    bual(`Hai BOZ! Aku Quasar-chan. <b>${F(d.ringkas.model_tersedia)}</b> model dipantau, `
+       + `<b>${F(d.ringkas.connection_sihat)}</b> connection sihat. Duduk, nikmati pemandangan senja.`);
   }
   if (mod === 'snapshot' && d.dikemas){
     setTimeout(() => bual('Mod <b>snapshot</b> — laptop BOZ belum menghantar data baharu.'), 5600);
@@ -757,35 +1003,35 @@ async function tarik(){
   if (!document.getElementById('cip').children.length) cipProvider(d);
   pita(d); kad(d); modelpakai(d); trend(d); baki(d); mm(d); amaran(d);
   if (document.getElementById('cip').children.length) inv(d);
-  document.getElementById('muat').classList.add('tutup');
-  setTimeout(() => document.getElementById('muat').remove(), 700);
+  const m = document.getElementById('muat');
+  if (m){ m.classList.add('tutup'); setTimeout(() => m.remove(), 800); }
 }
 
 let detik = 15;
 document.getElementById('cari').oninput = e => { tapis = e.target.value; if (D) inv(D); };
-document.getElementById('quasarkun').addEventListener('click', e => {
+document.getElementById('quasarkun').addEventListener('click', () => {
   const r = document.getElementById('quasarkun').getBoundingClientRect();
   letupBintang(r.left + r.width / 2, r.top + r.height / 2);
   const tips = D ? [
-    `Mistral paling jujur — dia beritahu baki sebenar: <b>${F(D.ringkas.baki_tok_min)}</b> tok/min.`,
-    `Model paling laju malam ini: <b>${(D.model[0] || {}).model || '—'}</b>.`,
+    `Senja keemasan hari ini. Baki token kita <b>${F(D.ringkas.baki_tok_min)}</b> tok/min.`,
+    `Model paling laju sekarang: <b>${(D.model[0] || {}).model || '—'}</b>.`,
     `Poin MiniMax belum dituntut: <b>${F((D.ringkas.mm_akaun - D.ringkas.mm_claim_hari) * 400)}</b>.`,
     `Connection bermasalah: <b>${D.amaran.length}</b> — tengok bahagian bawah.`,
     `Jumlah token 7 hari: <b>${F(D.ringkas.token_7)}</b>. Itu ${T(D.ringkas.token_7)} token!`,
   ] : ['Tunggu sekejap, aku masih tarik data…'];
   bual(tips[Math.floor(Math.random() * tips.length)], 6000);
 });
-/* cakap sesekali supaya laman tidak sunyi */
 setInterval(() => {
   if (!D || document.hidden) return;
   if (Math.random() < .5){
-    bual(`Masih di sini, BOZ. <b>${F(D.ringkas.req_hari)}</b> permintaan hari ini, `
+    bual(`Angin dari tasik. <b>${F(D.ringkas.req_hari)}</b> permintaan hari ini, `
        + `<b>${T(D.ringkas.token_hari)}</b> token.`);
   }
 }, 47000);
 document.addEventListener('click', e => {
   if (e.target.closest('.kotak')) letupBintang(e.clientX, e.clientY);
 });
+
 /* ---------- kesihatan model: baca model.json (hasil ujian panggilan sebenar) ---------- */
 function sehat(keputusan){
   const el = document.getElementById('sehat'), ringkas = document.getElementById('sehatringkas');
@@ -798,8 +1044,8 @@ function sehat(keputusan){
     + `<span class="chip">diuji <b>${(keputusan.hasil || []).length}</b></span>`
     + (keputusan.masa ? `<span class="chip">${masaLalu(keputusan.masa)}</span>` : '');
   el.innerHTML = (keputusan.hasil || []).map(h => `
-    <div class="sbar" title="${h.jawapan || h.sebab || ''}">
-      <span class="nm">${h.model}</span>
+    <div class="sbar" title="${esc(h.jawapan || h.sebab || '')}">
+      <span class="nm">${esc(h.model)}</span>
       <span class="ms">${h.median ? h.median + 's' : '—'}</span>
       <span class="cip2 ${kelas(h.kelas)}">${h.kelas}</span>
     </div>`).join('');
@@ -822,6 +1068,227 @@ setInterval(() => {
   document.getElementById('kira').textContent = detik + 's';
   if (detik <= 0){ detik = 15; tarik(); }
 }, 1000);
+</script>
+
+<script>
+/* ==========================================================================
+   ENJIN PEMANDANGAN HIDUP — awan hanyut, matahari senja, burung, kelopak,
+   daun gugur, habuk cahaya, riak tasik, paralaks. Canvas + transform CSS.
+   Tiada CDN, tiada kebergantungan luar.
+   ========================================================================== */
+(function pemandangan(){
+  const cv = document.getElementById('langit');
+  const cx = cv.getContext('2d');
+  const cv2 = document.getElementById('serbuk');
+  const cx2 = cv2 ? cv2.getContext('2d') : null;
+  const kurang = matchMedia('(prefers-reduced-motion: reduce)');
+  const wayang = document.getElementById('pemandangan');
+  const depan = document.getElementById('hutan-depan');
+  const chan = document.getElementById('quasarkun');
+  let W = 0, H = 0, DPR = 1, horizonY = 0, mataX = 0, mataY = 0, t = 0, jalan = true;
+
+  const awan = [], burung = [], kelopak = [], habuk = [], riak = [];
+  const kecil = () => W < 720;
+
+  function ukur(){
+    DPR = Math.min(window.devicePixelRatio || 1, 2);
+    W = window.innerWidth; H = window.innerHeight;
+    cv.width = Math.floor(W * DPR); cv.height = Math.floor(H * DPR);
+    cv.style.width = W + 'px'; cv.style.height = H + 'px';
+    cx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    if (cv2 && cx2){ cv2.width = cv.width; cv2.height = cv.height;
+      cv2.style.width = W + 'px'; cv2.style.height = H + 'px';
+      cx2.setTransform(DPR, 0, 0, DPR, 0, 0); }
+    /* peta y=470 (ufuk dalam SVG 1600x900, slice) ke skrin sebenar */
+    const skala = Math.max(W / 1600, H / 900);
+    horizonY = (H - 900 * skala) / 2 + 470 * skala;
+    mataX = W * 0.30; mataY = horizonY - H * 0.03;
+    bina();
+  }
+
+  function bina(){
+    awan.length = 0; burung.length = 0; kelopak.length = 0; habuk.length = 0; riak.length = 0;
+    for (let i = 0; i < (kecil() ? 4 : 8); i++){
+      const s = 0.5 + Math.random() * 0.9;
+      awan.push({x:Math.random() * W, y:horizonY * (0.10 + Math.random() * 0.72),
+                 s, v:-(6 + Math.random() * 16) * s, a:.55 + Math.random() * .4,
+                 jauh:Math.random() < .45});
+    }
+    for (let i = 0; i < (kecil() ? 2 : 4); i++){
+      const arah = Math.random() < .5 ? 1 : -1, n = 3 + Math.floor(Math.random() * 3);
+      const kwn = {x:arah > 0 ? -140 - Math.random() * 500 : W + 140 + Math.random() * 500,
+                   y:horizonY * (0.16 + Math.random() * 0.5), vx:arah * (26 + Math.random() * 30),
+                   vy:(Math.random() - .5) * 6, ahli:[]};
+      for (let j = 0; j < n; j++)
+        kwn.ahli.push({ox:j * (22 + Math.random() * 10) * -arah, oy:(Math.random() - .5) * 26,
+                       fasa:Math.random() * 6.28, saiz:5 + Math.random() * 4});
+      burung.push(kwn);
+    }
+    const warnaKelopak = ['#ffc9dd','#ffe7f0','#fff3c4','#ffd08a','#8fd072'];
+    for (let i = 0; i < (kecil() ? 18 : 44); i++){
+      kelopak.push({x:Math.random() * W, y:Math.random() * H,
+                    vx:-(10 + Math.random() * 22), vy:12 + Math.random() * 22,
+                    rot:Math.random() * 6.28, vr:(Math.random() - .5) * 2.4,
+                    s:4 + Math.random() * 6, ayun:Math.random() * 6.28,
+                    warna:warnaKelopak[Math.floor(Math.random() * warnaKelopak.length)]});
+    }
+    for (let i = 0; i < (kecil() ? 12 : 26); i++){
+      habuk.push({x:Math.random() * W, y:horizonY * (0.25 + Math.random() * 0.9),
+                  r:.6 + Math.random() * 1.7, vx:(Math.random() - .5) * 9, vy:-(3 + Math.random() * 9),
+                  fasa:Math.random() * 6.28, a:.25 + Math.random() * .45});
+    }
+    for (let i = 0; i < (kecil() ? 8 : 18); i++){
+      riak.push({x:Math.random() * W, y:horizonY + 18 + Math.random() * (H - horizonY) * .5,
+                 r:2 + Math.random() * 7, fasa:Math.random() * 6.28, v:1.4 + Math.random() * 1.6});
+    }
+  }
+
+  function klusterAwan(a){
+    const s = 26 * a.s;
+    cx.save(); cx.globalAlpha = a.a * (a.jauh ? .72 : 1); cx.fillStyle = '#ffffff';
+    /* d[2] MESTI faktor unit (0-1); kalau darab s di sini jejari jadi s² (awan gergasi). */
+    const el = [[0,0,1],[-s*1.1,s*.22,.86],[s*1.15,s*.2,.9],[-s*.5,-s*.42,.7],[s*.6,-s*.36,.64]];
+    for (const d of el){
+      cx.beginPath(); cx.ellipse(a.x + d[0], a.y + d[1], s * d[2] * 1.5, s * d[2] * .82, 0, 0, 6.283);
+      cx.fill();
+    }
+    cx.globalAlpha = a.a * (a.jauh ? .3 : .5); cx.fillStyle = '#a3c1e8';
+    cx.beginPath(); cx.ellipse(a.x, a.y + s * .5, s * 2.1, s * .42, 0, 0, 6.283); cx.fill();
+    cx.restore();
+  }
+
+  function burungSatu(x, y, s, fasa){
+    const kepak = Math.sin(fasa) * 0.9;
+    cx.beginPath();
+    cx.moveTo(x - s, y - kepak * s * .5);
+    cx.quadraticCurveTo(x - s * .45, y - s * .42 + kepak * s * .3, x, y);
+    cx.quadraticCurveTo(x + s * .45, y - s * .42 + kepak * s * .3, x + s, y - kepak * s * .5);
+    cx.stroke();
+  }
+
+  function matahari(){
+    const nafas = 1 + Math.sin(t * 0.00042) * 0.035, R = Math.min(W, H) * 0.56 * nafas;
+    const g = cx.createRadialGradient(mataX, mataY, 0, mataX, mataY, R);
+    g.addColorStop(0, 'rgba(255,247,222,.62)');
+    g.addColorStop(.18, 'rgba(255,232,182,.30)');
+    g.addColorStop(.45, 'rgba(255,214,150,.13)');
+    g.addColorStop(1, 'rgba(255,206,140,0)');
+    cx.fillStyle = g;
+    cx.beginPath(); cx.arc(mataX, mataY, R, 0, 6.283); cx.fill();
+    cx.fillStyle = 'rgba(255,252,236,.85)';
+    cx.beginPath(); cx.arc(mataX, mataY, Math.min(W, H) * 0.045, 0, 6.283); cx.fill();
+  }
+
+  function riakTasik(dt){
+    cx.strokeStyle = 'rgba(255,250,235,.5)'; cx.lineWidth = 1.4;
+    for (const r of riak){
+      r.fasa += dt * r.v;
+      const k = (Math.sin(r.fasa) + 1) / 2;
+      cx.globalAlpha = 0.10 + k * 0.5;
+      cx.beginPath(); cx.ellipse(r.x, r.y, r.r * (1 + k * 2.6), r.r * .34, 0, 0, 6.283); cx.stroke();
+    }
+    cx.globalAlpha = 1;
+  }
+
+  function rangka(dt){
+    cx.clearRect(0, 0, W, H);
+    if (cx2) cx2.clearRect(0, 0, W, H);
+    cx.strokeStyle = 'rgba(45,66,86,.62)'; cx.lineWidth = 2.1; cx.lineCap = 'round';
+    for (const k of burung){
+      k.x += k.vx * dt; k.y += k.vy * dt;
+      for (const b of k.ahli){ b.fasa += dt * 7.4; burungSatu(k.x + b.ox, k.y + b.oy, b.saiz, b.fasa); }
+    }
+    cx.strokeStyle = 'rgba(255,255,255,.9)';
+    for (const a of awan){
+      a.x += a.v * dt;
+      if (a.x < -260 * a.s) a.x = W + 260 * a.s;
+      if (a.x > W + 260 * a.s) a.x = -260 * a.s;
+      klusterAwan(a);
+    }
+    matahari();
+    riakTasik(dt);
+    if (cx2){
+      for (const p of kelopak){
+        p.ayun += dt * 1.7;
+        p.x += (p.vx + Math.sin(p.ayun) * 13) * dt;
+        p.y += p.vy * dt; p.rot += p.vr * dt;
+        if (p.y > H + 30 || p.x < -40){ p.y = -30; p.x = Math.random() * W; }
+        cx2.save(); cx2.translate(p.x, p.y); cx2.rotate(p.rot);
+        cx2.globalAlpha = .9; cx2.fillStyle = p.warna;
+        cx2.beginPath(); cx2.ellipse(0, 0, p.s, p.s * .58, 0, 0, 6.283); cx2.fill();
+        cx2.globalAlpha = .22; cx2.strokeStyle = 'rgba(255,255,255,.8)'; cx2.lineWidth = .8;
+        cx2.stroke();
+        cx2.restore();
+      }
+    }
+    if (cx2){
+      for (const h of habuk){
+        h.fasa += dt * .9; h.x += h.vx * dt; h.y += h.vy * dt;
+        if (h.y < horizonY * .1){ h.y = H * .8; h.x = Math.random() * W; }
+        cx2.globalAlpha = h.a * (.55 + Math.sin(h.fasa) * .45);
+        cx2.fillStyle = '#fff1cd';
+        cx2.beginPath(); cx2.arc(h.x, h.y, h.r, 0, 6.283); cx2.fill();
+      }
+      cx2.globalAlpha = 1;
+    }
+    cx.globalAlpha = 1;
+  }
+
+  /* ---------- paralaks: skrol + tetikus ---------- */
+  let tikusX = 0, tikusY = 0, skrol = 0, perlu = false;
+  /* Offset skrol DIBATASI (24px/16px) supaya lapisan tidak pernah terkeluar —
+     skala 1.10 memberi margin ~45px menegak pada 900px tinggi. */
+  function susun(){
+    perlu = false;
+    const s1 = Math.min(skrol * 0.02, 24), s2 = Math.min(skrol * 0.014, 16);
+    if (wayang) wayang.style.transform = `translate3d(${(-tikusX * 8).toFixed(2)}px,`
+      + `${(s1 - tikusY * 4).toFixed(2)}px,0) scale(1.10)`;
+    if (depan) depan.style.transform = `translate3d(${(tikusX * 14).toFixed(2)}px,`
+      + `${(-s2 + tikusY * 6).toFixed(2)}px,0) scale(1.12)`;
+    if (chan) chan.style.marginBottom = `${(-Math.min(skrol * 0.02, 26)).toFixed(2)}px`;
+    if (cv) cv.style.transform = `translate3d(${(-tikusX * 4).toFixed(2)}px,`
+      + `${Math.min(skrol * 0.01, 12).toFixed(2)}px,0)`;
+  }
+  function minta(){ if (!perlu){ perlu = true; requestAnimationFrame(susun); } }
+
+  if (!kurang.matches){
+    addEventListener('scroll', () => { skrol = window.scrollY || 0; minta(); }, {passive:true});
+    addEventListener('mousemove', e => {
+      tikusX = (e.clientX / W - .5) * 2; tikusY = (e.clientY / H - .5) * 2; minta();
+    }, {passive:true});
+  }
+
+  /* ---------- gelung utama ---------- */
+  let lepas = performance.now();
+  function gelung(kini){
+    if (!jalan) return;
+    const dt = Math.min((kini - lepas) / 1000, .05); lepas = kini; t = kini;
+    if (!document.hidden) rangka(dt);
+    requestAnimationFrame(gelung);
+  }
+  document.addEventListener('visibilitychange', () => { lepas = performance.now(); });
+
+  let tunda;
+  addEventListener('resize', () => {
+    clearTimeout(tunda);
+    tunda = setTimeout(() => { ukur(); rangka(0); }, 180);
+  });
+
+  ukur();
+  rangka(0);
+  if (kurang.matches){ jalan = false; } else requestAnimationFrame(gelung);
+
+  /* ---------- kemunculan seksyen ---------- */
+  if (!kurang.matches && 'IntersectionObserver' in window){
+    const sasaran = document.querySelectorAll('main > h2, main > .kad, main > .grid2, main > .panel, main > .kaki');
+    const pemantau = new IntersectionObserver((masuk) => {
+      for (const m of masuk) if (m.isIntersecting){
+        m.target.classList.add('muncul'); pemantau.unobserve(m.target);
+      }
+    }, {rootMargin:'0px 0px -12% 0px', threshold:.06});
+    sasaran.forEach(el => { el.classList.add('boleh-muncul'); pemantau.observe(el); });
+  }
+})();
 </script>
 </body>
 </html>
