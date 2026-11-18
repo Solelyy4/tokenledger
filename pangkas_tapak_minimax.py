@@ -44,6 +44,20 @@ def main() -> int:
                          if "minimax" in (str(p.get("kunci", "")) + str(p.get("penyedia", ""))).lower()]
     for p in modal["penyedia"]:
         p["model"] = sum(1 for m in (d.get("model") or []))  # sejajar dengan kad ringkasan
+    # angka modal & ringkasan dikira daripada model MiniMax yang tinggal (bukan sejarah agregat)
+    j7 = sum((m.get("in_7", 0) or 0) + (m.get("out_7", 0) or 0) for m in (d.get("model") or []))
+    q7 = sum(m.get("req_7", 0) or 0 for m in (d.get("model") or []))
+    jh = sum((m.get("in_hari", 0) or 0) + (m.get("out_hari", 0) or 0) for m in (d.get("model") or []))
+    qh = sum(m.get("req_hari", 0) or 0 for m in (d.get("model") or []))
+    modal["jumlah_7"] = j7
+    modal["req_7"] = q7
+    modal["jumlah_30"] = j7
+    modal["jumlah_hari"] = jh
+    for p in modal["penyedia"]:
+        p["jumlah_7"] = j7
+        p["req_7"] = q7
+        p["jumlah_30"] = j7
+        p["jumlah_hari"] = jh
     modal["baki_mistral"] = {"baki_tok_min": 0, "had_tok_min": 0, "baki_req_min": 0,
                              "had_req_min": 0, "akaun": 0, "sihat": 0}
     d["modal"] = modal
@@ -61,6 +75,9 @@ def main() -> int:
     r["provider"] = 1
     r["mistral_akaun"] = 0
     r["mistral_sihat"] = 0
+    r["token_7"] = j7
+    r["token_hari"] = jh
+    r["req_hari"] = qh
     r["nota_pangkas"] = NOTA
     d["nota"] = NOTA + " " + str(d.get("nota", ""))
     simpan("data.json", d)

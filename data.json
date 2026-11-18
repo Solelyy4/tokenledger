@@ -1,10 +1,10 @@
 {
- "masa": "2026-11-19 05:39:12 WIB",
- "masa_ringkas": "05:39:12",
+ "masa": "2026-11-19 05:40:35 WIB",
+ "masa_ringkas": "05:40:35",
  "ringkas": {
-  "token_hari": 202402,
-  "token_7": 3363744,
-  "req_hari": 11,
+  "token_hari": 1427,
+  "token_7": 20481,
+  "req_hari": 4,
   "model_diguna": 4,
   "model_tersedia": 4,
   "connection": 26,
@@ -813,10 +813,10 @@
     "kunci": "minimax",
     "penyedia": "MiniMax",
     "model": 4,
-    "req_7": 71,
-    "jumlah_7": 21821,
-    "jumlah_30": 21821,
-    "jumlah_hari": 15708,
+    "req_7": 50,
+    "jumlah_7": 20481,
+    "jumlah_30": 20481,
+    "jumlah_hari": 1427,
     "kuota_jenis": "Kolam mata akaun (claim harian)",
     "boleh_tambah": "Boleh — tuntut mata harian / beli kredit",
     "boleh": true,
@@ -826,10 +826,10 @@
     "baki": "124,000 mata kolam · 0 akaun belum claim"
    }
   ],
-  "jumlah_7": 9625212,
-  "jumlah_30": 9625212,
-  "jumlah_hari": 1779882,
-  "req_7": 352,
+  "jumlah_7": 20481,
+  "jumlah_30": 20481,
+  "jumlah_hari": 1427,
+  "req_7": 50,
   "baki_mistral": {
    "baki_tok_min": 0,
    "had_tok_min": 0,
@@ -846,7 +846,7 @@
   },
   "jumlah_models": 10
  },
- "dikemas": "2026-11-19T06:39:12",
+ "dikemas": "2026-11-19T06:40:35",
  "sumber": "laptop BOZ (9router SQLite + API penyedia)",
  "nota": "Ditapis kepada model MiniMax sahaja (arahan BOZ, 19 Nov 2026). Angka token sejarah kekal dalam graf harian termasuk penyedia yang telah dibuang. Snapshot berkala. Bila laptop aktif, halaman ini automatik bertukar ke mod LANGSUNG dari pelayan setempat."
 }
