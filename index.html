@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Quasar Pulse — pemandangan anime · token &amp; kuota semua model bot</title>
-<meta name="description" content="Papan langsung token, kuota dan kesihatan model bot Quasar, dibalut pemandangan anime yang hidup.">
+<title>Quasar Pulse — pemandangan anime statik · token &amp; kuota semua model bot</title>
+<meta name="description" content="Papan token, kuota dan kesihatan model bot Quasar di atas pemandangan anime senja yang tenang.">
 <style>
 /* ==========================================================================
    QUASAR PULSE — edisi pemandangan anime
@@ -334,6 +334,185 @@ input[type=search]:focus{border-color:rgba(224,118,47,.6);background:#fff}
   .hero h1{font-size:34px}
 }
 </style>
+<style id="statik">
+/* ==========================================================================
+   EDISI STATIK — tiada gerakan sama sekali, gaya diperhalusi untuk dicetak/
+   dilihat sebagai satu poster anime. Semua animasi & keyframes dimatikan.
+   ========================================================================== */
+*,*::before,*::after{animation:none !important}
+html{scroll-behavior:auto}
+.boleh-muncul{opacity:1 !important;transform:none !important}
+#hiasan{position:fixed;inset:0;width:100%;height:100%;z-index:1;pointer-events:none}
+.sinar{opacity:.34}
+
+/* ---- tipografi poster ---- */
+h1{font-family:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+  font-weight:600;line-height:1.04;letter-spacing:-.014em;color:#0d2735;
+  text-shadow:0 2px 34px rgba(255,255,255,.94),0 1px 3px rgba(13,39,53,.16)}
+h1 em{font-style:italic;color:#bd6020;text-shadow:0 2px 26px rgba(255,241,208,.96),0 1px 2px rgba(120,60,10,.18)}
+h2{position:relative;font-size:20.5px;font-weight:650;letter-spacing:-.014em;color:#0d2735;
+  margin:46px 0 10px;padding-bottom:10px;border-bottom:1px solid rgba(23,60,90,.10)}
+h2::after{content:"";position:absolute;left:0;bottom:-1px;width:82px;height:2px;border-radius:2px;
+  background:linear-gradient(90deg,#e0762f,rgba(224,118,47,0))}
+h2 small{display:block;margin-top:6px;font-size:12.9px;font-weight:400;color:#5f7c92;line-height:1.5}
+h2 small code{background:rgba(255,255,255,.72);border:1px solid rgba(23,60,90,.10);
+  border-radius:6px;padding:1px 5px;font-size:11.8px}
+
+/* ---- hero poster ---- */
+.hero{padding:86px 10px 100px}
+.kana{font-size:11.6px;letter-spacing:.46em;color:#7a5533;opacity:.95}
+.hero .sub{max-width:648px;margin:20px auto 0;font-size:16.5px;line-height:1.68;color:#36536a;
+  text-shadow:0 1px 12px rgba(255,255,255,.94)}
+.jepun{color:#486a85;letter-spacing:.22em;font-size:12.4px;opacity:.95}
+.turun{color:#3f5f79;opacity:.9}
+
+/* ---- kad & panel: kaca hangat ---- */
+.panel{background:linear-gradient(180deg,rgba(255,255,255,.89),rgba(255,255,255,.73));
+  border:1px solid rgba(255,255,255,.92);border-radius:20px;
+  box-shadow:0 16px 40px rgba(13,47,76,.14),inset 0 1px 0 rgba(255,255,255,.96)}
+.isikad{margin:8px 0 3px}
+.angka{font-weight:600;color:#0f2b3a}
+.chip{background:rgba(255,255,255,.87);border:1px solid rgba(255,255,255,.95);color:#486579;
+  box-shadow:0 5px 16px rgba(13,47,76,.10)}
+.pil{background:rgba(255,255,255,.62)}
+header{background:linear-gradient(180deg,rgba(255,255,255,.84),rgba(255,255,255,.58));
+  box-shadow:0 8px 28px rgba(13,47,76,.12)}
+.logo{color:#102939;letter-spacing:-.012em}
+.bar{padding:14px 26px}
+.pita{background:linear-gradient(90deg,rgba(255,246,231,.88),rgba(255,255,255,.52) 48%,rgba(228,242,250,.6))}
+#quasarkun{filter:drop-shadow(0 14px 26px rgba(16,46,70,.32)) saturate(1.05)}
+.kaki{color:#4d6a7f}
+
+/* kad data: beri ruang bernafas */
+.kad{gap:20px;grid-template-columns:repeat(auto-fit,minmax(244px,1fr))}
+.panel{padding:14px 18px 16px}
+.grid2{gap:22px}
+main>h2:first-of-type{margin-top:40px}
+.kaki{padding:44px 0 26px}
+
+/* kolum dikuncupkan supaya pemandangan senja kekal kelihatan di kiri & kanan */
+.bar{max-width:1180px}
+main{max-width:1180px;padding:0 26px 200px}
+.hero{padding:78px 6px 88px}
+.kaki{max-width:1180px}
+</style>
+<style id="merah">
+/* ==========================================================================
+   TEMA MERAH GELAP — gaya portal (rujukan Tokenomix), SIFAR ANIMASI.
+   Permukaan #161618/#121214, teks #e9e9ec, aksen merah #e5322f,
+   jejari 16px, bayang dalam gelap. Seni anime kekal sebagai tekstur malam.
+   ========================================================================== */
+:root{
+  --panel:#17171a; --panel2:#1b1b1f;
+  --line:rgba(255,255,255,.09); --line2:rgba(255,255,255,.06);
+  --fg:#e9e9ec; --dim:#b6b6bf; --dim2:#95959f;
+  --acc:#e5322f; --deep:#b4231f; --ok:#34d399; --bad:#f2706d; --blue:#63a9f8;
+  --r:16px; --kaca:none;
+}
+html,body{background:#0c0c0e;color:var(--fg)}
+body{font-family:"Inter Variable",Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif}
+body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(115% 62% at 50% -12%, rgba(229,50,47,.20), transparent 58%),
+    radial-gradient(70% 46% at 10% 6%, rgba(229,50,47,.10), transparent 62%),
+    #0c0c0e}
+
+/* --- seni anime jadi tekstur malam yang halus --- */
+#pemandangan{opacity:.16;filter:saturate(.45) brightness(.58) contrast(1.06)}
+#hutan-depan{opacity:.12;filter:brightness(.5) saturate(.55)}
+#hiasan{opacity:.15;filter:saturate(.6) brightness(.66)}
+.sinar{opacity:.08;filter:hue-rotate(-26deg) saturate(2.4)}
+.kabut{background:linear-gradient(180deg,rgba(12,12,14,.9) 0%,rgba(12,12,14,.97) 62%,#0c0c0e 100%)}
+#quasarkun,#bual{display:none}
+
+/* --- header & pita --- */
+header{background:rgba(12,12,14,.94);border-bottom:1px solid rgba(255,255,255,.07);box-shadow:none}
+.logo{color:#f3f3f6}
+.pita{background:rgba(17,17,19,.94);border-bottom:1px solid rgba(255,255,255,.06);color:#9a9aa2}
+.pita span i{color:var(--acc)}
+.chip{background:#141416;border:1px solid rgba(255,255,255,.08);color:#a5a5ad;box-shadow:none}
+.chip b{color:#ececf0}
+
+/* --- hero gaya portal --- */
+.hero{padding:76px 6px 70px;isolation:isolate}
+.hero::before{content:"";position:absolute;left:50%;top:-26px;transform:translateX(-50%);
+  width:min(940px,95vw);height:330px;z-index:-1;pointer-events:none;
+  background:radial-gradient(closest-side,rgba(229,50,47,.19),transparent 72%)}
+.kana{color:#ff5a57;letter-spacing:.42em;font-size:11.3px;opacity:1}
+.hero h1{font-family:inherit;font-weight:600;font-size:clamp(31px,4.1vw,54px);line-height:1.08;
+  letter-spacing:-.03em;color:#f5f5f8;text-shadow:none}
+.hero h1 em{font-style:normal;color:#ff4d4a;text-shadow:none}
+/* bayang teks cerah dari tema asal dibuang (latar kini gelap) */
+.hero *,.kana,.jepun,.turun,.kepala *,.kaki,.pita,.chip{text-shadow:none}
+.hero .sub{max-width:600px;font-size:15.8px;line-height:1.7;color:#c0c0c9;text-shadow:none}
+.jepun{color:#a3a3ad;letter-spacing:.2em}
+.turun{color:#8a8a92}
+.turun svg path{stroke:#ff6b62 !important}
+
+/* --- tajuk seksyen --- */
+h2{color:#f1f1f4;font-size:19px;font-weight:600;letter-spacing:-.014em;
+  border-bottom:1px solid rgba(255,255,255,.07)}
+h2::after{background:linear-gradient(90deg,var(--acc),rgba(229,50,47,0))}
+h2 small{color:#a3a3ad}
+code,h2 small code{background:#1d1d21;border:1px solid rgba(255,255,255,.10);color:#e4e4ea}
+
+/* --- permukaan kad: gelap, rata, bernafas --- */
+.panel,.kotak,.rb,.mmk{
+  background:linear-gradient(180deg,#1c1c21,#161619);
+  border:1px solid rgba(255,255,255,.10);
+  border-radius:16px;
+  box-shadow:0 26px 64px -34px rgba(0,0,0,.95);
+  backdrop-filter:none}
+.kotak:hover{border-color:rgba(229,50,47,.38);transform:none}
+.panel{position:relative}
+.panel::before{content:"";position:absolute;left:18px;right:18px;top:-1px;height:1px;
+  background:linear-gradient(90deg,rgba(229,50,47,.55),rgba(229,50,47,0))}
+.baris{border-bottom:1px solid rgba(255,255,255,.06);color:#e2e2e9}
+.baris:hover{background:rgba(255,255,255,.035)}
+.angka{color:#f2f2f5}
+.angka b,.isikad b{color:#fff}
+.nama,.tajuk{color:#e7e7eb}
+.meta,.kepala,.ms,.sep{color:#a0a0aa}
+.cawan,.kucing{opacity:.9}
+.kepala h3,.kepala b{color:#ececf0}
+
+/* --- pil / cip status --- */
+.pil{background:#1b1b1f;border-color:rgba(255,255,255,.09);color:#a8a8b0}
+.pil.ok{color:#7ff0c4;background:rgba(52,211,153,.12);border-color:rgba(52,211,153,.3)}
+.pil.bad{color:#ff928f;background:rgba(242,112,109,.12);border-color:rgba(242,112,109,.32)}
+.pil.acc{color:#ffb4b1;background:rgba(229,50,47,.14);border-color:rgba(229,50,47,.34)}
+.pil.blue{color:#9dc8fb;background:rgba(99,169,248,.12);border-color:rgba(99,169,248,.3)}
+.cip2{color:#fff}
+.cip2.acc{background:rgba(229,50,47,.16);color:#ffb4b1}
+.cip2.bad{background:rgba(242,112,109,.15);color:#ff928f}
+.cip2.ok{background:rgba(52,211,153,.14);color:#7ff0c4}
+.cip2.blue{background:rgba(99,169,248,.14);color:#9dc8fb}
+
+/* --- tolok, carta, penunjuk --- */
+.trel{background:rgba(255,255,255,.08)}
+.tggi{background:linear-gradient(180deg,#ff6f66,rgba(180,35,31,.55))}
+.dot{background:var(--acc);box-shadow:0 0 0 4px rgba(229,50,47,.18)}
+.sbar{background:#141416;border:1px solid rgba(255,255,255,.07)}
+.sbar:hover{background:#1b1b1f;border-color:rgba(229,50,47,.3)}
+.mmk .cincin circle{stroke:#2a2a2f}
+.mmk .cincin circle:last-child{stroke:var(--acc)}
+.mmk{background:linear-gradient(180deg,#1b1b20,#161619)}
+
+/* --- input & penapis --- */
+input[type=search]{background:#141416;border:1px solid rgba(255,255,255,.08);color:var(--fg);box-shadow:none}
+input[type=search]::placeholder{color:#6f6f77}
+input[type=search]:focus{border-color:rgba(229,50,47,.5);box-shadow:0 0 0 3px rgba(229,50,47,.12)}
+.cip button{background:#161619;border:1px solid rgba(255,255,255,.08);color:#a4a4ac}
+.cip button.on{background:rgba(229,50,47,.16);border-color:rgba(229,50,47,.4);color:#ffb4b1}
+
+/* --- pautan, kaki, tatal bar --- */
+a{color:#ff6b62}
+.kaki{color:#7b7b83;border-top:1px solid rgba(255,255,255,.06)}
+.inv::-webkit-scrollbar{width:10px;height:10px}
+.inv::-webkit-scrollbar-thumb{background:#2a2a2f;border-radius:8px}
+.inv::-webkit-scrollbar-track{background:transparent}
+::selection{background:rgba(229,50,47,.35)}
+</style>
 </head>
 <body>
 
@@ -494,8 +673,6 @@ input[type=search]:focus{border-color:rgba(224,118,47,.6);background:#fff}
 </svg>
 
 <!-- ==================== LANGIT: awan, matahari, burung, kelopak (canvas) ==================== -->
-<canvas id="langit" aria-hidden="true"></canvas>
-<canvas id="serbuk" aria-hidden="true"></canvas>
 <div class="sinar" aria-hidden="true"></div>
 
 <!-- ==================== DEK KAYU + DAUN HADAPAN (paralaks kuat) ==================== -->
@@ -618,12 +795,105 @@ input[type=search]:focus{border-color:rgba(224,118,47,.6);background:#fff}
 <div class="pita"><div id="pitaisi"></div></div>
 
 <div class="kabut" aria-hidden="true"></div>
+
+<!-- Hiasan statik (tiada gerakan): matahari senja + sinar, awan, burung, dedaun & bunga latar depan -->
+<svg id="hiasan" aria-hidden="true" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <radialGradient id="hMatahari" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#fffdf2"/>
+      <stop offset="20%" stop-color="#ffeab8"/>
+      <stop offset="52%" stop-color="#ffca7c" stop-opacity=".46"/>
+      <stop offset="100%" stop-color="#ffb066" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="hAwanAtas" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity=".98"/>
+      <stop offset="100%" stop-color="#ffe8d2" stop-opacity=".80"/>
+    </linearGradient>
+    <linearGradient id="hAwanBawah" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#d3e5f4"/><stop offset="100%" stop-color="#b7d3ea" stop-opacity=".45"/>
+    </linearGradient>
+    <linearGradient id="hKabutUfuk" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffeccd" stop-opacity="0"/>
+      <stop offset="55%" stop-color="#ffe4bd" stop-opacity=".42"/>
+      <stop offset="100%" stop-color="#ffeccd" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="hDaunDepan" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#3d7c4c"/><stop offset="100%" stop-color="#1b3b28"/>
+    </linearGradient>
+  </defs>
+
+  <circle cx="452" cy="356" r="300" fill="url(#hMatahari)" opacity=".95"/>
+  <circle cx="452" cy="356" r="120" fill="url(#hMatahari)"/>
+  <g opacity=".13" fill="#ffeec4">
+    <path d="M452 360 L-80 6 L176 -34 Z"/>
+    <path d="M452 360 L372 -44 L628 -34 Z"/>
+    <path d="M452 360 L1168 -34 L1436 26 Z"/>
+    <path d="M452 360 L1600 104 L1600 296 Z"/>
+  </g>
+  <circle cx="452" cy="360" r="31" fill="#fffaea"/>
+  <circle cx="452" cy="360" r="31" fill="none" stroke="#fff6d2" stroke-width="2" opacity=".75"/>
+
+  <g fill="url(#hAwanAtas)">
+    <g transform="translate(1152,148)"><ellipse rx="104" ry="34"/><ellipse cx="-72" cy="14" rx="58" ry="24"/><ellipse cx="76" cy="12" rx="64" ry="26"/><ellipse cx="-8" cy="-24" rx="66" ry="32"/></g>
+    <g transform="translate(762,106)" opacity=".86"><ellipse rx="76" ry="26"/><ellipse cx="-54" cy="10" rx="42" ry="19"/><ellipse cx="56" cy="9" rx="46" ry="20"/></g>
+    <g transform="translate(286,212)" opacity=".9"><ellipse rx="92" ry="30"/><ellipse cx="-64" cy="12" rx="50" ry="21"/><ellipse cx="70" cy="10" rx="54" ry="22"/></g>
+    <g transform="translate(1466,296)" opacity=".74"><ellipse rx="70" ry="22"/><ellipse cx="-48" cy="9" rx="38" ry="16"/><ellipse cx="50" cy="8" rx="42" ry="17"/></g>
+    <g transform="translate(138,94)" opacity=".68"><ellipse rx="62" ry="20"/><ellipse cx="44" cy="8" rx="36" ry="15"/></g>
+  </g>
+  <g fill="url(#hAwanBawah)" opacity=".48">
+    <g transform="translate(1152,176)"><ellipse rx="112" ry="12"/></g>
+    <g transform="translate(286,238)"><ellipse rx="96" ry="11"/></g>
+    <g transform="translate(762,128)"><ellipse rx="80" ry="9"/></g>
+  </g>
+
+  <g fill="none" stroke="#3a5570" stroke-width="2.6" stroke-linecap="round" opacity=".7">
+    <path d="M966 184 q13 -15 25 -1 q12 -14 24 1"/>
+    <path d="M1040 152 q11 -13 21 -1 q10 -12 20 1"/>
+    <path d="M1102 198 q9 -11 17 -1 q8 -10 16 1"/>
+  </g>
+
+  <!-- kabut hangat di ufuk: menyatukan gunung dengan tasik -->
+  <rect x="0" y="392" width="1600" height="118" fill="url(#hKabutUfuk)"/>
+  <!-- kilau tasik statik (garis cahaya mendatar) -->
+  <g fill="#fff6e2" opacity=".3">
+    <rect x="316" y="586" width="248" height="3" rx="1.5"/>
+    <rect x="676" y="620" width="330" height="3.4" rx="1.7"/>
+    <rect x="1044" y="592" width="212" height="3" rx="1.5"/>
+    <rect x="470" y="664" width="196" height="3" rx="1.5"/>
+    <rect x="880" y="686" width="268" height="3.4" rx="1.7"/>
+    <rect x="1240" y="650" width="150" height="2.8" rx="1.4"/>
+  </g>
+  <g fill="#ffd79a" opacity=".22">
+    <rect x="388" y="600" width="132" height="2.6" rx="1.3"/>
+    <rect x="962" y="640" width="186" height="2.6" rx="1.3"/>
+    <rect x="1290" y="612" width="112" height="2.4" rx="1.2"/>
+  </g>
+  <g fill="url(#hDaunDepan)" opacity=".97">
+    <path d="M0 900 L0 672 q44 -8 64 26 q26 -34 58 -6 q22 -30 50 -2 q30 -22 48 12 q26 -8 40 18 L302 900 Z"/>
+    <path d="M0 900 L0 790 q34 -12 54 14 q28 -16 48 10 q22 -10 36 14 L172 900 Z" opacity=".92"/>
+  </g>
+  <g>
+    <path d="M96 764 q10 -34 6 -58" stroke="#2f6438" stroke-width="3" fill="none"/>
+    <path d="M150 778 q-6 -30 4 -52" stroke="#2f6438" stroke-width="3" fill="none"/>
+    <path d="M198 744 q8 -28 2 -48" stroke="#2f6438" stroke-width="3" fill="none"/>
+    <g fill="#ffd0e2"><circle cx="102" cy="700" r="9"/><circle cx="88" cy="712" r="7"/><circle cx="116" cy="712" r="7"/><circle cx="102" cy="724" r="7"/></g>
+    <circle cx="102" cy="712" r="5" fill="#ffe08a"/>
+    <g fill="#fff2c8"><circle cx="154" cy="722" r="8"/><circle cx="142" cy="734" r="6"/><circle cx="166" cy="734" r="6"/></g>
+    <circle cx="154" cy="733" r="4.4" fill="#ffb85c"/>
+    <g fill="#ffc2d8"><circle cx="200" cy="694" r="7"/><circle cx="190" cy="704" r="5.4"/><circle cx="210" cy="704" r="5.4"/></g>
+    <circle cx="200" cy="703" r="4" fill="#ffe08a"/>
+  </g>
+  <g stroke="#356b3f" stroke-width="2.6" fill="none" opacity=".78" stroke-linecap="round">
+    <path d="M392 900 q6 -30 -4 -46"/><path d="M406 900 q2 -26 10 -40"/><path d="M420 900 q8 -24 2 -38"/>
+  </g>
+</svg>
+
 <main>
   <section class="hero">
-    <p class="kana">Living landscape dashboard</p>
-    <h1>Pemandangan yang <em>hidup</em>,<br>angka yang benar</h1>
-    <p class="sub">Setiap awan, daun dan riak di halaman ini bergerak — sama seperti data di belakangnya.
-      Token, kuota dan kesihatan model bot Quasar, dipapar dalam satu dunia anime yang bernafas.</p>
+    <p class="kana">Anime landscape dashboard</p>
+    <h1>Pemandangan yang <em>tenang</em>,<br>angka yang benar</h1>
+    <p class="sub">Gunung, tasik dan kampung senja dalam satu poster anime yang tenang —
+      dan di atasnya, token, kuota serta kesihatan sebenar setiap model dalam bot Quasar.</p>
     <p class="jepun">&#23665; · &#28246; · &#31354; · &#20809; — gunung · tasik · langit · cahaya</p>
     <div class="turun">
       <span>tatal ke bawah</span>
@@ -1078,225 +1348,6 @@ setInterval(() => {
 }, 1000);
 </script>
 
-<script>
-/* ==========================================================================
-   ENJIN PEMANDANGAN HIDUP — awan hanyut, matahari senja, burung, kelopak,
-   daun gugur, habuk cahaya, riak tasik, paralaks. Canvas + transform CSS.
-   Tiada CDN, tiada kebergantungan luar.
-   ========================================================================== */
-(function pemandangan(){
-  const cv = document.getElementById('langit');
-  const cx = cv.getContext('2d');
-  const cv2 = document.getElementById('serbuk');
-  const cx2 = cv2 ? cv2.getContext('2d') : null;
-  const kurang = matchMedia('(prefers-reduced-motion: reduce)');
-  const wayang = document.getElementById('pemandangan');
-  const depan = document.getElementById('hutan-depan');
-  const chan = document.getElementById('quasarkun');
-  let W = 0, H = 0, DPR = 1, horizonY = 0, mataX = 0, mataY = 0, t = 0, jalan = true;
 
-  const awan = [], burung = [], kelopak = [], habuk = [], riak = [];
-  const kecil = () => W < 720;
-
-  function ukur(){
-    DPR = Math.min(window.devicePixelRatio || 1, 2);
-    W = window.innerWidth; H = window.innerHeight;
-    cv.width = Math.floor(W * DPR); cv.height = Math.floor(H * DPR);
-    cv.style.width = W + 'px'; cv.style.height = H + 'px';
-    cx.setTransform(DPR, 0, 0, DPR, 0, 0);
-    if (cv2 && cx2){ cv2.width = cv.width; cv2.height = cv.height;
-      cv2.style.width = W + 'px'; cv2.style.height = H + 'px';
-      cx2.setTransform(DPR, 0, 0, DPR, 0, 0); }
-    /* peta y=470 (ufuk dalam SVG 1600x900, slice) ke skrin sebenar */
-    const skala = Math.max(W / 1600, H / 900);
-    horizonY = (H - 900 * skala) / 2 + 470 * skala;
-    mataX = W * 0.30; mataY = horizonY - H * 0.03;
-    bina();
-  }
-
-  function bina(){
-    awan.length = 0; burung.length = 0; kelopak.length = 0; habuk.length = 0; riak.length = 0;
-    for (let i = 0; i < (kecil() ? 4 : 8); i++){
-      const s = 0.5 + Math.random() * 0.9;
-      awan.push({x:Math.random() * W, y:horizonY * (0.10 + Math.random() * 0.72),
-                 s, v:-(6 + Math.random() * 16) * s, a:.55 + Math.random() * .4,
-                 jauh:Math.random() < .45});
-    }
-    for (let i = 0; i < (kecil() ? 2 : 4); i++){
-      const arah = Math.random() < .5 ? 1 : -1, n = 3 + Math.floor(Math.random() * 3);
-      const kwn = {x:arah > 0 ? -140 - Math.random() * 500 : W + 140 + Math.random() * 500,
-                   y:horizonY * (0.16 + Math.random() * 0.5), vx:arah * (26 + Math.random() * 30),
-                   vy:(Math.random() - .5) * 6, ahli:[]};
-      for (let j = 0; j < n; j++)
-        kwn.ahli.push({ox:j * (22 + Math.random() * 10) * -arah, oy:(Math.random() - .5) * 26,
-                       fasa:Math.random() * 6.28, saiz:5 + Math.random() * 4});
-      burung.push(kwn);
-    }
-    const warnaKelopak = ['#ffc9dd','#ffe7f0','#fff3c4','#ffd08a','#8fd072'];
-    for (let i = 0; i < (kecil() ? 18 : 44); i++){
-      kelopak.push({x:Math.random() * W, y:Math.random() * H,
-                    vx:-(10 + Math.random() * 22), vy:12 + Math.random() * 22,
-                    rot:Math.random() * 6.28, vr:(Math.random() - .5) * 2.4,
-                    s:4 + Math.random() * 6, ayun:Math.random() * 6.28,
-                    warna:warnaKelopak[Math.floor(Math.random() * warnaKelopak.length)]});
-    }
-    for (let i = 0; i < (kecil() ? 12 : 26); i++){
-      habuk.push({x:Math.random() * W, y:horizonY * (0.25 + Math.random() * 0.9),
-                  r:.6 + Math.random() * 1.7, vx:(Math.random() - .5) * 9, vy:-(3 + Math.random() * 9),
-                  fasa:Math.random() * 6.28, a:.25 + Math.random() * .45});
-    }
-    for (let i = 0; i < (kecil() ? 8 : 18); i++){
-      riak.push({x:Math.random() * W, y:horizonY + 18 + Math.random() * (H - horizonY) * .5,
-                 r:2 + Math.random() * 7, fasa:Math.random() * 6.28, v:1.4 + Math.random() * 1.6});
-    }
-  }
-
-  function klusterAwan(a){
-    const s = 26 * a.s;
-    cx.save(); cx.globalAlpha = a.a * (a.jauh ? .72 : 1); cx.fillStyle = '#ffffff';
-    /* d[2] MESTI faktor unit (0-1); kalau darab s di sini jejari jadi s² (awan gergasi). */
-    const el = [[0,0,1],[-s*1.1,s*.22,.86],[s*1.15,s*.2,.9],[-s*.5,-s*.42,.7],[s*.6,-s*.36,.64]];
-    for (const d of el){
-      cx.beginPath(); cx.ellipse(a.x + d[0], a.y + d[1], s * d[2] * 1.5, s * d[2] * .82, 0, 0, 6.283);
-      cx.fill();
-    }
-    cx.globalAlpha = a.a * (a.jauh ? .3 : .5); cx.fillStyle = '#a3c1e8';
-    cx.beginPath(); cx.ellipse(a.x, a.y + s * .5, s * 2.1, s * .42, 0, 0, 6.283); cx.fill();
-    cx.restore();
-  }
-
-  function burungSatu(x, y, s, fasa){
-    const kepak = Math.sin(fasa) * 0.9;
-    cx.beginPath();
-    cx.moveTo(x - s, y - kepak * s * .5);
-    cx.quadraticCurveTo(x - s * .45, y - s * .42 + kepak * s * .3, x, y);
-    cx.quadraticCurveTo(x + s * .45, y - s * .42 + kepak * s * .3, x + s, y - kepak * s * .5);
-    cx.stroke();
-  }
-
-  function matahari(){
-    const nafas = 1 + Math.sin(t * 0.00042) * 0.035, R = Math.min(W, H) * 0.56 * nafas;
-    const g = cx.createRadialGradient(mataX, mataY, 0, mataX, mataY, R);
-    g.addColorStop(0, 'rgba(255,247,222,.62)');
-    g.addColorStop(.18, 'rgba(255,232,182,.30)');
-    g.addColorStop(.45, 'rgba(255,214,150,.13)');
-    g.addColorStop(1, 'rgba(255,206,140,0)');
-    cx.fillStyle = g;
-    cx.beginPath(); cx.arc(mataX, mataY, R, 0, 6.283); cx.fill();
-    cx.fillStyle = 'rgba(255,252,236,.85)';
-    cx.beginPath(); cx.arc(mataX, mataY, Math.min(W, H) * 0.045, 0, 6.283); cx.fill();
-  }
-
-  function riakTasik(dt){
-    cx.strokeStyle = 'rgba(255,250,235,.5)'; cx.lineWidth = 1.4;
-    for (const r of riak){
-      r.fasa += dt * r.v;
-      const k = (Math.sin(r.fasa) + 1) / 2;
-      cx.globalAlpha = 0.10 + k * 0.5;
-      cx.beginPath(); cx.ellipse(r.x, r.y, r.r * (1 + k * 2.6), r.r * .34, 0, 0, 6.283); cx.stroke();
-    }
-    cx.globalAlpha = 1;
-  }
-
-  function rangka(dt){
-    cx.clearRect(0, 0, W, H);
-    if (cx2) cx2.clearRect(0, 0, W, H);
-    cx.strokeStyle = 'rgba(45,66,86,.62)'; cx.lineWidth = 2.1; cx.lineCap = 'round';
-    for (const k of burung){
-      k.x += k.vx * dt; k.y += k.vy * dt;
-      for (const b of k.ahli){ b.fasa += dt * 7.4; burungSatu(k.x + b.ox, k.y + b.oy, b.saiz, b.fasa); }
-    }
-    cx.strokeStyle = 'rgba(255,255,255,.9)';
-    for (const a of awan){
-      a.x += a.v * dt;
-      if (a.x < -260 * a.s) a.x = W + 260 * a.s;
-      if (a.x > W + 260 * a.s) a.x = -260 * a.s;
-      klusterAwan(a);
-    }
-    matahari();
-    riakTasik(dt);
-    if (cx2){
-      for (const p of kelopak){
-        p.ayun += dt * 1.7;
-        p.x += (p.vx + Math.sin(p.ayun) * 13) * dt;
-        p.y += p.vy * dt; p.rot += p.vr * dt;
-        if (p.y > H + 30 || p.x < -40){ p.y = -30; p.x = Math.random() * W; }
-        cx2.save(); cx2.translate(p.x, p.y); cx2.rotate(p.rot);
-        cx2.globalAlpha = .9; cx2.fillStyle = p.warna;
-        cx2.beginPath(); cx2.ellipse(0, 0, p.s, p.s * .58, 0, 0, 6.283); cx2.fill();
-        cx2.globalAlpha = .22; cx2.strokeStyle = 'rgba(255,255,255,.8)'; cx2.lineWidth = .8;
-        cx2.stroke();
-        cx2.restore();
-      }
-    }
-    if (cx2){
-      for (const h of habuk){
-        h.fasa += dt * .9; h.x += h.vx * dt; h.y += h.vy * dt;
-        if (h.y < horizonY * .1){ h.y = H * .8; h.x = Math.random() * W; }
-        cx2.globalAlpha = h.a * (.55 + Math.sin(h.fasa) * .45);
-        cx2.fillStyle = '#fff1cd';
-        cx2.beginPath(); cx2.arc(h.x, h.y, h.r, 0, 6.283); cx2.fill();
-      }
-      cx2.globalAlpha = 1;
-    }
-    cx.globalAlpha = 1;
-  }
-
-  /* ---------- paralaks: skrol + tetikus ---------- */
-  let tikusX = 0, tikusY = 0, skrol = 0, perlu = false;
-  /* Offset skrol DIBATASI (24px/16px) supaya lapisan tidak pernah terkeluar —
-     skala 1.10 memberi margin ~45px menegak pada 900px tinggi. */
-  function susun(){
-    perlu = false;
-    const s1 = Math.min(skrol * 0.02, 24), s2 = Math.min(skrol * 0.014, 16);
-    if (wayang) wayang.style.transform = `translate3d(${(-tikusX * 8).toFixed(2)}px,`
-      + `${(s1 - tikusY * 4).toFixed(2)}px,0) scale(1.10)`;
-    if (depan) depan.style.transform = `translate3d(${(tikusX * 14).toFixed(2)}px,`
-      + `${(-s2 + tikusY * 6).toFixed(2)}px,0) scale(1.12)`;
-    if (chan) chan.style.marginBottom = `${(-Math.min(skrol * 0.02, 26)).toFixed(2)}px`;
-    if (cv) cv.style.transform = `translate3d(${(-tikusX * 4).toFixed(2)}px,`
-      + `${Math.min(skrol * 0.01, 12).toFixed(2)}px,0)`;
-  }
-  function minta(){ if (!perlu){ perlu = true; requestAnimationFrame(susun); } }
-
-  if (!kurang.matches){
-    addEventListener('scroll', () => { skrol = window.scrollY || 0; minta(); }, {passive:true});
-    addEventListener('mousemove', e => {
-      tikusX = (e.clientX / W - .5) * 2; tikusY = (e.clientY / H - .5) * 2; minta();
-    }, {passive:true});
-  }
-
-  /* ---------- gelung utama ---------- */
-  let lepas = performance.now();
-  function gelung(kini){
-    if (!jalan) return;
-    const dt = Math.min((kini - lepas) / 1000, .05); lepas = kini; t = kini;
-    if (!document.hidden) rangka(dt);
-    requestAnimationFrame(gelung);
-  }
-  document.addEventListener('visibilitychange', () => { lepas = performance.now(); });
-
-  let tunda;
-  addEventListener('resize', () => {
-    clearTimeout(tunda);
-    tunda = setTimeout(() => { ukur(); rangka(0); }, 180);
-  });
-
-  ukur();
-  rangka(0);
-  if (kurang.matches){ jalan = false; } else requestAnimationFrame(gelung);
-
-  /* ---------- kemunculan seksyen ---------- */
-  if (!kurang.matches && 'IntersectionObserver' in window){
-    const sasaran = document.querySelectorAll('main > h2, main > .kad, main > .grid2, main > .panel, main > .kaki');
-    const pemantau = new IntersectionObserver((masuk) => {
-      for (const m of masuk) if (m.isIntersecting){
-        m.target.classList.add('muncul'); pemantau.unobserve(m.target);
-      }
-    }, {rootMargin:'0px 0px -12% 0px', threshold:.06});
-    sasaran.forEach(el => { el.classList.add('boleh-muncul'); pemantau.observe(el); });
-  }
-})();
-</script>
 </body>
 </html>
