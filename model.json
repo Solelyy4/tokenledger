@@ -1,5 +1,5 @@
 {
- "masa": "2026-11-19T02:39:02",
+ "masa": "2026-11-19T05:57:40",
  "keterangan": "Ujian panggilan sebenar ke gateway 9router (max_tokens kecil, 1-2 pusingan).",
  "bilangan": {
   "jumlah": 25,
@@ -136,20 +136,11 @@
   {
    "model": "mmf/mimo-auto",
    "lulus": false,
-   "median": 0.28,
+   "median": 0.25,
    "status": "502",
    "kelas": "GAGAL",
    "jawapan": "",
    "sebab": "[502]: MiMo bootstrap failed: 404"
-  },
-  {
-   "model": "oc/union-alpha",
-   "lulus": false,
-   "median": 0.29,
-   "status": "400",
-   "kelas": "GAGAL",
-   "jawapan": "",
-   "sebab": "[400]: {\"type\":\"error\",\"error\":{\"type\":\"api_error\",\"message\":\"Upstream request failed: Model is unavailable.\"}}"
   },
   {
    "model": "oc/muse-spark-1.3-contributor-free",
@@ -159,6 +150,15 @@
    "kelas": "GAGAL",
    "jawapan": "",
    "sebab": "[400]: {\"error\":{\"type\":\"server_error\",\"message\":\"Upstream request failed: Model is unavailable.\"}}"
+  },
+  {
+   "model": "oc/union-alpha",
+   "lulus": false,
+   "median": 0.33,
+   "status": "400",
+   "kelas": "GAGAL",
+   "jawapan": "",
+   "sebab": "[400]: {\"type\":\"error\",\"error\":{\"type\":\"api_error\",\"message\":\"Upstream request failed: Model is unavailable.\"}}"
   },
   {
    "model": "oc/muse-spark-1.2-contributor-free",
@@ -179,22 +179,31 @@
    "sebab": "[kilo-gateway/nvidia/nemotron-3-super-120b-a12b:free] [404]: {\"error\":\"The requested model 'nvidia/nemotron-3-super-120b"
   },
   {
+   "model": "oc/jev-1.13-free",
+   "lulus": false,
+   "median": 0.54,
+   "status": "400",
+   "kelas": "GAGAL",
+   "jawapan": "",
+   "sebab": "[400]: {\"type\":\"error\",\"error\":{\"type\":\"ModelProtocolUnsupported\",\"message\":\"Model does not support this protocol.\"}}"
+  },
+  {
    "model": "kgw/kwaipilot/kat-coder-pro-v2.5:free",
    "lulus": false,
-   "median": 0.48,
+   "median": 0.63,
    "status": "503",
    "kelas": "GAGAL",
    "jawapan": "",
    "sebab": "[kilo-gateway/kwaipilot/kat-coder-pro-v2.5:free] [404]: {\"error\":\"The requested model 'kwaipilot/kat-coder-pro-v2.5:free' does not exist. Please use a"
   },
   {
-   "model": "oc/jev-1.13-free",
+   "model": "mistral/mistral-medium-latest",
    "lulus": false,
-   "median": 0.6,
-   "status": "400",
+   "median": 1.07,
+   "status": "503",
    "kelas": "GAGAL",
    "jawapan": "",
-   "sebab": "[400]: {\"type\":\"error\",\"error\":{\"type\":\"ModelProtocolUnsupported\",\"message\":\"Model does not support this protocol.\"}}"
+   "sebab": "[mistral/mistral-medium-latest] [429]: {\"object\":\"error\",\"message\":\"Rate limit exceeded\",\"type\":\"rate_limited\",\"param\":null,\"code\":\"1300\",\"raw_status_"
   },
   {
    "model": "kgw/kilo-auto/frontier",
@@ -215,18 +224,9 @@
    "sebab": "[kilo-gateway/kilo-auto/balanced] [401]: {\"error\":{\"code\":\"PAID_MODEL_AUTH_REQUIRED\",\"message\":\"You need to sign in to u"
   },
   {
-   "model": "mistral/mistral-medium-latest",
-   "lulus": false,
-   "median": 12.06,
-   "status": "503",
-   "kelas": "GAGAL",
-   "jawapan": "",
-   "sebab": "[mistral/mistral-medium-latest] [429]: {\"object\":\"error\",\"message\":\"Rate limit exceeded\",\"type\":\"rate_limited\",\"param\":null,\"code\":\"1300\",\"raw_status_"
-  },
-  {
    "model": "mistral/mistral-large-latest",
    "lulus": false,
-   "median": 109.96,
+   "median": 47.68,
    "status": "503",
    "kelas": "GAGAL",
    "jawapan": "",
