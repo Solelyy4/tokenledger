@@ -42,6 +42,8 @@ def main() -> int:
     # kad penyedia: buang Mistral/OpenCode/Keyless, tinggal MiniMax
     modal["penyedia"] = [p for p in (modal.get("penyedia") or [])
                          if "minimax" in (str(p.get("kunci", "")) + str(p.get("penyedia", ""))).lower()]
+    for p in modal["penyedia"]:
+        p["model"] = sum(1 for m in (d.get("model") or []))  # sejajar dengan kad ringkasan
     modal["baki_mistral"] = {"baki_tok_min": 0, "had_tok_min": 0, "baki_req_min": 0,
                              "had_req_min": 0, "akaun": 0, "sihat": 0}
     d["modal"] = modal
