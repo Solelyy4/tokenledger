@@ -1,0 +1,674 @@
+<!doctype html>
+<html lang="ms">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Quasar Pulse — token & kuota semua model bot</title>
+<meta name="description" content="Papan langsung token, kuota dan kesihatan model untuk bot Quasar.">
+<style>
+/* Token warna: bg #0f0f0f · panel #171717 · garis #2a2a2a · teks #e8e8e8 · malap #888
+   aksen amber #f59e0b · dalam #b45309 · hijau #3fb950 · biru #58a6ff */
+:root{
+  --bg:#0d0d0f; --panel:#171717; --panel2:#1c1c1c; --line:#2a2a2a;
+  --fg:#e8e8e8; --dim:#8b8b8b; --dim2:#6f6f6f;
+  --acc:#f59e0b; --deep:#b45309; --ink:#1a1204;
+  --ok:#3fb950; --bad:#f85149; --blue:#58a6ff; --pink:#ff7ab6;
+  --r:16px;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--fg);
+  font:15px/1.5 "Inter Variable",Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;
+  -webkit-font-smoothing:antialiased}
+body{overflow-x:hidden}
+
+/* ================= LATAR KARTUN ================= */
+.langit{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.bintang{position:absolute;border-radius:50%;background:#fff;opacity:.6;
+  animation:kelip 3s ease-in-out infinite}
+@keyframes kelip{0%,100%{opacity:.15;transform:scale(.7)}50%{opacity:.9;transform:scale(1.15)}}
+.nebula{position:absolute;border-radius:50%;filter:blur(72px);opacity:.15;
+  background:radial-gradient(circle at 30% 30%,var(--acc),transparent 65%);
+  animation:drift 26s ease-in-out infinite}
+.nebula.b{bottom:-170px;right:-110px;animation-duration:36s;animation-delay:-9s;
+  background:radial-gradient(circle at 60% 40%,var(--deep),transparent 65%)}
+.nebula.c{top:36%;left:-150px;opacity:.10;animation-duration:44s;
+  background:radial-gradient(circle at 50% 50%,var(--blue),transparent 68%)}
+@keyframes drift{0%,100%{transform:translate3d(0,0,0) scale(1)}
+  33%{transform:translate3d(58px,42px,0) scale(1.09)}
+  66%{transform:translate3d(-42px,28px,0) scale(.94)}}
+/* bulan bermuka */
+.bulan{position:absolute;top:74px;right:6vw;width:86px;height:86px;opacity:.9;
+  animation:bulan-apung 9s ease-in-out infinite}
+@keyframes bulan-apung{0%,100%{transform:translateY(0) rotate(-3deg)}
+  50%{transform:translateY(-14px) rotate(3deg)}}
+/* komet melintas */
+.komet{position:absolute;top:12%;left:-20%;width:3px;height:3px;border-radius:50%;
+  background:#fff;box-shadow:0 0 12px 3px rgba(255,255,255,.75);
+  animation:komet-jalan 9s linear infinite}
+.komet::after{content:"";position:absolute;top:1px;right:2px;width:130px;height:1.5px;
+  background:linear-gradient(90deg,rgba(255,255,255,.9),transparent);transform:rotate(180deg)}
+.komet.k2{top:34%;animation-duration:13s;animation-delay:4.5s}
+.komet.k3{top:6%;animation-duration:16s;animation-delay:8s;opacity:.75}
+@keyframes komet-jalan{0%{transform:translate3d(0,0,0)}
+  8%{transform:translate3d(70vw,26vh,0)}100%{transform:translate3d(70vw,26vh,0)}}
+
+/* ================= MASKOT ================= */
+.maskot{position:fixed;z-index:3;pointer-events:none}
+/* Quasar-kun duduk di penjuru bawah kiri */
+#quasarkun{left:18px;bottom:14px;width:118px;height:118px;
+  animation:apung 5.2s ease-in-out infinite}
+@keyframes apung{0%,100%{transform:translateY(0) rotate(-1.5deg)}
+  50%{transform:translateY(-13px) rotate(1.5deg)}}
+#quasarkun .mata{animation:kelip-mata 5.4s infinite}
+@keyframes kelip-mata{0%,92%,100%{transform:scaleY(1)}95%{transform:scaleY(.08)}}
+#quasarkun .ekor{transform-origin:78% 88%;animation:goyang-ekor 1.6s ease-in-out infinite}
+@keyframes goyang-ekor{0%,100%{transform:rotate(-13deg)}50%{transform:rotate(15deg)}}
+#quasarkun.lompat{animation:lompat .7s cubic-bezier(.3,1.6,.4,1)}
+@keyframes lompat{0%{transform:translateY(0) scale(1)}
+  35%{transform:translateY(-42px) scale(1.09) rotate(-6deg)}
+  100%{transform:translateY(0) scale(1)}}
+/* bintang kecil melambai di penjuru bawah kanan */
+#bintangku{right:16px;bottom:12px;width:78px;height:78px;animation:apung 6.4s ease-in-out infinite}
+#bintangku .tangan{transform-origin:50% 20%;animation:lambai 1.9s ease-in-out infinite}
+@keyframes lambai{0%,100%{transform:rotate(6deg)}50%{transform:rotate(-24deg)}}
+/* kucing mengintai dari tepi kad */
+.intai{position:absolute;left:50%;bottom:-46px;width:74px;margin-left:-37px;opacity:0;
+  transition:bottom .35s ease,opacity .35s ease;pointer-events:none;z-index:2}
+.kotak:hover .intai{bottom:-6px;opacity:1}
+
+/* ================= tajuk ================= */
+header{position:sticky;top:0;z-index:6;backdrop-filter:blur(14px);
+  background:rgba(13,13,15,.84);border-bottom:1px solid var(--line)}
+.bar{max-width:1480px;margin:0 auto;display:flex;align-items:center;gap:14px;
+  padding:15px 26px;flex-wrap:wrap}
+.logo{display:flex;align-items:center;gap:11px;font-weight:640;letter-spacing:-.03em;font-size:17px}
+.dot{width:11px;height:11px;border-radius:50%;background:var(--acc);
+  box-shadow:0 0 0 4px rgba(245,158,11,.15);animation:denyut 2.1s ease-in-out infinite}
+@keyframes denyut{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(.7);opacity:.5}}
+.bar .sep{flex:1}
+.chip{border:1px solid var(--line);background:var(--panel);border-radius:999px;
+  padding:6px 13px;font-size:12.5px;color:var(--dim);display:inline-flex;gap:7px;align-items:center;
+  white-space:nowrap}
+.chip b{color:var(--fg);font-variant-numeric:tabular-nums}
+.chip.live{color:var(--acc);border-color:rgba(245,158,11,.35);background:rgba(245,158,11,.07)}
+.chip.snap{color:var(--blue);border-color:rgba(88,166,255,.35);background:rgba(88,166,255,.07)}
+
+/* ================= pita berjalan ================= */
+.pita{position:relative;z-index:1;border-bottom:1px solid var(--line);
+  background:linear-gradient(90deg,rgba(245,158,11,.06),transparent 40%);
+  overflow:hidden;white-space:nowrap}
+.pita>div{display:inline-block;padding:9px 0;animation:pita-jalan 48s linear infinite}
+.pita span{margin:0 22px;font-size:12.5px;color:var(--dim)}
+.pita span b{color:var(--fg);font-variant-numeric:tabular-nums}
+.pita i{color:var(--acc);font-style:normal}
+@keyframes pita-jalan{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+main{position:relative;z-index:1;max-width:1480px;margin:0 auto;padding:28px 26px 120px}
+
+/* ================= kad ================= */
+.kad{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(232px,1fr))}
+.kotak{position:relative;overflow:visible;background:var(--panel);border:1px solid var(--line);
+  border-radius:var(--r);padding:16px 18px;min-height:134px;
+  animation:tkx-in .55s cubic-bezier(.2,.7,.2,1) both}
+.kotak:nth-child(2){animation-delay:.06s}.kotak:nth-child(3){animation-delay:.12s}
+.kotak:nth-child(4){animation-delay:.18s}.kotak:nth-child(5){animation-delay:.24s}
+.kotak:nth-child(6){animation-delay:.30s}.kotak:nth-child(7){animation-delay:.36s}
+@keyframes tkx-in{from{opacity:0;transform:translateY(18px) scale(.98)}to{opacity:1;transform:none}}
+.kotak::after{content:"";position:absolute;inset:0;border-radius:var(--r);overflow:hidden;
+  pointer-events:none;
+  background:linear-gradient(105deg,transparent 35%,rgba(245,158,11,.10) 50%,transparent 65%);
+  transform:translateX(-130%)}
+.kotak:hover::after{animation:sapu .9s ease}
+@keyframes sapu{to{transform:translateX(130%)}}
+.kotak:hover{border-color:rgba(245,158,11,.34)}
+.kotak h4{margin:0;font-size:12px;text-transform:uppercase;letter-spacing:.13em;color:var(--dim);
+  font-weight:560}
+.isikad{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:6px 0 2px}
+.besar{flex:1 1 auto;min-width:0;font-size:clamp(21px, 1.5vw + 11px, 29px);font-weight:640;
+  letter-spacing:-.045em;font-variant-numeric:tabular-nums;line-height:1.15;white-space:nowrap}
+.besar i{font-style:normal;font-size:16px;color:var(--acc);margin-left:5px}
+.kecil{font-size:12.5px;color:var(--dim2)}
+.tolok{flex:0 0 auto;width:58px;height:58px;position:relative}
+.tolok svg{transform:rotate(-90deg);display:block}
+.tolok circle{fill:none;stroke-width:6;stroke-linecap:round}
+.tolok .trek{stroke:#242424}
+.tolok .nadi{stroke:var(--acc);animation:nadi 2.6s ease-in-out infinite alternate}
+@keyframes nadi{from{opacity:.6}to{opacity:1}}
+
+/* ================= seksyen ================= */
+h2{font-size:19px;font-weight:620;letter-spacing:-.03em;margin:36px 0 4px}
+h2 small{display:block;font-size:12.5px;color:var(--dim);font-weight:420;letter-spacing:0;margin-top:3px}
+.grid2{display:grid;gap:16px;grid-template-columns:1.35fr 1fr}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:6px 16px 14px;
+  animation:tkx-in .55s cubic-bezier(.2,.7,.2,1) both}
+.panel h3{margin:14px 0 12px;font-size:12px;text-transform:uppercase;letter-spacing:.12em;
+  color:var(--dim);font-weight:560}
+.baris{display:grid;grid-template-columns:minmax(150px,1.5fr) 74px 1fr 96px;gap:12px;align-items:center;
+  padding:9px 6px;border-bottom:1px solid #212121;font-size:13.5px}
+.baris:last-child{border-bottom:none}
+.baris:hover{background:var(--panel2)}
+.nama{display:flex;align-items:center;gap:9px;min-width:0}
+.nama b{font-weight:550;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pil{font-size:10.5px;padding:2px 8px;border-radius:999px;border:1px solid var(--line);color:var(--dim);
+  white-space:nowrap}
+.pil.acc{color:var(--acc);border-color:rgba(245,158,11,.35);background:rgba(245,158,11,.08)}
+.pil.ok{color:var(--ok);border-color:rgba(63,185,80,.3);background:rgba(63,185,80,.08)}
+.pil.bad{color:var(--bad);border-color:rgba(248,81,73,.3);background:rgba(248,81,73,.08)}
+.pil.blue{color:var(--blue);border-color:rgba(88,166,255,.3);background:rgba(88,166,255,.08)}
+.trel{height:7px;border-radius:999px;background:#242424;overflow:hidden;position:relative}
+.trel i{display:block;height:100%;border-radius:999px;
+  background:linear-gradient(90deg,var(--deep),var(--acc));
+  transition:width .9s cubic-bezier(.2,.8,.2,1)}
+.trel::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.16),transparent);
+  animation:kilau 2.4s linear infinite}
+@keyframes kilau{from{transform:translateX(-100%)}to{transform:translateX(100%)}}
+.angka{text-align:right;font-variant-numeric:tabular-nums;color:var(--fg)}
+.mm{display:grid;gap:11px;grid-template-columns:repeat(auto-fill,minmax(198px,1fr));
+  max-height:430px;overflow:auto;padding:2px}
+.mmk{background:var(--panel2);border:1px solid var(--line);border-radius:13px;padding:12px 13px;
+  position:relative;animation:tkx-in .45s ease both}
+.mmk:hover{border-color:rgba(245,158,11,.3);transform:translateY(-2px)}
+.mmk{transition:transform .2s ease,border-color .2s ease}
+.mmk .mail{font-size:12px;color:var(--fg);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mmk .meta{font-size:11px;color:var(--dim);margin-top:6px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.cincin{position:absolute;right:10px;top:10px;width:34px;height:34px}
+.cincin svg{transform:rotate(-90deg)}
+.cincin circle{fill:none;stroke-width:4;stroke-linecap:round}
+.ringkasbaki{display:grid;gap:11px;grid-template-columns:repeat(auto-fit,minmax(172px,1fr));margin:2px 0 14px}
+.rb{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:11px 13px}
+.rb span{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--dim)}
+.rb b{display:block;font-size:21px;font-weight:620;letter-spacing:-.035em;margin-top:4px;
+  font-variant-numeric:tabular-nums}
+.rb em{font-style:normal;font-size:12px;color:var(--acc)}
+.barbaki{height:5px;border-radius:999px;background:#242424;margin-top:9px;overflow:hidden}
+.barbaki i{display:block;height:100%;background:linear-gradient(90deg,var(--deep),var(--acc));
+  transition:width .9s cubic-bezier(.2,.8,.2,1)}
+.amar{display:flex;gap:11px;align-items:flex-start;padding:10px 6px;border-bottom:1px solid #212121;
+  font-size:13px}
+.amar:last-child{border-bottom:none}
+.amar .isi{min-width:0;flex:1}
+.amar .tajuk{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.trend{display:flex;align-items:flex-end;gap:12px;height:170px;padding:8px 4px 0}
+.tbatang{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:7px;
+  height:100%}
+.tbatang .tggi{width:100%;max-width:74px;border-radius:9px 9px 3px 3px;
+  background:linear-gradient(180deg,var(--acc),rgba(180,83,9,.35));
+  transition:height 1s cubic-bezier(.2,.8,.2,1);min-height:3px}
+.tbatang span{font-size:11px;color:var(--dim);font-variant-numeric:tabular-nums}
+.alat{display:flex;gap:9px;flex-wrap:wrap;align-items:center;margin:14px 0 6px}
+input[type=search]{flex:1;min-width:210px;background:#141414;border:1px solid var(--line);color:var(--fg);
+  border-radius:11px;padding:10px 14px;font:inherit;font-size:13px;outline:none}
+input[type=search]:focus{border-color:rgba(245,158,11,.45)}
+.cip{display:flex;gap:7px;flex-wrap:wrap;margin:12px 0 4px;max-height:118px;overflow:auto}
+.cip button{background:var(--panel);border:1px solid var(--line);color:var(--dim);border-radius:999px;
+  padding:5px 12px;font:inherit;font-size:12px;cursor:pointer;transition:.18s}
+.cip button:hover{color:var(--fg);border-color:#3a3a3a;transform:translateY(-1px)}
+.cip button.on{color:var(--acc);border-color:rgba(245,158,11,.45);background:rgba(245,158,11,.09)}
+.inv{max-height:470px;overflow:auto}
+.kaki{margin-top:44px;padding-top:18px;border-top:1px solid var(--line);color:var(--dim2);font-size:12px}
+.kaki a{color:var(--acc);text-decoration:none}
+
+/* letupan bintang */
+.letup{position:fixed;width:8px;height:8px;border-radius:50%;pointer-events:none;z-index:9;
+  background:var(--acc);box-shadow:0 0 10px 2px rgba(245,158,11,.7);
+  animation:letup .95s ease-out forwards}
+@keyframes letup{0%{transform:translate(0,0) scale(1);opacity:1}
+  100%{transform:translate(var(--dx),var(--dy)) scale(.2);opacity:0}}
+
+/* skrin muat */
+#muat{position:fixed;inset:0;z-index:20;background:var(--bg);display:flex;
+  flex-direction:column;align-items:center;justify-content:center;gap:16px;transition:opacity .5s}
+#muat.tutup{opacity:0;pointer-events:none}
+#muat p{color:var(--dim);font-size:13px;margin:0}
+#muat svg{animation:apung 2.6s ease-in-out infinite}
+
+@media (prefers-reduced-motion: reduce){
+  *{animation-duration:.001s !important;animation-iteration-count:1 !important;transition-duration:.001s !important}
+}
+@media (max-width:900px){
+  .grid2{grid-template-columns:1fr}
+  .baris{grid-template-columns:1.3fr 64px 1fr}
+  #quasarkun{width:82px;height:82px}
+  #bintangku{width:56px;height:56px}
+  .bulan{width:60px;height:60px;top:58px}
+}
+</style>
+</head>
+<body>
+
+<!-- ============ latar kartun ============ -->
+<div class="langit" id="langit">
+  <div class="nebula a"></div><div class="nebula b"></div><div class="nebula c"></div>
+  <svg class="bulan" viewBox="0 0 100 100" aria-hidden="true">
+    <defs><radialGradient id="gBulan" cx="38%" cy="34%">
+      <stop offset="0%" stop-color="#fff6dd"/><stop offset="100%" stop-color="#f3c96b"/></radialGradient></defs>
+    <circle cx="50" cy="50" r="34" fill="url(#gBulan)"/>
+    <circle cx="38" cy="45" r="4.2" fill="#4a3208"/><circle cx="62" cy="45" r="4.2" fill="#4a3208"/>
+    <circle cx="32" cy="56" r="4" fill="#ff9db8" opacity=".6"/>
+    <circle cx="68" cy="56" r="4" fill="#ff9db8" opacity=".6"/>
+    <path d="M42 60 q8 8 16 0" stroke="#4a3208" stroke-width="3" fill="none" stroke-linecap="round"/>
+  </svg>
+  <div class="komet"></div><div class="komet k2"></div><div class="komet k3"></div>
+</div>
+
+<!-- ============ maskot ============ -->
+<svg class="maskot" id="quasarkun" viewBox="0 0 120 120" aria-hidden="true">
+  <ellipse cx="60" cy="110" rx="30" ry="6" fill="#000" opacity=".22"/>
+  <path class="ekor" d="M84 84 q26 6 20 -18 q14 22 -8 30 q-8 3 -12 -12z" fill="#f2a33c"
+        stroke="#8a4b06" stroke-width="2.5" stroke-linejoin="round"/>
+  <ellipse cx="58" cy="86" rx="26" ry="20" fill="#ffd08a" stroke="#8a4b06" stroke-width="3"/>
+  <circle cx="60" cy="52" r="32" fill="#ffe1ac" stroke="#8a4b06" stroke-width="3"/>
+  <path d="M32 34 l-6 -20 l22 8z" fill="#ffe1ac" stroke="#8a4b06" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M88 34 l6 -20 l-22 8z" fill="#ffe1ac" stroke="#8a4b06" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M31 33 l-2 -13 l13 5z" fill="#ffb3c7"/><path d="M89 33 l2 -13 l-13 5z" fill="#ffb3c7"/>
+  <g class="mata">
+    <ellipse cx="47" cy="52" rx="6.4" ry="7.6" fill="#3a2408"/>
+    <ellipse cx="73" cy="52" rx="6.4" ry="7.6" fill="#3a2408"/>
+    <circle cx="49.4" cy="49" r="2.3" fill="#fff"/><circle cx="75.4" cy="49" r="2.3" fill="#fff"/>
+  </g>
+  <circle cx="34" cy="62" r="5.4" fill="#ff9db8" opacity=".65"/>
+  <circle cx="86" cy="62" r="5.4" fill="#ff9db8" opacity=".65"/>
+  <path d="M56 62 q4 4 8 0" stroke="#8a4b06" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+  <path d="M44 66 q-9 1 -13 -3M76 66 q9 1 13 -3" stroke="#8a4b06" stroke-width="1.6" opacity=".6" fill="none"/>
+  <ellipse cx="46" cy="92" rx="6" ry="4.4" fill="#fff"/><ellipse cx="70" cy="92" rx="6" ry="4.4" fill="#fff"/>
+  <path d="M96 22 l3.4 7.4 l8 1.1 l-5.8 5.5 l1.4 8 l-7-3.9 l-7 3.9 l1.4 -8 l-5.8 -5.5 l8 -1.1z"
+        fill="#f59e0b" stroke="#8a4b06" stroke-width="2" stroke-linejoin="round"/>
+</svg>
+
+<svg class="maskot" id="bintangku" viewBox="0 0 100 100" aria-hidden="true">
+  <path d="M50 8 l12 26 l28 3 l-21 19 l6 28 l-25 -14 l-25 14 l6 -28 l-21 -19 l28 -3z"
+        fill="#fde68a" stroke="#8a4b06" stroke-width="3" stroke-linejoin="round"/>
+  <ellipse cx="41" cy="47" rx="4.6" ry="5.6" fill="#3a2408"/>
+  <ellipse cx="59" cy="47" rx="4.6" ry="5.6" fill="#3a2408"/>
+  <circle cx="42.8" cy="45" r="1.7" fill="#fff"/><circle cx="60.8" cy="45" r="1.7" fill="#fff"/>
+  <path d="M43 58 q7 6 14 0" stroke="#8a4b06" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+  <circle cx="33" cy="55" r="4" fill="#ff9db8" opacity=".7"/><circle cx="67" cy="55" r="4" fill="#ff9db8" opacity=".7"/>
+  <path class="tangan" d="M19 40 l-13 -9" stroke="#8a4b06" stroke-width="3.4" stroke-linecap="round"/>
+</svg>
+
+<!-- ============ tajuk ============ -->
+<header><div class="bar">
+  <div class="logo"><span class="dot"></span> QUASAR PULSE</div>
+  <span class="chip" id="dada">…menghubung</span>
+  <span class="chip">WIB <b id="jam">—</b></span>
+  <span class="chip">kitar <b id="kira">15s</b></span>
+  <span class="sep"></span>
+  <span class="chip">dikemas <b id="masa">memuat…</b></span>
+</div></header>
+
+<div class="pita"><div id="pitaisi"></div></div>
+
+<main>
+  <h2>Gambaran hari ini
+    <small>Setiap angka diambil daripada rekod panggilan 9router — bukan agakan.</small></h2>
+  <div class="kad" id="kad"></div>
+
+  <div class="grid2">
+    <div>
+      <h2>Model yang digunakan
+        <small>Token sebenar masuk/keluar bagi setiap model yang bot sudah panggil.</small></h2>
+      <div class="panel"><div id="modelpakai"></div></div>
+    </div>
+    <div>
+      <h2>Trend 7 hari
+        <small>Jumlah token sehari (masuk + keluar).</small></h2>
+      <div class="panel" style="padding:14px 16px"><div class="trend" id="trend"></div></div>
+    </div>
+  </div>
+
+  <h2>Baki sebenar — dilaporkan penyedia
+    <small>Mistral mendedahkan kuota dalam setiap respons:
+    <code>x-ratelimit-remaining-tokens-minute</code>. Angka ini ialah baki sebenar saat ini.</small></h2>
+  <div class="panel" style="padding:14px 16px">
+    <div class="ringkasbaki" id="ringkasbaki"></div>
+    <div class="mm" id="bakimist"></div>
+    <div id="bakilain" style="margin-top:12px"></div>
+  </div>
+
+  <h2>Akaun MiniMax — poin harian
+    <small>Kincir penuh = poin hari ini sudah dituntut (400 poin/akaun/hari).</small></h2>
+  <div class="panel" style="padding:14px 16px"><div class="mm" id="mm"></div></div>
+
+  <h2>Semua model dalam bot — <span id="juminv">—</span>
+    <small>Inventori katalog 9router. Guna carian atau cip provider untuk menapis.</small></h2>
+  <div class="panel" style="padding:12px 16px 16px">
+    <div class="alat">
+      <input type="search" id="cari" placeholder="cari model atau provider… (cth: minimax, vision, 200k)">
+      <span class="chip">dijumpai <b id="jumtap">0</b></span>
+      <span class="chip" id="cipaktif">semua provider</span>
+    </div>
+    <div class="cip" id="cip"></div>
+    <div class="inv" id="inv"></div>
+  </div>
+
+  <h2>Connection bermasalah
+    <small>Hanya yang mempunyai ralat atau kena had kadar.</small></h2>
+  <div class="panel" style="padding:12px 16px" id="amaran"></div>
+
+  <div class="kaki">
+    Sumber: SQLite 9router (usageHistory, usageDaily) · API 9router · API MiniMax (bertandatangan).
+    Penyedia tidak mendedahkan baki token melalui API awam — bila tertulis
+    <span class="pil">tidak dilaporkan</span>, itu memang tidak dilaporkan, bukan angka rekaan.
+  </div>
+</main>
+
+<div id="muat">
+  <svg width="86" height="86" viewBox="0 0 120 120" aria-hidden="true">
+    <circle cx="60" cy="52" r="32" fill="#ffe1ac" stroke="#8a4b06" stroke-width="3"/>
+    <path d="M32 34 l-6 -20 l22 8z M88 34 l6 -20 l-22 8z" fill="#ffe1ac" stroke="#8a4b06" stroke-width="3"/>
+    <circle cx="47" cy="52" r="6" fill="#3a2408"/><circle cx="73" cy="52" r="6" fill="#3a2408"/>
+    <path d="M50 66 q10 7 20 0" stroke="#8a4b06" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+  </svg>
+  <p>menarik data daripada 9router…</p>
+</div>
+
+<script>
+const F = n => (n || 0).toLocaleString('en-US');
+const T = n => n >= 1e9 ? (n/1e9).toFixed(2)+'B' : n >= 1e6 ? (n/1e6).toFixed(2)+'M'
+              : n >= 1e3 ? (n/1e3).toFixed(1)+'k' : String(n||0);
+const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const rup = (v, min, max) => Math.max(min, Math.min(max, v));
+let D = null, tapis = '', provpilih = '', modSumber = '';
+
+/* ---------- bintang berkelip ---------- */
+(function bintangi(){
+  const l = document.getElementById('langit');
+  for (let i = 0; i < 46; i++){
+    const b = document.createElement('div');
+    b.className = 'bintang';
+    const s = (Math.random() * 2.2 + 1).toFixed(1);
+    b.style.cssText = `width:${s}px;height:${s}px;left:${(Math.random()*100).toFixed(2)}%;`
+      + `top:${(Math.random()*100).toFixed(2)}%;animation-delay:${(Math.random()*3).toFixed(2)}s;`
+      + `animation-duration:${(2 + Math.random()*3).toFixed(2)}s`;
+    l.appendChild(b);
+  }
+})();
+
+/* ---------- angka naik perlahan ---------- */
+const lihir = new Map();
+function naik(el, sasaran){
+  const mula = lihir.get(el) ?? 0;
+  if (mula === sasaran) return;
+  lihir.set(el, sasaran);
+  const t0 = performance.now(), jangka = 640;
+  (function langkah(t){
+    const k = rup((t - t0) / jangka, 0, 1), e = 1 - Math.pow(1 - k, 3);
+    el.textContent = F(Math.round(mula + (sasaran - mula) * e));
+    if (k < 1) requestAnimationFrame(langkah);
+  })(t0);
+}
+
+/* ---------- letupan bintang + maskot melompat ---------- */
+function letupBintang(x, y){
+  for (let i = 0; i < 10; i++){
+    const p = document.createElement('div');
+    p.className = 'letup';
+    const a = Math.random() * Math.PI * 2, j = 34 + Math.random() * 52;
+    p.style.cssText = `left:${x}px;top:${y}px;--dx:${(Math.cos(a)*j).toFixed(0)}px;`
+      + `--dy:${(Math.sin(a)*j).toFixed(0)}px;`
+      + `background:${['#f59e0b','#fde68a','#ff7ab6','#58a6ff'][i % 4]}`;
+    document.body.appendChild(p);
+    setTimeout(() => p.remove(), 1000);
+  }
+  const k = document.getElementById('quasarkun');
+  k.classList.remove('lompat'); void k.offsetWidth; k.classList.add('lompat');
+}
+
+function cincin(p, saiz, warna){
+  const r = (saiz - 6) / 2, c = 2 * Math.PI * r, pct = rup(p, 0, 1);
+  return `<svg width="${saiz}" height="${saiz}">
+    <circle class="trek" cx="${saiz/2}" cy="${saiz/2}" r="${r}" stroke="#242424"/>
+    <circle cx="${saiz/2}" cy="${saiz/2}" r="${r}" stroke="${warna}"
+      stroke-dasharray="${(c*pct).toFixed(1)} ${c.toFixed(1)}"
+      style="fill:none;stroke-width:5;stroke-linecap:round"/>
+  </svg>`;
+}
+
+const IKON = {t1:'🌙',t2:'✨',t3:'🪐',t4:'💫'};
+
+function pita(d){
+  const r = d.ringkas;
+  const b = [
+    `${IKON.t3} TOKEN HARI INI <b>${F(r.token_hari)}</b>`,
+    `✨ TOKEN 7 HARI <b>${F(r.token_7)}</b>`,
+    `🚀 PERMINTAAN <b>${F(r.req_hari)}</b>`,
+    `🪐 MODEL TERSEDIA <b>${F(r.model_tersedia)}</b>`,
+    `💫 CONNECTION SIHAT <b>${F(r.connection_sihat)}/${F(r.connection)}</b>`,
+    `🌙 MINIMAX CLAIM <b>${F(r.mm_claim_hari)}/${F(r.mm_akaun)}</b>`,
+    `⭐ KOLAM POIN <b>${F(r.mm_pool_minggu)}</b>`,
+    ...d.model.slice(0, 10).map(m => `${esc(m.model)} <b>${T(m.in_7 + m.out_7)}</b>`),
+  ];
+  const isi = b.map(x => `<span><i>◆</i> ${x}</span>`).join('');
+  document.getElementById('pitaisi').innerHTML = isi + isi;
+}
+
+function kad(d){
+  const r = d.ringkas, m = d.model;
+  const maks = Math.max(1, ...m.map(x => x.in_7 + x.out_7));
+  const senarai = [
+    ['Token hari ini', r.token_hari, `${F(r.req_hari)} permintaan`, 0.72],
+    ['Token 7 hari', r.token_7, `${F(r.model_diguna)} model aktif`, rup(r.token_7 / (maks * Math.max(1, m.length)), .15, .95)],
+    ['Model tersedia', r.model_tersedia, `${F(r.provider)} provider`, 1],
+    ['Connection sihat', r.connection_sihat, `daripada ${F(r.connection)}`, r.connection ? r.connection_sihat / r.connection : 0],
+    ['Akaun MiniMax', r.mm_akaun, `${F(r.mm_claim_hari)} sudah claim hari ini`, r.mm_akaun ? r.mm_claim_hari / r.mm_akaun : 0],
+    ['Kolam poin MiniMax', r.mm_pool_minggu, 'poin / minggu', 0.55],
+    ['Baki token per minit', r.baki_tok_min, `had ${T(r.had_tok_min)} / minit`, r.had_tok_min ? r.baki_tok_min / r.had_tok_min : 0],
+  ];
+  const wadah = document.getElementById('kad');
+  if (wadah.children.length !== senarai.length){
+    wadah.innerHTML = senarai.map(([t, v, k, p]) =>
+      `<div class="kotak"><h4>${t}</h4>
+        <div class="isikad"><div class="besar">0</div>
+          <div class="tolok">${cincin(p, 58, '#f59e0b')}</div></div>
+        <div class="kecil">${k}</div>
+        <svg class="intai" viewBox="0 0 90 60" aria-hidden="true">
+          <ellipse cx="45" cy="56" rx="34" ry="5" fill="#000" opacity=".2"/>
+          <circle cx="45" cy="30" r="22" fill="#ffe1ac" stroke="#8a4b06" stroke-width="3"/>
+          <path d="M25 16 l-4 -13 l14 6z M65 16 l4 -13 l-14 6z" fill="#ffe1ac" stroke="#8a4b06" stroke-width="3"/>
+          <ellipse cx="37" cy="31" rx="4.4" ry="5.4" fill="#3a2408"/>
+          <ellipse cx="53" cy="31" rx="4.4" ry="5.4" fill="#3a2408"/>
+          <path d="M40 40 q5 4 10 0" stroke="#8a4b06" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+        </svg></div>`).join('');
+    wadah.querySelectorAll('.besar').forEach(el => lihir.set(el, 0));
+  }
+  wadah.querySelectorAll('.kotak').forEach((k, i) => {
+    naik(k.querySelector('.besar'), senarai[i][1]);
+    k.querySelector('.kecil').textContent = senarai[i][2];
+    k.querySelector('.tolok').innerHTML = cincin(senarai[i][3], 58, '#f59e0b');
+  });
+}
+
+function modelpakai(d){
+  const m = d.model, maks = Math.max(1, ...m.map(x => x.in_7 + x.out_7));
+  document.getElementById('modelpakai').innerHTML = m.length ? m.map(x => {
+    const j = x.in_7 + x.out_7;
+    return `<div class="baris">
+      <div class="nama"><b title="${esc(x.model)}">${esc(x.model)}</b>
+        ${x.req_hari > 0 ? '<span class="pil acc">hari ini</span>' : '<span class="pil">sepi</span>'}</div>
+      <div class="angka">${F(x.req_hari)}</div>
+      <div class="trel"><i style="width:${((j / maks) * 100).toFixed(1)}%"></i></div>
+      <div class="angka">${T(x.in_hari + x.out_hari)}<div class="kecil">${T(j)} / 7h</div></div>
+    </div>`;
+  }).join('') : '<div class="kecil" style="padding:14px 6px">tiada penggunaan direkod</div>';
+}
+
+function trend(d){
+  const h = (d.hari || []).slice().reverse(), maks = Math.max(1, ...h.map(x => x.masuk + x.keluar));
+  document.getElementById('trend').innerHTML = h.map(x => {
+    const j = x.masuk + x.keluar;
+    return `<div class="tbatang" title="${x.tarikh}: ${F(j)} token">
+      <div class="tggi" style="height:${rup(j / maks * 100, 2, 100)}%"></div>
+      <span>${x.tarikh.slice(5)}</span><span>${T(j)}</span></div>`;
+  }).join('') || '<div class="kecil">tiada data</div>';
+}
+
+function baki(d){
+  const b = d.baki || {}, mist = b.mistral || [], r = d.ringkas;
+  const pt = r.had_tok_min ? r.baki_tok_min / r.had_tok_min : 0;
+  const pr = r.had_req_min ? r.baki_req_min / r.had_req_min : 0;
+  document.getElementById('ringkasbaki').innerHTML = `
+    <div class="rb"><span>baki token / minit</span><b>${F(r.baki_tok_min)}<em> / ${T(r.had_tok_min)}</em></b>
+      <div class="barbaki"><i style="width:${(pt*100).toFixed(1)}%"></i></div></div>
+    <div class="rb"><span>baki permintaan / minit</span><b>${F(r.baki_req_min)}<em> / ${F(r.had_req_min)}</em></b>
+      <div class="barbaki"><i style="width:${(pr*100).toFixed(1)}%"></i></div></div>
+    <div class="rb"><span>akaun Mistral sihat</span><b>${F(r.mistral_sihat)}<em> / ${F(r.mistral_akaun)}</em></b>
+      <div class="barbaki"><i style="width:${r.mistral_akaun ? (r.mistral_sihat/r.mistral_akaun*100).toFixed(1) : 0}%"></i></div></div>
+    <div class="rb"><span>poin MiniMax belum dituntut</span>
+      <b>${F((r.mm_akaun - r.mm_claim_hari) * 400)}<em> poin hari ini</em></b>
+      <div class="barbaki"><i style="width:${r.mm_akaun ? ((r.mm_akaun-r.mm_claim_hari)/r.mm_akaun*100).toFixed(1) : 0}%"></i></div></div>`;
+
+  document.getElementById('bakimist').innerHTML = mist.length ? mist.map(x => {
+    const ok = x.status === 'ok';
+    const ptk = x.had_tok ? (x.baki_tok || 0) / x.had_tok : 0;
+    const prq = x.had_req ? (x.baki_req || 0) / x.had_req : 0;
+    const bila = x.terakhir_guna ? x.terakhir_guna.slice(5, 16).replace('T', ' ') : 'belum guna';
+    return `<div class="mmk">
+      <div class="mail" title="${esc(x.nama || '')}">${esc(x.nama || '—')}</div>
+      <div class="meta"><span class="pil ${ok ? 'ok' : 'bad'}">${esc(x.status)}</span>
+        <span>${x.baki_tok != null ? F(x.baki_tok) : '—'} tok/min</span>
+        <span>${x.baki_req != null ? F(x.baki_req) : '—'} req/min</span>
+        ${x.backoff ? `<span class="pil bad">backoff ${x.backoff}</span>` : ''}</div>
+      <div class="barbaki"><i style="width:${(ptk*100).toFixed(1)}%"></i></div>
+      <div class="barbaki" style="margin-top:4px"><i style="width:${(prq*100).toFixed(1)}%"></i></div>
+      <div class="kecil" style="margin-top:6px">kali akhir: ${esc(bila)}</div>
+    </div>`;
+  }).join('') : '<div class="kecil">tiada kunci Mistral dijumpai</div>';
+
+  document.getElementById('bakilain').innerHTML = (b.lain || []).map(x =>
+    `<div class="amar"><span class="pil">tiada baki dilaporkan</span>
+      <div class="isi"><div class="tajuk">${esc(x.nama)}</div>
+      <div class="kecil">${esc(x.nota)}</div></div></div>`).join('');
+}
+
+function mm(d){
+  document.getElementById('mm').innerHTML = d.minimax.length ? d.minimax.map(a => {
+    const hidup = a.token === 'hidup';
+    const pct = hidup ? (a.poin_hari ? a.poin_hari / 400 : 0) : 0;
+    const warna = !hidup ? '#f85149' : (a.sudah_claim ? '#f59e0b' : '#3fb950');
+    return `<div class="mmk">
+      <div class="cincin">${cincin(pct, 34, warna)}</div>
+      <div class="mail" style="padding-right:40px" title="${esc(a.emel)}">${esc(a.emel)}</div>
+      <div class="meta">
+        <span class="pil ${hidup ? (a.sudah_claim ? 'acc' : 'ok') : 'bad'}">
+          ${hidup ? (a.sudah_claim ? 'sudah claim' : 'belum claim') : esc(a.token)}</span>
+        <span>${a.poin_hari != null ? F(a.poin_hari) + ' poin' : '—'}</span>
+        <span>${a.poin_minggu ? T(a.poin_minggu) + '/minggu' : ''}</span>
+      </div></div>`;
+  }).join('') : '<div class="kecil">tiada akaun MiniMax</div>';
+}
+
+function amaran(d){
+  document.getElementById('amaran').innerHTML = d.amaran.length ? d.amaran.map(a => `<div class="amar">
+      <span class="pil ${a.rate_limit ? 'bad' : 'acc'}">${a.rate_limit ? 'had kadar' : 'ralat'}</span>
+      <div class="isi"><div class="tajuk">${esc(a.nama)}</div>
+        <div class="kecil">${esc((a.ralat || '—').slice(0, 110))}</div></div>
+      <span class="pil">backoff ${a.backoff ?? 0}</span>
+    </div>`).join('') : '<div class="kecil" style="padding:12px 4px">semua connection bersih</div>';
+}
+
+function cipProvider(d){
+  const kira = d.provider_kira, wadah = document.getElementById('cip');
+  wadah.innerHTML = `<button data-p="" class="${provpilih === '' ? 'on' : ''}">semua (${d.ringkas.model_tersedia})</button>` +
+    Object.entries(kira).slice(0, 40).map(([p, n]) =>
+      `<button data-p="${esc(p)}" class="${provpilih === p ? 'on' : ''}">${esc(p)} ${n}</button>`).join('');
+  wadah.querySelectorAll('button').forEach(b => b.onclick = () => {
+    provpilih = b.dataset.p;
+    document.getElementById('cipaktif').textContent = provpilih || 'semua provider';
+    cipProvider(D); inv(D);
+  });
+}
+
+function inv(d){
+  const dipakai = new Set(d.model.filter(m => m.req_hari > 0).map(m => m.model));
+  const cari = tapis.trim().toLowerCase();
+  let s = d.inventori;
+  if (provpilih) s = s.filter(x => x.provider === provpilih);
+  if (cari) s = s.filter(x => (x.model + ' ' + x.nama + ' ' + x.provider + ' ' + (x.konteks || ''))
+    .toLowerCase().includes(cari));
+  document.getElementById('jumtap').textContent = F(s.length);
+  const papar = s.slice(0, 260);
+  document.getElementById('inv').innerHTML = papar.map(x => `<div class="baris"
+      style="grid-template-columns:minmax(160px,1.6fr) 1fr 118px">
+      <div class="nama"><b title="${esc(x.model)}">${esc(x.model)}</b>
+        ${dipakai.has(x.model) ? '<span class="pil acc">dipakai</span>' : ''}
+        ${x.visi ? '<span class="pil blue">visi</span>' : ''}
+        ${x.taakul ? '<span class="pil">taakul</span>' : ''}</div>
+      <div class="kecil">${esc(x.provider)}</div>
+      <div class="angka kecil">${x.konteks ? T(x.konteks) + ' konteks' : '—'}
+        <div class="kecil">${x.keluaran ? 'keluar ' + T(x.keluaran) : ''}</div></div>
+    </div>`).join('') +
+    (s.length > papar.length
+      ? `<div class="kecil" style="padding:11px 6px">… dan ${F(s.length - papar.length)} lagi — taip carian untuk mengecilkan</div>`
+      : '');
+}
+
+/* ---------- tarik data: cuba LANGSUNG dulu, kemudian snapshot ---------- */
+async function cuba(url, ms){
+  const kawal = new AbortController();
+  const t = setTimeout(() => kawal.abort(), ms);
+  try { return await (await fetch(url, {cache:'no-store', signal: kawal.signal})).json(); }
+  finally { clearTimeout(t); }
+}
+
+function masaLalu(iso){
+  if (!iso) return 'tidak diketahui';
+  const s = Math.max(0, Math.floor((Date.now() - new Date(iso).getTime()) / 1000));
+  if (s < 90) return 'baru sahaja';
+  if (s < 5400) return `${Math.round(s / 60)} minit lalu`;
+  if (s < 172800) return `${Math.round(s / 3600)} jam lalu`;
+  return `${Math.round(s / 86400)} hari lalu`;
+}
+
+async function tarik(){
+  let d = null, mod = '';
+  try { d = await cuba('/api/data', 2500); mod = 'langsung'; } catch (e) { d = null; }
+  if (!d || d.ralat){
+    try { d = await cuba('data.json?v=' + Date.now(), 6000); mod = 'snapshot'; }
+    catch (e) { d = null; }
+  }
+  const dada = document.getElementById('dada');
+  if (!d){ dada.textContent = 'tiada data'; dada.className = 'chip snap'; return; }
+  if (d.masa_ringkas === undefined) d.masa_ringkas = '—';
+
+  const tukar = modSumber && modSumber !== mod;
+  modSumber = mod;
+  if (mod === 'langsung'){
+    dada.textContent = '● LANGSUNG — laptop aktif';
+    dada.className = 'chip live';
+    document.getElementById('masa').textContent = d.masa || '—';
+  } else {
+    dada.textContent = '◐ SNAPSHOT — ' + masaLalu(d.dikemas);
+    dada.className = 'chip snap';
+    document.getElementById('masa').textContent = (d.masa || '—');
+  }
+  document.getElementById('jam').textContent = d.masa_ringkas;
+  document.getElementById('juminv').textContent = F(d.ringkas.model_tersedia) + ' model';
+
+  const lama = D && D.ringkas && D.ringkas.token_hari;
+  if (lama && d.ringkas.token_hari > lama){
+    const b = document.getElementById('kad').getBoundingClientRect();
+    letupBintang(b.left + 60, b.top + 40);
+  }
+  D = d;
+  if (!document.getElementById('cip').children.length) cipProvider(d);
+  pita(d); kad(d); modelpakai(d); trend(d); baki(d); mm(d); amaran(d);
+  if (document.getElementById('cip').children.length) inv(d);
+  document.getElementById('muat').classList.add('tutup');
+  setTimeout(() => document.getElementById('muat').remove(), 700);
+}
+
+let detik = 15;
+document.getElementById('cari').oninput = e => { tapis = e.target.value; if (D) inv(D); };
+document.addEventListener('click', e => {
+  if (e.target.closest('.kotak')) letupBintang(e.clientX, e.clientY);
+});
+tarik();
+setInterval(() => {
+  detik--;
+  document.getElementById('kira').textContent = detik + 's';
+  if (detik <= 0){ detik = 15; tarik(); }
+}, 1000);
+</script>
+</body>
+</html>
