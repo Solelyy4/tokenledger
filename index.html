@@ -3,8 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Quasar Pulse — pemandangan anime statik · token &amp; kuota semua model bot</title>
-<meta name="description" content="Papan token, kuota dan kesihatan model bot Quasar di atas pemandangan anime senja yang tenang.">
+<title>Quasar Pulse — Token, kuota &amp; kesihatan model 9router</title>
+<meta name="description" content="Papan pemantauan token, kuota dan kesihatan model 9router — angka sebenar daripada rekod panggilan dan laporan penyedia.">
+<meta name="theme-color" content="#f6f7f9">
 <style>
 /* ==========================================================================
    QUASAR PULSE — edisi pemandangan anime
@@ -396,420 +397,198 @@ main{max-width:1180px;padding:0 26px 200px}
 .hero{padding:78px 6px 88px}
 .kaki{max-width:1180px}
 </style>
-<style id="cerah">
+<style id="tech">
 /* ==========================================================================
-   TEMA CERAH HANGAT + AKSEN MERAH — sifar animasi.
-   Latar krim #f3efe9, kad putih hangat, garis nipis, aksen merah #d32b2b.
-   Seni anime dipulihkan penuh (gunung, tasik, kampung, watak) — bukan gelap.
+   QUASAR PULSE — MODERN TECH DASHBOARD
+   Tiada ilustrasi/gambar. Logo sahaja. Sifar animasi.
+   Latar #f6f7f9 + grid halus, kad putih, garis #e6e8ec, aksen merah #dc2626.
    ========================================================================== */
 :root{
-  --panel:rgba(255,253,251,.94); --panel2:rgba(255,253,251,.86);
-  --line:rgba(60,35,20,.14); --line2:rgba(60,35,20,.09);
-  --fg:#2b2420; --dim:#6d6259; --dim2:#8b8078;
-  --acc:#d32b2b; --deep:#a41c1c; --ok:#14805a; --bad:#c4382f; --blue:#2f6fb0;
-  --r:16px; --kaca:blur(10px) saturate(1.08);
+  --bg:#f6f7f9; --panel:#ffffff; --panel2:#fbfcfd;
+  --line:#e6e8ec; --line2:#eef0f3;
+  --fg:#111827; --dim:#6b7280; --dim2:#9ca3af;
+  --acc:#dc2626; --deep:#b91c1c; --ok:#0f9d63; --bad:#dc2626; --blue:#2563eb;
+  --r:14px; --kaca:none;
 }
 *,*::before,*::after{animation:none !important;transition:none !important}
-/* NOTA: jangan letak overflow-x:hidden pada html/body — ia mematikan header melekat. */
-html,body{background:#f3efe9;color:var(--fg)}
-body{font-family:"Inter Variable",Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif}
+html,body{background:var(--bg);color:var(--fg)}
+body{font-family:"Inter Variable",Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;
+  -webkit-font-smoothing:antialiased}
+/* grid teknikal halus — CSS sahaja, bukan imej */
 body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
   background:
-    radial-gradient(120% 62% at 50% -8%, rgba(211,43,43,.10), transparent 60%),
-    radial-gradient(80% 50% at 8% 4%, rgba(255,196,120,.16), transparent 62%),
-    #f3efe9}
+    radial-gradient(64% 34% at 50% -8%, rgba(220,38,38,.07), transparent 62%),
+    linear-gradient(#eef0f3 1px, transparent 1px) 0 0/100% 52px,
+    linear-gradient(90deg,#eef0f3 1px, transparent 1px) 0 0/52px 100%,
+    var(--bg)}
+/* sisa lapisan ilustrasi lama (jika ada) disorok keras */
+#pemandangan,#hutan-depan,#hiasan,#quasarkun,#bual,.sinar,.kabut,.turun,.jepun,.hero::before{display:none !important}
 
-/* --- seni anime dipulihkan; lapisan bunga/matahari tambahan dibuang --- */
-#pemandangan{opacity:1;filter:none}
-#hutan-depan{opacity:1;filter:none}
-#hiasan{display:none}
-#quasarkun{display:block}
-#bual{display:block}
-.kabut{background:linear-gradient(180deg,
-    rgba(248,244,239,.80) 0%, rgba(248,244,239,.42) 26%,
-    rgba(248,244,239,.14) 48%, rgba(248,244,239,0) 68%);z-index:2}
+/* --- header --- */
+header{background:rgba(255,255,255,.9);backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);box-shadow:none}
+.bar{max-width:1240px;padding:11px 22px;gap:12px}
+.logo{display:flex;align-items:center;gap:9px;font-size:14.6px;font-weight:700;
+  letter-spacing:.06em;color:#0b1220}
+.logo svg{flex:0 0 auto;border-radius:8px}
+.logo .jenama{letter-spacing:.06em}
+.logo small{font-size:10.6px;font-weight:500;letter-spacing:.06em;color:var(--dim2);
+  text-transform:uppercase;border-left:1px solid var(--line);padding-left:10px;margin-left:2px}
+.chip{background:#fff;border:1px solid var(--line);color:var(--dim);border-radius:9px;
+  font-size:11.6px;padding:5px 9px;letter-spacing:.01em}
+.chip b{color:#0b1220;font-variant-numeric:tabular-nums}
 
-/* --- header + jalur menu lompat --- */
-header{background:rgba(255,253,250,.86);border-bottom:1px solid rgba(60,35,20,.09);
-  box-shadow:0 6px 20px rgba(90,60,40,.08)}
-.bar{max-width:1180px;padding:12px 22px;gap:10px}
-.logo{color:#2b2420}
-.chip{background:rgba(255,255,255,.9);border:1px solid rgba(60,35,20,.1);color:#6d6259;
-  box-shadow:0 1px 3px rgba(90,60,40,.06)}
-.chip b{color:#2b2420}
-.lompat{max-width:1180px;margin:0 auto;padding:0 22px 10px;display:flex;align-items:center;
-  gap:8px;overflow-x:auto;scrollbar-width:thin;-webkit-overflow-scrolling:touch}
-.lompat::-webkit-scrollbar{height:6px}
-.lompat::-webkit-scrollbar-thumb{background:rgba(60,35,20,.22);border-radius:6px}
-.lompat::before{content:"LOMPAT KE";flex:0 0 auto;font-size:10.4px;letter-spacing:.18em;
-  color:#8b8078;font-weight:600;padding-right:2px}
-.lompat a{flex:0 0 auto;display:inline-flex;align-items:center;gap:6px;padding:7px 13px;
-  border-radius:999px;font-size:12.6px;font-weight:550;color:#4a4038;
-  background:rgba(255,255,255,.86);border:1px solid rgba(60,35,20,.1);text-decoration:none;
-  white-space:nowrap}
-.lompat a:hover{border-color:rgba(211,43,43,.45);color:#a41c1c}
-.lompat a.utama{background:#d32b2b;border-color:#d32b2b;color:#fff;font-weight:600;
-  box-shadow:0 4px 14px rgba(211,43,43,.28)}
-.lompat a.utama:hover{background:#a41c1c;border-color:#a41c1c;color:#fff}
+/* --- jalur lompat --- */
+.lompat{max-width:1240px;margin:0 auto;padding:0 22px 10px;display:flex;align-items:center;gap:7px;
+  overflow-x:auto;scrollbar-width:thin}
+.lompat::-webkit-scrollbar{height:5px}
+.lompat::-webkit-scrollbar-thumb{background:#d6dae0;border-radius:6px}
+.lompat::before{content:"LOMPAT KE";flex:0 0 auto;font-size:9.8px;letter-spacing:.16em;
+  color:var(--dim2);font-weight:700}
+.lompat a{flex:0 0 auto;padding:6px 12px;border-radius:8px;font-size:12.2px;font-weight:550;
+  color:#374151;background:#fff;border:1px solid var(--line);text-decoration:none;white-space:nowrap}
+.lompat a:hover{border-color:#c7cbd2;color:#0b1220;background:#fbfcfd}
+.lompat a.utama{background:var(--acc);border-color:var(--acc);color:#fff;font-weight:650}
+.lompat a.utama:hover{background:var(--deep);border-color:var(--deep);color:#fff}
 
-/* --- hero --- */
-.hero{padding:64px 6px 58px;isolation:isolate}
-.hero::before{content:"";position:absolute;left:50%;top:-26px;transform:translateX(-50%);
-  width:min(940px,95vw);height:320px;z-index:-1;pointer-events:none;
-  background:radial-gradient(closest-side,rgba(255,255,255,.78),transparent 72%)}
-.kana{color:#a41c1c;letter-spacing:.36em;font-size:11.4px}
-.hero h1{font-family:inherit;font-weight:600;font-size:clamp(31px,4vw,52px);line-height:1.09;
-  letter-spacing:-.028em;color:#241f1c;text-shadow:0 1px 14px rgba(255,255,255,.9)}
-.hero h1 em{font-style:normal;color:#d32b2b}
-.hero .sub{max-width:620px;font-size:15.4px;line-height:1.68;color:#5c534c;
-  text-shadow:0 1px 10px rgba(255,255,255,.9)}
-.jepun{color:#8b8078;letter-spacing:.2em}
-.turun{color:#8b8078}
-.turun svg path{stroke:#d32b2b !important}
+/* --- hero: kiri, padat, tanpa hiasan --- */
+.hero{text-align:left;padding:38px 2px 26px;isolation:auto}
+.kana{color:var(--acc);letter-spacing:.18em;font-size:10.8px;font-weight:700;
+  text-transform:uppercase;margin:0 0 10px}
+.hero h1{font-family:inherit;font-weight:700;font-size:clamp(25px,3vw,37px);line-height:1.16;
+  letter-spacing:-.022em;color:#0b1220;text-shadow:none;margin:0}
+.hero h1 em{font-style:normal;color:var(--acc)}
+.hero .sub{margin:12px 0 0;max-width:660px;font-size:14.4px;line-height:1.62;color:var(--dim);
+  text-shadow:none}
 
-/* --- tajuk seksyen (sasaran lompat) --- */
-main>h2,h2{color:#241f1c;font-size:19.5px;font-weight:600;letter-spacing:-.015em;
-  scroll-margin-top:118px;text-shadow:none}
-h2::after{background:linear-gradient(90deg,var(--acc),rgba(211,43,43,0))}
-h2 small{color:#6d6259;text-shadow:none}
-code,h2 small code{background:rgba(211,43,43,.08);border:1px solid rgba(211,43,43,.16);color:#a41c1c}
+/* --- tajuk seksyen --- */
+main{max-width:1240px;padding:0 22px 64px}
+h2,h2{font-size:14.6px;font-weight:650;letter-spacing:.01em;color:#0b1220;
+  margin:32px 0 12px;padding-bottom:9px;border-bottom:1px solid var(--line);
+  scroll-margin-top:112px;text-shadow:none}
+h2::after{width:46px;height:2px;background:var(--acc);border-radius:2px}
+h2 small{font-size:12.3px;color:var(--dim);font-weight:400;margin-top:5px;text-shadow:none}
+code,h2 small code{background:#f3f4f6;border:1px solid var(--line);color:#b91c1c;border-radius:5px}
 
-/* --- kad: putih hangat, rata, bernafas --- */
-.panel,.kotak,.rb,.mmk{background:var(--panel);border:1px solid var(--line2);
-  border-radius:16px;box-shadow:0 14px 34px -22px rgba(90,60,40,.35)}
+/* --- kad --- */
+.kad{gap:14px;grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+.grid2{gap:16px}
+.panel,.rb,.mmk{background:var(--panel);border:1px solid var(--line);border-radius:14px;
+  box-shadow:0 1px 2px rgba(16,24,40,.04)}
 .panel{position:relative}
-.panel::before{content:"";position:absolute;left:18px;right:18px;top:-1px;height:2px;border-radius:2px;
-  background:linear-gradient(90deg,rgba(211,43,43,.5),rgba(211,43,43,0))}
-.kotak:hover{border-color:rgba(211,43,43,.34)}
-.baris{border-bottom:1px solid var(--line2);color:#3a322c}
-.baris:hover{background:rgba(211,43,43,.045)}
-.angka{color:#241f1c}
-.nama,.tajuk{color:#2b2420}
-.meta,.kepala,.ms,.sep{color:#6d6259}
+.panel::before{content:none}
+.kotak{background:var(--panel);border:1px solid var(--line);border-radius:14px;
+  box-shadow:0 1px 2px rgba(16,24,40,.04);padding:15px 16px;min-height:126px}
+.kotak::after{content:none}
+.kotak:hover{border-color:#d6dae0;transform:none}
+.kotak h4{font-size:10.8px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim2);font-weight:650}
+.kotak h4::before{content:"";width:6px;height:6px;border-radius:2px;background:var(--acc);
+  display:inline-block;margin-right:7px;vertical-align:middle;opacity:1}
+.isikad{gap:10px}
+.besar{color:#0b1220;font-weight:700;letter-spacing:-.03em}
+.besar i{color:var(--acc);font-size:14px;font-weight:600}
+.intai{display:none !important}
 
-/* --- pil / cip status --- */
-.pil{background:rgba(255,255,255,.9);border-color:var(--line);color:#6d6259}
-.pil.ok{color:#0f6446;background:rgba(20,128,90,.1);border-color:rgba(20,128,90,.3)}
-.pil.bad{color:#a4231c;background:rgba(196,56,47,.1);border-color:rgba(196,56,47,.3)}
-.pil.acc{color:#a41c1c;background:rgba(211,43,43,.1);border-color:rgba(211,43,43,.28)}
-.pil.blue{color:#255a92;background:rgba(47,111,176,.1);border-color:rgba(47,111,176,.26)}
-.cip2{color:#fff}
-.cip2.acc{background:rgba(211,43,43,.12);color:#a41c1c}
-.cip2.bad{background:rgba(196,56,47,.12);color:#a4231c}
-.cip2.ok{background:rgba(20,128,90,.12);color:#0f6446}
-.cip2.blue{background:rgba(47,111,176,.12);color:#255a92}
+/* --- baris & jadual --- */
+.baris{border-bottom:1px solid var(--line2);color:#374151;font-size:13px;padding:9px 4px}
+.baris:hover{background:#fafbfc}
+.baris:last-child{border-bottom:none}
+.nama,.tajuk{color:#0b1220;font-weight:550}
+.angka{color:#0b1220;font-weight:650;font-variant-numeric:tabular-nums}
+.meta,.kepala,.ms,.sep,.kecil{color:var(--dim)}
+.amk,.amar{border-bottom:1px solid var(--line2)}
+.mail{color:#374151}
 
-/* --- tolok, carta, penunjuk --- */
-.trel{background:rgba(60,35,20,.1)}
-.tggi{background:linear-gradient(180deg,#e8654f,rgba(164,28,28,.5))}
-.dot{background:var(--acc);box-shadow:0 0 0 4px rgba(211,43,43,.14)}
-.sbar{background:rgba(255,255,255,.9);border:1px solid var(--line2)}
-.sbar:hover{background:#fff;border-color:rgba(211,43,43,.3)}
-.mmk .cincin circle{stroke:rgba(60,35,20,.14)}
+/* --- tolok & carta --- */
+.trel{background:#eef0f3;height:6px;border-radius:999px}
+.tggi{background:linear-gradient(180deg,#ef4444,#b91c1c);border-radius:6px 6px 2px 2px}
+.barbaki{background:#eef0f3;height:5px}
+.barbaki i{background:linear-gradient(90deg,#b91c1c,#f87171)}
+.dot{background:var(--acc);box-shadow:0 0 0 3px rgba(220,38,38,.15)}
+.mmk .cincin circle{stroke:#eef0f3}
 .mmk .cincin circle:last-child{stroke:var(--acc)}
 
-/* --- input & penapis --- */
-input[type=search]{background:#fff;border:1px solid var(--line);color:var(--fg);box-shadow:none}
-input[type=search]::placeholder{color:#9c918a}
-input[type=search]:focus{border-color:rgba(211,43,43,.5);box-shadow:0 0 0 3px rgba(211,43,43,.1)}
-.cip button{background:#fff;border:1px solid var(--line);color:#5c534c}
-.cip button.on{background:rgba(211,43,43,.1);border-color:rgba(211,43,43,.4);color:#a41c1c}
+/* --- pil & cip status --- */
+.pil{background:#f3f4f6;border:1px solid var(--line);color:#4b5563;border-radius:6px;
+  font-size:11px;font-weight:600;letter-spacing:.02em;padding:2px 7px}
+.pil.ok{background:rgba(15,157,99,.08);color:#0b7a4d;border-color:rgba(15,157,99,.24)}
+.pil.bad{background:rgba(220,38,38,.07);color:#b91c1c;border-color:rgba(220,38,38,.22)}
+.pil.acc{background:rgba(220,38,38,.07);color:#b91c1c;border-color:rgba(220,38,38,.22)}
+.pil.blue{background:rgba(37,99,235,.07);color:#1d4ed8;border-color:rgba(37,99,235,.22)}
+.cip2{border-radius:5px;font-weight:650;letter-spacing:.03em}
+.cip2.acc{background:rgba(220,38,38,.09);color:#b91c1c}
+.cip2.bad{background:rgba(220,38,38,.09);color:#b91c1c}
+.cip2.ok{background:rgba(15,157,99,.09);color:#0b7a4d}
+.cip2.blue{background:rgba(37,99,235,.09);color:#1d4ed8}
 
-/* --- pautan, kaki, tatal bar --- */
-a{color:#a41c1c}
-.kaki{color:#6d6259;border-top:1px solid rgba(60,35,20,.12);text-shadow:none}
-.kaki a{font-weight:600}
-.inv::-webkit-scrollbar{width:10px;height:10px}
-.inv::-webkit-scrollbar-thumb{background:rgba(60,35,20,.22);border-radius:8px}
-::selection{background:rgba(211,43,43,.2)}
+/* --- input, penapis, baris amaran --- */
+input[type=search]{background:#fff;border:1px solid var(--line);color:var(--fg);border-radius:9px;
+  box-shadow:none;font-size:12.6px;padding:8px 12px}
+input[type=search]::placeholder{color:var(--dim2)}
+input[type=search]:focus{border-color:rgba(220,38,38,.5);box-shadow:0 0 0 3px rgba(220,38,38,.08)}
+.cip button{background:#fff;border:1px solid var(--line);color:var(--dim);border-radius:7px;
+  font-size:11.8px;padding:4px 10px}
+.cip button:hover{color:#0b1220;border-color:#c7cbd2;transform:none}
+.cip button.on{background:rgba(220,38,38,.07);border-color:rgba(220,38,38,.3);color:#b91c1c;font-weight:650}
+.sbar{background:#fbfcfd;border:1px solid var(--line);border-radius:9px}
+.sbar:hover{background:#fff;border-color:#d6dae0}
+.pita{background:#fff;border-bottom:1px solid var(--line);color:var(--dim)}
+.pita i{color:var(--acc)}
 
-/* --- maskot dinaikkan supaya kaki tidak terpotong tepi skrin --- */
-#quasarkun{bottom:22px;right:20px}
-#bual{background:rgba(255,255,255,.96);border:1px solid rgba(211,43,43,.18);color:#2b2420;
-  box-shadow:0 12px 28px rgba(90,60,40,.18)}
-/* --- telefon: header nipis, kedua-dua baris boleh digolek --- */
+/* --- kaki & tatal --- */
+.kaki{margin-top:34px;padding-top:16px;border-top:1px solid var(--line);color:var(--dim2);
+  font-size:11.4px;line-height:1.75;text-shadow:none}
+.kaki a{color:#b91c1c;font-weight:600;text-decoration:none;border-bottom:1px solid rgba(185,28,28,.25)}
+.kaki a:hover{border-bottom-color:#b91c1c}
+a{color:#b91c1c}
+.inv::-webkit-scrollbar{width:9px;height:9px}
+.inv::-webkit-scrollbar-thumb{background:#d6dae0;border-radius:8px}
+::selection{background:rgba(220,38,38,.16)}
+/* skrin memuat statik */
+#muat{background:rgba(246,247,249,.97)}
+#muat .kotakmuat{display:flex;flex-direction:column;gap:6px;padding:18px 22px;background:#fff;
+  border:1px solid var(--line);border-left:3px solid var(--acc);border-radius:12px;
+  box-shadow:0 1px 2px rgba(16,24,40,.04)}
+#muat .kotakmuat b{font-size:13px;color:#0b1220}
+#muat .kotakmuat span{font-size:12px;color:var(--dim)}
+
 @media (max-width:560px){
   .bar{flex-wrap:nowrap;overflow-x:auto;padding:10px 14px;gap:8px;scrollbar-width:none}
   .bar::-webkit-scrollbar{height:0}
   .bar>*{flex:0 0 auto}
   .lompat{padding:0 14px 8px}
-  #quasarkun{width:126px;height:126px;bottom:14px;right:12px}
-  #bual{left:12px;right:12px;bottom:150px;max-width:none}
-  h2{scroll-margin-top:106px}
+  main{padding:0 14px 56px}
+  .logo small{display:none}
+  h2{scroll-margin-top:100px}
 }
 </style>
 </head>
 <body>
+<div id="quasarkun" hidden></div>
 
 <!-- ==================== PEMANDANGAN: gunung, tasik, kampung, hutan ==================== -->
-<svg id="pemandangan" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-  <defs>
-    <linearGradient id="gLangit" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#3f7fb5"/><stop offset="42%" stop-color="#87CEEB"/>
-      <stop offset="78%" stop-color="#ffe6b3"/><stop offset="100%" stop-color="#ffd9a6"/>
-    </linearGradient>
-    <linearGradient id="gJauh" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#a8c4d8"/><stop offset="100%" stop-color="#7f9fb8"/>
-    </linearGradient>
-    <linearGradient id="gTengah" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#6f9d7f"/><stop offset="100%" stop-color="#4e7a5f"/>
-    </linearGradient>
-    <linearGradient id="gTasik" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#bfe4f6"/><stop offset="34%" stop-color="#7fc4e8"/>
-      <stop offset="100%" stop-color="#3f86bd"/>
-    </linearGradient>
-    <linearGradient id="gBukit" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#8fd072"/><stop offset="100%" stop-color="#3f7a45"/>
-    </linearGradient>
-    <linearGradient id="gSalji" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#ffffff"/><stop offset="100%" stop-color="#cfe0ea"/>
-    </linearGradient>
-    <linearGradient id="gKilau" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#ffffff" stop-opacity=".9"/>
-      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
-    </linearGradient>
-    <clipPath id="potongTasik">
-      <path d="M0 470 q300 26 620 10 q360 -18 980 14 v300 h-1600z"/>
-    </clipPath>
-    <g id="pokok">
-      <path d="M0 0 l0 -24" stroke="#5b4126" stroke-width="5" stroke-linecap="round"/>
-      <circle cx="-11" cy="-33" r="14" fill="#2f6a45"/>
-      <circle cx="11" cy="-37" r="16" fill="#377a4e"/>
-      <circle cx="0" cy="-50" r="15" fill="#2b6240"/>
-    </g>
-    <g id="rumah">
-      <rect x="-13" y="-13" width="26" height="14" fill="#e8d3b5"/>
-      <path d="M-17 -13 l17 -12 l17 12z" fill="#b8623f"/>
-      <rect class="lampu" x="-6" y="-9" width="7" height="6" fill="#ffd28a"/>
-    </g>
-  </defs>
 
-  <!-- langit -->
-  <rect x="0" y="0" width="1600" height="500" fill="url(#gLangit)"/>
-  <rect x="0" y="420" width="1600" height="90" fill="#fff3d2" opacity=".55"/>
-
-  <!-- banjaran jauh + salji -->
-  <path d="M-20 470 L120 300 L210 372 L330 236 L430 340 L540 268 L660 372 L760 300
-           L880 214 L1000 322 L1120 250 L1240 356 L1350 288 L1470 388 L1620 300 L1620 470z"
-        fill="url(#gJauh)"/>
-  <path d="M330 236 L370 292 L300 292z M880 214 L930 286 L840 286z M540 268 L580 312 L500 312z
-           M1120 250 L1160 300 L1080 300z M1350 288 L1385 330 L1315 330z"
-        fill="url(#gSalji)" opacity=".95"/>
-  <!-- banjaran tengah -->
-  <path d="M-20 470 L90 386 L200 424 L320 350 L470 424 L600 370 L740 432 L880 366
-           L1030 428 L1180 372 L1320 434 L1450 386 L1620 440 L1620 500 L-20 500z"
-        fill="url(#gTengah)"/>
-  <path d="M-20 470 L120 430 L260 470 L420 436 L560 476 L700 442 L860 480 L1010 446
-           L1160 482 L1320 448 L1480 484 L1620 452 L1620 520 L-20 520z" fill="#3d6a52"/>
-
-  <!-- tasik -->
-  <path d="M0 470 q300 26 620 10 q360 -18 980 14 v300 h-1600z" fill="url(#gTasik)"/>
-  <g clip-path="url(#potongTasik)">
-    <path d="M120 640 L340 560 L560 640z M900 660 L1120 566 L1340 660z" fill="#2b5f8a" opacity=".22"/>
-    <g class="kilau-tasik" opacity=".3">
-      <rect x="-80" y="512" width="1760" height="7" rx="3" fill="url(#gKilau)"/>
-      <rect x="-80" y="556" width="1760" height="5" rx="2" fill="url(#gKilau)" opacity=".8"/>
-      <rect x="-80" y="606" width="1760" height="6" rx="3" fill="url(#gKilau)" opacity=".6"/>
-      <rect x="-80" y="668" width="1760" height="8" rx="4" fill="url(#gKilau)" opacity=".45"/>
-    </g>
-  </g>
-
-  <!-- pulau kecil -->
-  <ellipse cx="1180" cy="620" rx="118" ry="26" fill="#48715a"/>
-  <ellipse cx="1180" cy="614" rx="104" ry="20" fill="#5d8a55"/>
-  <g class="goyang" style="animation-duration:7.4s">
-    <use href="#pokok" transform="translate(1130 606) scale(1.15)"/>
-  </g>
-  <g class="goyang" style="animation-duration:5.9s;animation-delay:-1.6s">
-    <use href="#pokok" transform="translate(1214 604) scale(1.32)"/>
-  </g>
-  <g class="goyang" style="animation-duration:6.8s;animation-delay:-3.1s">
-    <use href="#pokok" transform="translate(1172 612) scale(.95)"/>
-  </g>
-
-  <!-- kampung di tepi tasik -->
-  <g opacity=".98">
-    <g class="goyang" style="animation-duration:9s"><use href="#rumah" transform="translate(238 596) scale(.9)"/></g>
-    <use href="#rumah" transform="translate(268 600) scale(1)"/>
-    <use href="#rumah" transform="translate(300 594) scale(.82)"/>
-    <use href="#rumah" transform="translate(330 600) scale(1.05)"/>
-    <use href="#rumah" transform="translate(364 596) scale(.9)"/>
-    <use href="#rumah" transform="translate(520 604) scale(.95)"/>
-    <use href="#rumah" transform="translate(552 600) scale(1.1)"/>
-    <use href="#rumah" transform="translate(588 606) scale(.85)"/>
-    <use href="#rumah" transform="translate(760 598) scale(1)"/>
-    <use href="#rumah" transform="translate(792 602) scale(.88)"/>
-    <use href="#rumah" transform="translate(940 604) scale(.92)"/>
-    <use href="#rumah" transform="translate(972 600) scale(1.06)"/>
-  </g>
-  <path d="M200 604 q160 -12 320 0" stroke="#8B7D6B" stroke-width="4" fill="none" opacity=".7"/>
-  <path d="M900 606 q120 -10 240 2" stroke="#8B7D6B" stroke-width="3.4" fill="none" opacity=".6"/>
-
-  <!-- hutan/bukit hadapan -->
-  <path d="M-20 760 q220 -110 480 -76 q240 32 520 -20 q220 -40 480 30 q120 34 180 70 L1620 920 L-20 920z"
-        fill="url(#gBukit)"/>
-  <g>
-    <g class="goyang" style="animation-duration:6.2s"><use href="#pokok" transform="translate(96 792) scale(1.5)"/></g>
-    <g class="goyang" style="animation-duration:7.1s;animation-delay:-1.2s"><use href="#pokok" transform="translate(168 800) scale(1.25)"/></g>
-    <g class="goyang" style="animation-duration:5.6s;animation-delay:-2.4s"><use href="#pokok" transform="translate(252 806) scale(1.6)"/></g>
-    <g class="goyang" style="animation-duration:6.9s;animation-delay:-3.6s"><use href="#pokok" transform="translate(348 812) scale(1.3)"/></g>
-    <g class="goyang" style="animation-duration:7.6s;animation-delay:-1.9s"><use href="#pokok" transform="translate(452 816) scale(1.5)"/></g>
-    <g class="goyang" style="animation-duration:6.4s;animation-delay:-2.8s"><use href="#pokok" transform="translate(1180 812) scale(1.45)"/></g>
-    <g class="goyang" style="animation-duration:7.2s;animation-delay:-.9s"><use href="#pokok" transform="translate(1272 818) scale(1.25)"/></g>
-    <g class="goyang" style="animation-duration:5.8s;animation-delay:-3.3s"><use href="#pokok" transform="translate(1372 824) scale(1.6)"/></g>
-    <g class="goyang" style="animation-duration:6.6s;animation-delay:-2.1s"><use href="#pokok" transform="translate(1486 828) scale(1.35)"/></g>
-    <g class="goyang" style="animation-duration:7.8s;animation-delay:-1.4s"><use href="#pokok" transform="translate(1560 834) scale(1.5)"/></g>
-  </g>
-
-  <!-- rumput & bunga bergoyang -->
-  <g stroke="#3f7a45" stroke-width="3" fill="none" stroke-linecap="round">
-    <path class="rumput" style="animation-delay:-.2s" d="M120 900 q10 -34 4 -54"/>
-    <path class="rumput" style="animation-delay:-1.1s" d="M164 906 q-8 -30 -2 -50"/>
-    <path class="rumput" style="animation-delay:-.6s" d="M210 900 q12 -36 5 -56"/>
-    <path class="rumput" style="animation-delay:-1.7s" d="M268 908 q-9 -32 -3 -52"/>
-    <path class="rumput" style="animation-delay:-2.2s" d="M330 902 q11 -38 4 -58"/>
-    <path class="rumput" style="animation-delay:-.9s" d="M392 908 q-10 -30 -2 -48"/>
-    <path class="rumput" style="animation-delay:-1.4s" d="M470 904 q12 -34 5 -54"/>
-    <path class="rumput" style="animation-delay:-2.6s" d="M545 910 q-8 -34 -3 -56"/>
-    <path class="rumput" style="animation-delay:-.4s" d="M640 904 q10 -36 4 -56"/>
-    <path class="rumput" style="animation-delay:-1.9s" d="M760 908 q-11 -32 -4 -52"/>
-    <path class="rumput" style="animation-delay:-2.9s" d="M880 902 q12 -38 5 -58"/>
-    <path class="rumput" style="animation-delay:-1.2s" d="M990 910 q-9 -30 -2 -50"/>
-    <path class="rumput" style="animation-delay:-.7s" d="M1090 904 q11 -36 4 -56"/>
-    <path class="rumput" style="animation-delay:-2.4s" d="M1200 908 q-10 -34 -3 -54"/>
-    <path class="rumput" style="animation-delay:-1.6s" d="M1310 902 q12 -38 5 -60"/>
-    <path class="rumput" style="animation-delay:-3.1s" d="M1420 908 q-9 -32 -3 -52"/>
-    <path class="rumput" style="animation-delay:-.3s" d="M1520 904 q11 -36 4 -56"/>
-  </g>
-  <g>
-    <g class="bunga" style="animation-delay:-.5s"><path d="M172 900 l0 -22" stroke="#3f7a45" stroke-width="2.4"/>
-      <circle cx="172" cy="874" r="5" fill="#FF69B4"/><circle cx="172" cy="874" r="2" fill="#FFD700"/></g>
-    <g class="bunga" style="animation-delay:-1.8s"><path d="M300 906 l0 -20" stroke="#3f7a45" stroke-width="2.4"/>
-      <circle cx="300" cy="882" r="5" fill="#fff3f7"/><circle cx="300" cy="882" r="2" fill="#FFD700"/></g>
-    <g class="bunga" style="animation-delay:-2.7s"><path d="M520 906 l0 -24" stroke="#3f7a45" stroke-width="2.4"/>
-      <circle cx="520" cy="878" r="5.4" fill="#FF69B4"/><circle cx="520" cy="878" r="2" fill="#fff0b0"/></g>
-    <g class="bunga" style="animation-delay:-1.1s"><path d="M700 908 l0 -20" stroke="#3f7a45" stroke-width="2.4"/>
-      <circle cx="700" cy="884" r="5" fill="#FFD700"/><circle cx="700" cy="884" r="2" fill="#fff"/></g>
-    <g class="bunga" style="animation-delay:-2.2s"><path d="M960 906 l0 -22" stroke="#3f7a45" stroke-width="2.4"/>
-      <circle cx="960" cy="880" r="5.2" fill="#e9769f"/><circle cx="960" cy="880" r="2" fill="#FFD700"/></g>
-    <g class="bunga" style="animation-delay:-3.4s"><path d="M1380 906 l0 -22" stroke="#3f7a45" stroke-width="2.4"/>
-      <circle cx="1380" cy="880" r="5" fill="#ffe6b3"/><circle cx="1380" cy="880" r="2" fill="#e0762f"/></g>
-  </g>
-</svg>
 
 <!-- ==================== LANGIT: awan, matahari, burung, kelopak (canvas) ==================== -->
-<div class="sinar" aria-hidden="true"></div>
+
 
 <!-- ==================== DEK KAYU + DAUN HADAPAN (paralaks kuat) ==================== -->
-<svg id="hutan-depan" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
-  <defs>
-    <linearGradient id="gKayu" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#CD853F"/><stop offset="100%" stop-color="#8B5A2B"/>
-    </linearGradient>
-    <linearGradient id="gDaun" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#3f8b4e"/><stop offset="100%" stop-color="#20572f"/>
-    </linearGradient>
-  </defs>
-  <g>
-    <path d="M-20 862 L1620 838 L1620 900 L-20 900z" fill="#5C4033"/>
-    <path d="M-20 846 L1620 820 L1620 852 L-20 878z" fill="url(#gKayu)"/>
-    <path d="M-20 812 L1620 784 L1620 800 L-20 828z" fill="#a9713a"/>
-    <g stroke="#5C4033" stroke-width="3" opacity=".55">
-      <path d="M240 848 L242 900"/><path d="M520 842 L524 900"/><path d="M800 836 L806 900"/>
-      <path d="M1080 830 L1088 900"/><path d="M1360 824 L1370 900"/>
-    </g>
-    <path d="M-20 806 L1620 778 L1620 812 L-20 840z" fill="#b9803f" opacity=".85"/>
-  </g>
-  <g class="goyang" style="animation-duration:7.6s">
-    <path d="M60 900 q-6 -120 22 -196 q16 -44 40 -58 l10 14 q-26 22 -40 66 q-22 76 -14 174z" fill="#3b2a1c"/>
-    <circle cx="118" cy="612" r="66" fill="#2b6240"/>
-    <circle cx="58" cy="652" r="52" fill="#2f6a45"/>
-    <circle cx="164" cy="660" r="46" fill="#377a4e"/>
-  </g>
-  <g class="goyang" style="animation-duration:8.4s;animation-delay:-2.2s">
-    <path d="M1544 900 q8 -128 -20 -204 q-16 -44 -40 -58 l-10 14 q26 22 40 66 q22 76 14 182z" fill="#3b2a1c"/>
-    <circle cx="1488" cy="620" r="70" fill="#2b6240"/>
-    <circle cx="1552" cy="662" r="54" fill="#2f6a45"/>
-    <circle cx="1436" cy="668" r="48" fill="#377a4e"/>
-  </g>
-  <g class="daun" style="animation-duration:5.4s">
-    <path d="M0 700 q86 -34 130 22 q-70 40 -130 8z" fill="url(#gDaun)"/>
-  </g>
-  <g class="daun" style="animation-duration:6.2s;animation-delay:-1.4s">
-    <path d="M0 796 q100 -22 138 34 q-78 34 -138 4z" fill="#2f6a45"/>
-  </g>
-  <g class="daun" style="animation-duration:5.9s;animation-delay:-2.6s">
-    <path d="M1600 706 q-86 -34 -130 22 q70 40 130 8z" fill="url(#gDaun)"/>
-  </g>
-  <g class="daun" style="animation-duration:6.6s;animation-delay:-.8s">
-    <path d="M1600 800 q-100 -22 -138 34 q78 34 138 4z" fill="#2f6a45"/>
-  </g>
-  <g class="bunga" style="animation-delay:-1.2s">
-    <path d="M120 900 l0 -34" stroke="#3f7a45" stroke-width="3"/>
-    <circle cx="120" cy="860" r="8" fill="#FF69B4"/><circle cx="120" cy="860" r="3" fill="#FFD700"/>
-  </g>
-  <g class="bunga" style="animation-delay:-2.9s">
-    <path d="M1440 900 l0 -34" stroke="#3f7a45" stroke-width="3"/>
-    <circle cx="1440" cy="860" r="8" fill="#ffe6b3"/><circle cx="1440" cy="860" r="3" fill="#e0762f"/>
-  </g>
-</svg>
+
 
 <!-- ==================== WATAK ANIME (profil, duduk di dek, memegang cawan) ==================== -->
-<svg class="maskot" id="quasarkun" viewBox="0 0 220 220" aria-hidden="true" role="button" tabindex="0">
-  <ellipse cx="110" cy="206" rx="64" ry="9" fill="#2b4a63" opacity=".2"/>
-  <g class="badan">
-    <path d="M60 198 q10 -36 50 -36 q40 0 50 36 q-50 10 -100 0z" fill="#556B2F"/>
-    <path d="M78 198 q8 -24 32 -24 q24 0 32 24z" fill="#4c5f2a" opacity=".75"/>
-    <path d="M68 170 q-10 -48 42 -48 q52 0 42 48 q-42 12 -84 0z" fill="#2F4F4F"/>
-    <path d="M110 122 q22 0 34 12 q-16 8 -34 8 q-18 0 -34 -8 q12 -12 34 -12z" fill="#3a5c5c"/>
-    <g class="lengan">
-      <path d="M126 156 q26 -8 30 -26" stroke="#2F4F4F" stroke-width="16" fill="none" stroke-linecap="round"/>
-      <g class="cawan">
-        <rect x="146" y="114" width="26" height="22" rx="5" fill="#f3e2cd" stroke="#b99b7a" stroke-width="2"/>
-        <path d="M172 120 q10 5 0 12" stroke="#b99b7a" stroke-width="3" fill="none"/>
-        <path class="wap" d="M152 110 q4 -9 0 -15" stroke="#ffffff" stroke-width="2.6" fill="none"
-              stroke-linecap="round"/>
-        <path class="wap w2" d="M162 110 q-4 -10 0 -17" stroke="#ffffff" stroke-width="2.6" fill="none"
-              stroke-linecap="round"/>
-      </g>
-    </g>
-    <path d="M92 134 q18 9 38 3 q-5 11 -19 13 q-15 -1 -19 -16z" fill="#c96a4a"/>
-    <path class="selendang" d="M124 144 q18 13 13 33 q-11 -15 -20 -22z" fill="#c96a4a" opacity=".92"/>
-    <g class="kepala">
-      <path d="M74 122 q-6 -46 38 -46 q44 0 38 46 q-38 12 -76 0z" fill="#2b2b33"/>
-      <path d="M108 76 q30 2 34 38 q3 24 -17 30 q-15 4 -19 -8 q-5 -13 6 -19 q-13 -7 -11 -23 q2 -15 7 -18z"
-            fill="#f5deb3"/>
-      <path d="M124 118 q6 2 8 6" stroke="#c98f76" stroke-width="2.3" fill="none" stroke-linecap="round"/>
-      <ellipse class="mata" cx="117" cy="99" rx="3.6" ry="4.2" fill="#33333a"/>
-      <path d="M84 76 q-16 -6 -20 12 q-4 18 10 22 q-3 -20 10 -34z" fill="#2b2b33"/>
-      <circle cx="84" cy="72" r="8" fill="#33333d"/>
-      <g class="rambut">
-        <path d="M92 74 q-24 -16 -38 -4 q18 6 34 16z" fill="#33333d"/>
-        <path d="M76 92 q-22 0 -34 14 q20 -2 34 -4z" fill="#33333d" opacity=".92"/>
-      </g>
-      <path d="M104 76 q20 -6 30 10" stroke="#3a3a44" stroke-width="3" fill="none" opacity=".7"/>
-    </g>
-  </g>
-  <g class="kucing">
-    <ellipse cx="46" cy="198" rx="21" ry="12" fill="#e9d8c4"/>
-    <circle cx="35" cy="184" r="11" fill="#e9d8c4"/>
-    <path d="M28 176 l-4 -10 l9 3z M42 176 l4 -10 l-9 3z" fill="#e9d8c4"/>
-    <path class="ekorkucing" d="M64 200 q15 -5 12 -19" stroke="#e9d8c4" stroke-width="6" fill="none"
-          stroke-linecap="round"/>
-    <circle cx="31" cy="184" r="1.9" fill="#3a3030"/><circle cx="39" cy="184" r="1.9" fill="#3a3030"/>
-  </g>
-</svg>
+
 
 <!-- ==================== TAJUK ==================== -->
 <header><div class="bar">
   <div class="logo">
-    <svg width="34" height="30" viewBox="0 0 40 34" aria-hidden="true">
-      <path d="M4 30 L4 12 L20 3 L36 12 L36 30" fill="none" stroke="#b8561c" stroke-width="3"
-            stroke-linejoin="round"/>
-      <path d="M0 11 q10 -6 20 0 q10 6 20 0" fill="none" stroke="#3a7ca5" stroke-width="2.6"/>
-      <circle cx="20" cy="19" r="4" fill="#e0762f"/>
+    <svg width="28" height="28" viewBox="0 0 32 32" aria-hidden="true">
+      <rect x="1" y="1" width="30" height="30" rx="8" fill="#dc2626"/>
+      <path d="M7 20.6h4.3l2.4-6.5 2.9 9.3 2.6-6.7H25" fill="none" stroke="#fff"
+            stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>
-    <span class="dot"></span> QUASAR PULSE <small>&#12463;&#12456;&#12540;&#12469;&#12540;&#12539;&#12497;&#12523;&#12473;</small></div>
+    <span class="jenama">QUASAR PULSE</span>
+    <small>9router · token intelligence</small>
+  </div>
   <span class="chip" id="dada">…menghubung</span>
   <span class="chip">WIB <b id="jam">—</b></span>
   <span class="chip">kitar <b id="kira">15s</b></span>
@@ -821,114 +600,17 @@ a{color:#a41c1c}
 
 <div class="pita"><div id="pitaisi"></div></div>
 
-<div class="kabut" aria-hidden="true"></div>
+
 
 <!-- Hiasan statik (tiada gerakan): matahari senja + sinar, awan, burung, dedaun & bunga latar depan -->
-<svg id="hiasan" aria-hidden="true" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">
-  <defs>
-    <radialGradient id="hMatahari" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#fffdf2"/>
-      <stop offset="20%" stop-color="#ffeab8"/>
-      <stop offset="52%" stop-color="#ffca7c" stop-opacity=".46"/>
-      <stop offset="100%" stop-color="#ffb066" stop-opacity="0"/>
-    </radialGradient>
-    <linearGradient id="hAwanAtas" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#ffffff" stop-opacity=".98"/>
-      <stop offset="100%" stop-color="#ffe8d2" stop-opacity=".80"/>
-    </linearGradient>
-    <linearGradient id="hAwanBawah" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#d3e5f4"/><stop offset="100%" stop-color="#b7d3ea" stop-opacity=".45"/>
-    </linearGradient>
-    <linearGradient id="hKabutUfuk" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#ffeccd" stop-opacity="0"/>
-      <stop offset="55%" stop-color="#ffe4bd" stop-opacity=".42"/>
-      <stop offset="100%" stop-color="#ffeccd" stop-opacity="0"/>
-    </linearGradient>
-    <linearGradient id="hDaunDepan" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#3d7c4c"/><stop offset="100%" stop-color="#1b3b28"/>
-    </linearGradient>
-  </defs>
 
-  <circle cx="452" cy="356" r="300" fill="url(#hMatahari)" opacity=".95"/>
-  <circle cx="452" cy="356" r="120" fill="url(#hMatahari)"/>
-  <g opacity=".13" fill="#ffeec4">
-    <path d="M452 360 L-80 6 L176 -34 Z"/>
-    <path d="M452 360 L372 -44 L628 -34 Z"/>
-    <path d="M452 360 L1168 -34 L1436 26 Z"/>
-    <path d="M452 360 L1600 104 L1600 296 Z"/>
-  </g>
-  <circle cx="452" cy="360" r="31" fill="#fffaea"/>
-  <circle cx="452" cy="360" r="31" fill="none" stroke="#fff6d2" stroke-width="2" opacity=".75"/>
-
-  <g fill="url(#hAwanAtas)">
-    <g transform="translate(1152,148)"><ellipse rx="104" ry="34"/><ellipse cx="-72" cy="14" rx="58" ry="24"/><ellipse cx="76" cy="12" rx="64" ry="26"/><ellipse cx="-8" cy="-24" rx="66" ry="32"/></g>
-    <g transform="translate(762,106)" opacity=".86"><ellipse rx="76" ry="26"/><ellipse cx="-54" cy="10" rx="42" ry="19"/><ellipse cx="56" cy="9" rx="46" ry="20"/></g>
-    <g transform="translate(286,212)" opacity=".9"><ellipse rx="92" ry="30"/><ellipse cx="-64" cy="12" rx="50" ry="21"/><ellipse cx="70" cy="10" rx="54" ry="22"/></g>
-    <g transform="translate(1466,296)" opacity=".74"><ellipse rx="70" ry="22"/><ellipse cx="-48" cy="9" rx="38" ry="16"/><ellipse cx="50" cy="8" rx="42" ry="17"/></g>
-    <g transform="translate(138,94)" opacity=".68"><ellipse rx="62" ry="20"/><ellipse cx="44" cy="8" rx="36" ry="15"/></g>
-  </g>
-  <g fill="url(#hAwanBawah)" opacity=".48">
-    <g transform="translate(1152,176)"><ellipse rx="112" ry="12"/></g>
-    <g transform="translate(286,238)"><ellipse rx="96" ry="11"/></g>
-    <g transform="translate(762,128)"><ellipse rx="80" ry="9"/></g>
-  </g>
-
-  <g fill="none" stroke="#3a5570" stroke-width="2.6" stroke-linecap="round" opacity=".7">
-    <path d="M966 184 q13 -15 25 -1 q12 -14 24 1"/>
-    <path d="M1040 152 q11 -13 21 -1 q10 -12 20 1"/>
-    <path d="M1102 198 q9 -11 17 -1 q8 -10 16 1"/>
-  </g>
-
-  <!-- kabut hangat di ufuk: menyatukan gunung dengan tasik -->
-  <rect x="0" y="392" width="1600" height="118" fill="url(#hKabutUfuk)"/>
-  <!-- kilau tasik statik (garis cahaya mendatar) -->
-  <g fill="#fff6e2" opacity=".3">
-    <rect x="316" y="586" width="248" height="3" rx="1.5"/>
-    <rect x="676" y="620" width="330" height="3.4" rx="1.7"/>
-    <rect x="1044" y="592" width="212" height="3" rx="1.5"/>
-    <rect x="470" y="664" width="196" height="3" rx="1.5"/>
-    <rect x="880" y="686" width="268" height="3.4" rx="1.7"/>
-    <rect x="1240" y="650" width="150" height="2.8" rx="1.4"/>
-  </g>
-  <g fill="#ffd79a" opacity=".22">
-    <rect x="388" y="600" width="132" height="2.6" rx="1.3"/>
-    <rect x="962" y="640" width="186" height="2.6" rx="1.3"/>
-    <rect x="1290" y="612" width="112" height="2.4" rx="1.2"/>
-  </g>
-  <g fill="url(#hDaunDepan)" opacity=".97">
-    <path d="M0 900 L0 672 q44 -8 64 26 q26 -34 58 -6 q22 -30 50 -2 q30 -22 48 12 q26 -8 40 18 L302 900 Z"/>
-    <path d="M0 900 L0 790 q34 -12 54 14 q28 -16 48 10 q22 -10 36 14 L172 900 Z" opacity=".92"/>
-  </g>
-  <g>
-    <path d="M96 764 q10 -34 6 -58" stroke="#2f6438" stroke-width="3" fill="none"/>
-    <path d="M150 778 q-6 -30 4 -52" stroke="#2f6438" stroke-width="3" fill="none"/>
-    <path d="M198 744 q8 -28 2 -48" stroke="#2f6438" stroke-width="3" fill="none"/>
-    <g fill="#ffd0e2"><circle cx="102" cy="700" r="9"/><circle cx="88" cy="712" r="7"/><circle cx="116" cy="712" r="7"/><circle cx="102" cy="724" r="7"/></g>
-    <circle cx="102" cy="712" r="5" fill="#ffe08a"/>
-    <g fill="#fff2c8"><circle cx="154" cy="722" r="8"/><circle cx="142" cy="734" r="6"/><circle cx="166" cy="734" r="6"/></g>
-    <circle cx="154" cy="733" r="4.4" fill="#ffb85c"/>
-    <g fill="#ffc2d8"><circle cx="200" cy="694" r="7"/><circle cx="190" cy="704" r="5.4"/><circle cx="210" cy="704" r="5.4"/></g>
-    <circle cx="200" cy="703" r="4" fill="#ffe08a"/>
-  </g>
-  <g stroke="#356b3f" stroke-width="2.6" fill="none" opacity=".78" stroke-linecap="round">
-    <path d="M392 900 q6 -30 -4 -46"/><path d="M406 900 q2 -26 10 -40"/><path d="M420 900 q8 -24 2 -38"/>
-  </g>
-</svg>
 
 <main>
   <section class="hero">
-    <p class="kana">Anime landscape dashboard</p>
-    <h1>Pemandangan yang <em>tenang</em>,<br>angka yang benar</h1>
-    <p class="sub">Gunung, tasik dan kampung senja dalam satu poster anime yang tenang —
-      dan di atasnya, token, kuota serta kesihatan sebenar setiap model dalam bot Quasar.</p>
-    <p class="jepun">&#23665; · &#28246; · &#31354; · &#20809; — gunung · tasik · langit · cahaya</p>
-    <div class="turun">
-      <span>tatal ke bawah</span>
-      <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M12 4 L12 18 M6 13 L12 19 L18 13" fill="none" stroke="#3c5a72" stroke-width="2"
-              stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-    </div>
+    <p class="kana">9router · token intelligence</p>
+    <h1>Token, kuota &amp; kesihatan model<br>dalam satu papan.</h1>
+    <p class="sub">Setiap angka diambil terus daripada rekod panggilan 9router dan laporan penyedia.
+      Yang tidak dilaporkan ditanda jujur — tiada angka rekaan.</p>
   </section>
 
   <h2 id="gambaran-hari-ini">Gambaran hari ini
@@ -994,20 +676,9 @@ a{color:#a41c1c}
   </div>
 </main>
 
-<div id="bual"></div>
+<div id="bual" hidden></div>
 
-<div id="muat">
-  <svg width="104" height="104" viewBox="0 0 220 220" aria-hidden="true">
-    <ellipse cx="110" cy="206" rx="64" ry="9" fill="#2b4a63" opacity=".18"/>
-    <path d="M60 198 q10 -36 50 -36 q40 0 50 36 q-50 10 -100 0z" fill="#556B2F"/>
-    <path d="M68 170 q-10 -48 42 -48 q52 0 42 48 q-42 12 -84 0z" fill="#2F4F4F"/>
-    <path d="M74 122 q-6 -46 38 -46 q44 0 38 46 q-38 12 -76 0z" fill="#2b2b33"/>
-    <path d="M108 76 q30 2 34 38 q3 24 -17 30 q-15 4 -19 -8 q-5 -13 6 -19 q-13 -7 -11 -23 q2 -15 7 -18z"
-          fill="#f5deb3"/>
-    <ellipse cx="117" cy="99" rx="3.6" ry="4.2" fill="#33333a"/>
-  </svg>
-  <p>menarik data daripada 9router…</p>
-</div>
+<div id="muat"><div class="kotakmuat"><b>Memuatkan data</b><span>menarik angka daripada 9router…</span></div></div>
 
 <script>
 const F = n => (n || 0).toLocaleString('en-US');
@@ -1015,7 +686,7 @@ const T = n => n >= 1e9 ? (n/1e9).toFixed(2)+'B' : n >= 1e6 ? (n/1e6).toFixed(2)
               : n >= 1e3 ? (n/1e3).toFixed(1)+'k' : String(n||0);
 const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const rup = (v, min, max) => Math.max(min, Math.min(max, v));
-const WARNA_SENJA = '#e0762f';
+const WARNA_SENJA = '#dc2626';
 let D = null, tapis = '', provpilih = '', modSumber = '';
 
 /* ---------- angka naik perlahan ---------- */
@@ -1111,16 +782,7 @@ function kad(d){
         <div class="isikad"><div class="besar">0</div>
           <div class="tolok">${cincin(p, 58, WARNA_SENJA)}</div></div>
         <div class="kecil">${k}</div>
-        <svg class="intai" viewBox="0 0 90 62" aria-hidden="true">
-          <path d="M12 50 q34 -14 62 2 q-30 12 -62 -2z" fill="#e8a15c"/>
-          <circle cx="52" cy="30" r="19" fill="#f0b877"/>
-          <path d="M36 18 l-5 -14 l15 7z M68 18 l5 -14 l-15 7z" fill="#f0b877"/>
-          <path d="M38 15 l-2 -7 l8 4z M66 15 l2 -7 l-8 4z" fill="#ffd9b0"/>
-          <path d="M70 34 q13 2 10 -9 q10 12 -4 16 q-8 2 -6 -7z" fill="#e8a15c"/>
-          <ellipse cx="45" cy="29" rx="3.4" ry="4" fill="#3a3030"/>
-          <ellipse cx="60" cy="29" rx="3.4" ry="4" fill="#3a3030"/>
-          <path d="M50 38 q4 3 8 0" stroke="#8a4b26" stroke-width="2" fill="none" stroke-linecap="round"/>
-        </svg></div>`).join('');
+        </div>`).join('');
     wadah.querySelectorAll('.besar').forEach(el => lihir.set(el, 0));
   }
   wadah.querySelectorAll('.kotak').forEach((k, i) => {
