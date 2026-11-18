@@ -52,10 +52,42 @@ body{overflow-x:hidden}
 @keyframes komet-jalan{0%{transform:translate3d(0,0,0)}
   8%{transform:translate3d(70vw,26vh,0)}100%{transform:translate3d(70vw,26vh,0)}}
 
+/* planet & roket */
+.planet{position:absolute;left:7vw;top:26%;width:104px;height:86px;opacity:.5;
+  animation:planet-apung 13s ease-in-out infinite}
+@keyframes planet-apung{0%,100%{transform:translateY(0) rotate(-4deg)}
+  50%{transform:translateY(-22px) rotate(4deg)}}
+.roket{position:absolute;right:-14%;top:58%;width:74px;height:56px;opacity:.85;
+  animation:roket-jalan 19s linear infinite}
+@keyframes roket-jalan{0%{transform:translate3d(0,0,0) rotate(-6deg);opacity:0}
+  6%{opacity:.85}
+  46%{transform:translate3d(-96vw,-34vh,0) rotate(-6deg);opacity:.85}
+  47%,100%{transform:translate3d(-96vw,-34vh,0) rotate(-6deg);opacity:0}}
+/* robot kecil di tajuk */
+.robot{width:30px;height:30px;display:inline-block;animation:robot-bob 2.4s ease-in-out infinite}
+@keyframes robot-bob{0%,100%{transform:translateY(0) rotate(-3deg)}
+  50%{transform:translateY(-4px) rotate(3deg)}}
+.robot .antena{animation:antena-kedip 1.6s ease-in-out infinite}
+@keyframes antena-kedip{0%,100%{opacity:.35;fill:#f59e0b}50%{opacity:1;fill:#ffd08a}}
+/* gelembung cakap maskot */
+#bual{position:fixed;left:150px;bottom:64px;z-index:4;max-width:280px;
+  background:var(--panel2);border:1px solid var(--line);border-radius:14px;padding:9px 13px;
+  font-size:12.5px;color:var(--fg);box-shadow:0 6px 22px rgba(0,0,0,.45);
+  opacity:0;transform:translateY(8px) scale(.96);transition:.3s ease;pointer-events:none}
+#bual.tunjuk{opacity:1;transform:none}
+#bual::after{content:"";position:absolute;left:-9px;bottom:16px;border:7px solid transparent;
+  border-right-color:var(--panel2)}
+#bual b{color:var(--acc)}
+@media (max-width:900px){#bual{left:auto;right:12px;bottom:100px;max-width:210px}}
+/* kerlip bintang pada tajuk kad */
+.kotak h4::before{content:"✦";color:var(--acc);margin-right:6px;opacity:.5;
+  display:inline-block;animation:kerlip 2.6s ease-in-out infinite}
+@keyframes kerlip{0%,100%{opacity:.25;transform:scale(.85)}50%{opacity:.95;transform:scale(1.12)}}
+
 /* ================= MASKOT ================= */
 .maskot{position:fixed;z-index:3;pointer-events:none}
 /* Quasar-kun duduk di penjuru bawah kiri */
-#quasarkun{left:18px;bottom:14px;width:118px;height:118px;
+#quasarkun{left:18px;bottom:14px;width:118px;height:118px;pointer-events:auto;cursor:pointer;
   animation:apung 5.2s ease-in-out infinite}
 @keyframes apung{0%,100%{transform:translateY(0) rotate(-1.5deg)}
   50%{transform:translateY(-13px) rotate(1.5deg)}}
@@ -241,13 +273,32 @@ input[type=search]:focus{border-color:rgba(245,158,11,.45)}
 <div class="langit" id="langit">
   <div class="nebula a"></div><div class="nebula b"></div><div class="nebula c"></div>
   <svg class="bulan" viewBox="0 0 100 100" aria-hidden="true">
-    <defs><radialGradient id="gBulan" cx="38%" cy="34%">
-      <stop offset="0%" stop-color="#fff6dd"/><stop offset="100%" stop-color="#f3c96b"/></radialGradient></defs>
-    <circle cx="50" cy="50" r="34" fill="url(#gBulan)"/>
-    <circle cx="38" cy="45" r="4.2" fill="#4a3208"/><circle cx="62" cy="45" r="4.2" fill="#4a3208"/>
-    <circle cx="32" cy="56" r="4" fill="#ff9db8" opacity=".6"/>
-    <circle cx="68" cy="56" r="4" fill="#ff9db8" opacity=".6"/>
-    <path d="M42 60 q8 8 16 0" stroke="#4a3208" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <defs><radialGradient id="gBulan" cx="36%" cy="32%">
+      <stop offset="0%" stop-color="#fff8e2"/><stop offset="100%" stop-color="#f0c25c"/></radialGradient>
+      <radialGradient id="gCahaya" cx="50%" cy="50%">
+        <stop offset="0%" stop-color="#f9d68a" stop-opacity=".38"/>
+        <stop offset="100%" stop-color="#f9d68a" stop-opacity="0"/></radialGradient></defs>
+    <circle cx="50" cy="50" r="48" fill="url(#gCahaya)"/>
+    <path d="M62 8 a42 42 0 1 0 0 84 a34 34 0 1 1 0 -84z" fill="url(#gBulan)"/>
+    <circle cx="34" cy="36" r="5.4" fill="#e2ad46" opacity=".55"/>
+    <circle cx="28" cy="56" r="3.6" fill="#e2ad46" opacity=".45"/>
+    <circle cx="40" cy="68" r="4.4" fill="#e2ad46" opacity=".4"/>
+    <circle cx="45" cy="24" r="2.6" fill="#fff" opacity=".85"/>
+  </svg>
+  <svg class="planet" viewBox="0 0 120 100" aria-hidden="true">
+    <ellipse cx="60" cy="52" rx="52" ry="12" fill="none" stroke="#7dd3fc" stroke-width="4" opacity=".55"/>
+    <circle cx="60" cy="50" r="26" fill="#a78bfa" opacity=".75"/>
+    <path d="M40 40 q20 -8 38 4" stroke="#c4b5fd" stroke-width="4" fill="none" opacity=".7"/>
+    <path d="M38 56 q22 8 44 -2" stroke="#c4b5fd" stroke-width="4" fill="none" opacity=".7"/>
+    <ellipse cx="60" cy="52" rx="52" ry="12" fill="none" stroke="#7dd3fc" stroke-width="4" opacity=".35"
+      stroke-dasharray="6 10"/>
+  </svg>
+  <svg class="roket" viewBox="0 0 80 60" aria-hidden="true">
+    <path d="M14 30 q16 -18 42 -10 q-10 14 -42 10z" fill="#e5e7eb" stroke="#8a4b06" stroke-width="2.5"/>
+    <path d="M54 20 q10 -4 14 4 q-8 6 -14 -4z" fill="#f87171" stroke="#8a4b06" stroke-width="2.5"/>
+    <circle cx="34" cy="26" r="4" fill="#7dd3fc" stroke="#8a4b06" stroke-width="2"/>
+    <path d="M12 28 l-10 4 l10 4" fill="#fbbf24" stroke="#8a4b06" stroke-width="2.5" stroke-linejoin="round"/>
+    <path d="M50 32 l6 8M44 34 l4 8" stroke="#fbbf24" stroke-width="3" stroke-linecap="round"/>
   </svg>
   <div class="komet"></div><div class="komet k2"></div><div class="komet k3"></div>
 </div>
@@ -289,7 +340,17 @@ input[type=search]:focus{border-color:rgba(245,158,11,.45)}
 
 <!-- ============ tajuk ============ -->
 <header><div class="bar">
-  <div class="logo"><span class="dot"></span> QUASAR PULSE</div>
+  <div class="logo">
+    <svg class="robot" viewBox="0 0 40 40" aria-hidden="true">
+      <path d="M20 3 l0 6" stroke="#8a4b06" stroke-width="2.4" stroke-linecap="round"/>
+      <circle class="antena" cx="20" cy="3" r="3.4"/>
+      <rect x="7" y="11" width="26" height="21" rx="9" fill="#ffe1ac" stroke="#8a4b06" stroke-width="2.6"/>
+      <circle cx="15" cy="21" r="3.2" fill="#3a2408"/><circle cx="25" cy="21" r="3.2" fill="#3a2408"/>
+      <circle cx="16.2" cy="20" r="1.2" fill="#fff"/><circle cx="26.2" cy="20" r="1.2" fill="#fff"/>
+      <path d="M15 27 q5 4 10 0" stroke="#8a4b06" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <path d="M4 19 l-2 3 M36 19 l2 3" stroke="#8a4b06" stroke-width="2.4" stroke-linecap="round"/>
+    </svg>
+    <span class="dot"></span> QUASAR PULSE</div>
   <span class="chip" id="dada">…menghubung</span>
   <span class="chip">WIB <b id="jam">—</b></span>
   <span class="chip">kitar <b id="kira">15s</b></span>
@@ -353,6 +414,8 @@ input[type=search]:focus{border-color:rgba(245,158,11,.45)}
   </div>
 </main>
 
+<div id="bual"></div>
+
 <div id="muat">
   <svg width="86" height="86" viewBox="0 0 120 120" aria-hidden="true">
     <circle cx="60" cy="52" r="32" fill="#ffe1ac" stroke="#8a4b06" stroke-width="3"/>
@@ -397,6 +460,17 @@ function naik(el, sasaran){
     el.textContent = F(Math.round(mula + (sasaran - mula) * e));
     if (k < 1) requestAnimationFrame(langkah);
   })(t0);
+}
+
+/* ---------- gelembung cakap maskot ---------- */
+let bualTimer = null;
+function bual(teks, ms = 5200){
+  const b = document.getElementById('bual');
+  if (!b) return;
+  b.innerHTML = teks;
+  b.classList.add('tunjuk');
+  clearTimeout(bualTimer);
+  bualTimer = setTimeout(() => b.classList.remove('tunjuk'), ms);
 }
 
 /* ---------- letupan bintang + maskot melompat ---------- */
@@ -649,6 +723,13 @@ async function tarik(){
   if (lama && d.ringkas.token_hari > lama){
     const b = document.getElementById('kad').getBoundingClientRect();
     letupBintang(b.left + 60, b.top + 40);
+    bual(`Token naik <b>+${F(d.ringkas.token_hari - lama)}</b> sejak kitaran lalu!`);
+  } else if (!lama){
+    bual(`Hai BOZ! Aku Quasar-kun. <b>${F(d.ringkas.model_tersedia)}</b> model dipantau, `
+       + `<b>${F(d.ringkas.connection_sihat)}</b> connection sihat.`);
+  }
+  if (mod === 'snapshot' && d.dikemas){
+    setTimeout(() => bual('Mod <b>snapshot</b> — laptop BOZ belum menghantar data baharu.'), 5600);
   }
   D = d;
   if (!document.getElementById('cip').children.length) cipProvider(d);
@@ -660,6 +741,26 @@ async function tarik(){
 
 let detik = 15;
 document.getElementById('cari').oninput = e => { tapis = e.target.value; if (D) inv(D); };
+document.getElementById('quasarkun').addEventListener('click', e => {
+  const r = document.getElementById('quasarkun').getBoundingClientRect();
+  letupBintang(r.left + r.width / 2, r.top + r.height / 2);
+  const tips = D ? [
+    `Mistral paling jujur — dia beritahu baki sebenar: <b>${F(D.ringkas.baki_tok_min)}</b> tok/min.`,
+    `Model paling laju malam ini: <b>${(D.model[0] || {}).model || '—'}</b>.`,
+    `Poin MiniMax belum dituntut: <b>${F((D.ringkas.mm_akaun - D.ringkas.mm_claim_hari) * 400)}</b>.`,
+    `Connection bermasalah: <b>${D.amaran.length}</b> — tengok bahagian bawah.`,
+    `Jumlah token 7 hari: <b>${F(D.ringkas.token_7)}</b>. Itu ${T(D.ringkas.token_7)} token!`,
+  ] : ['Tunggu sekejap, aku masih tarik data…'];
+  bual(tips[Math.floor(Math.random() * tips.length)], 6000);
+});
+/* cakap sesekali supaya laman tidak sunyi */
+setInterval(() => {
+  if (!D || document.hidden) return;
+  if (Math.random() < .5){
+    bual(`Masih di sini, BOZ. <b>${F(D.ringkas.req_hari)}</b> permintaan hari ini, `
+       + `<b>${T(D.ringkas.token_hari)}</b> token.`);
+  }
+}, 47000);
 document.addEventListener('click', e => {
   if (e.target.closest('.kotak')) letupBintang(e.clientX, e.clientY);
 });
