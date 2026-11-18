@@ -162,6 +162,8 @@ footer a{font-weight:600;border-bottom:1px solid rgba(185,28,28,.25)}
       <a href="#token-model" class="utama">Token ikut model</a>
       <a href="#baki-modal">Baki &amp; modal</a>
       <a href="#boleh-tambah">Boleh tambah?</a>
+      <a href="#opencode">Model OpenCode</a>
+      <a href="#farm">Farm akaun</a>
       <a href="#kesihatan">Kesihatan sambungan</a>
       <a href="#inventori">Model tersedia</a>
     </div>
@@ -226,6 +228,63 @@ footer a{font-weight:600;border-bottom:1px solid rgba(185,28,28,.25)}
     <small>Kuota terikat pada akaun penyedia, bukan pada model. Ini jawapan jujur ikut penyedia yang awak guna.</small>
   </h2>
   <div class="grid2" id="penyedia"></div>
+
+  <h2 id="opencode">Model percuma OpenCode
+    <small>Katalog rasmi <b>models.opencode.ai</b> — model kos sifar yang boleh dipanggil tanpa akaun dan tanpa API key.</small>
+  </h2>
+  <div class="kad" id="ocKad"></div>
+  <div class="alat" style="margin-top:12px">
+    <input type="search" id="ocCari" placeholder="Cari model atau keluarga…" autocomplete="off">
+    <button class="btn on" id="ocTapis" type="button">Aktif sahaja</button>
+    <button class="btn" id="ocSegar" type="button">Muat semula</button>
+    <span class="kecil" id="ocKira" style="color:var(--dim)"></span>
+  </div>
+  <div class="balut"><div class="golekbar">
+    <table id="ocJadual">
+      <thead><tr>
+        <th>Model ID</th>
+        <th>Keluarga</th>
+        <th class="kanan">Konteks maks</th>
+        <th class="kanan">Keluaran maks</th>
+        <th>Ciri</th>
+        <th>Status</th>
+        <th>Dikeluarkan</th>
+      </tr></thead>
+      <tbody id="ocBadan"></tbody>
+    </table>
+  </div></div>
+  <div class="nota" id="ocNota">Memuatkan katalog…</div>
+
+  <h2 id="farm">Farm akaun automatik
+    <small>Cetus pendaftaran akaun MiniMax terus dari halaman ini. Halaman hanya menghantar arahan — kerja sebenar berjalan pada laptop awak.</small>
+  </h2>
+  <div class="grid2">
+    <div class="senarai" id="farmKad"></div>
+    <div class="senarai">
+      <div class="baris" style="display:block">
+        <label class="kecil" for="farmAsas">Alamat API farm</label>
+        <input type="search" id="farmAsas" placeholder="https://xxxx.trycloudflare.com" autocomplete="off">
+      </div>
+      <div class="baris" style="display:block">
+        <label class="kecil" for="farmToken">X-Farm-Token</label>
+        <input type="search" id="farmToken" placeholder="token dari api_token.txt" autocomplete="off">
+      </div>
+      <div class="alat" style="margin:10px 0 4px">
+        <button class="btn" id="farm1" type="button">Farm 1</button>
+        <button class="btn" id="farm5" type="button">Farm 5</button>
+        <button class="btn" id="farm10" type="button">Farm 10</button>
+        <button class="btn on" id="farmSimpan" type="button">Simpan &amp; sambung</button>
+        <button class="btn" id="farmHenti" type="button">Henti</button>
+      </div>
+      <div class="alat" style="margin:2px 0 6px">
+        <button class="btn" id="farmAuto5" type="button">Auto 5 akaun</button>
+        <button class="btn" id="farmAuto10" type="button">Auto 10 akaun</button>
+        <span class="kecil" style="color:var(--dim)">auto = cuba berulang sampai sasaran (tiap 10 minit), berhenti sendiri bila cukup</span>
+      </div>
+    </div>
+  </div>
+  <div class="nota" id="farmNota"><b>Belum disambung.</b> Isi alamat API + token, tekan Simpan.</div>
+  <div class="balut" style="margin-top:12px"><pre id="farmLog" style="margin:0;padding:14px;font-size:11.6px;line-height:1.5;max-height:260px;overflow:auto;white-space:pre-wrap">(log akan muncul di sini)</pre></div>
 
   <h2 id="kesihatan">Kesihatan sambungan
     <small>Akaun yang sihat vs bermasalah, dan ralat terkini.</small>
@@ -475,6 +534,166 @@ document.querySelectorAll("[data-tapis]").forEach(b => b.addEventListener("click
   });
   kunci();
 })();
+
+/* ── Model percuma OpenCode (katalog models.opencode.ai) ─────────────── */
+let ocData = null, ocAktifSahaja = true;
+const ocEl = id => document.getElementById(id);
+function ocKad(tajuk, nilai, kecil){
+  return `<div class="kotak"><h4>${tajuk}</h4><div class="nilai">${nilai}</div>`
+       + `<div class="kecil">${kecil || ""}</div></div>`;
+}
+function ocPil(t, jenis){ return `<span class="pil ${jenis}">${t}</span>`; }
+function ocBaris(b){
+  const cari = (ocEl("ocCari").value || "").toLowerCase().trim();
+  const teks = (b.id + " " + b.keluarga + " " + b.nama).toLowerCase();
+  if (cari && !teks.includes(cari)) return "";
+  const akt = b.status !== "deprecated";
+  if (ocAktifSahaja && !akt) return "";
+  const ciri = [];
+  if ((b.konteks || 0) >= 1000000) ciri.push(ocPil("1J konteks", "boleh"));
+  if (b.alat) ciri.push(ocPil("guna alat", "tanya"));
+  if (b.imej) ciri.push(ocPil("lihat imej", "tanya"));
+  if (b.penaakulan) ciri.push(ocPil("berfikir", "tanya"));
+  return `<tr>
+    <td class="nama">${b.id}<span class="penyedia">${b.nama}</span></td>
+    <td>${b.keluarga}</td>
+    <td class="kanan">${F(b.konteks)}</td>
+    <td class="kanan">${F(b.keluaran)}</td>
+    <td>${ciri.join(" ") || "—"}</td>
+    <td>${akt ? ocPil("Aktif", "boleh") : ocPil("Lapuk", "tanya")}</td>
+    <td>${b.dikeluarkan || "—"}</td>
+  </tr>`;
+}
+function ocLukis(){
+  if (!ocData) return;
+  const semua = ocData.model || [];
+  const m = ocData.meta || {};
+  ocEl("ocKad").innerHTML =
+      ocKad("Model percuma aktif", F(m.jumlah_aktif), "daripada " + F(m.jumlah_percuma) + " model kos sifar")
+    + ocKad("Konteks terbesar", F(m.konteks_maks), "token")
+    + ocKad("Model 1J+ konteks", F(m.bilangan_1j), "sedia untuk dokumen besar")
+    + ocKad("Katalog dikemas kini", (m.dikemas_kini || "—").slice(5), F(m.jumlah_model_opencode) + " model dalam provider opencode");
+  const badan = semua.map(ocBaris).join("");
+  ocEl("ocBadan").innerHTML = badan || '<tr><td colspan="7">Tiada model padan.</td></tr>';
+  const tampil = semua.filter(b => !ocAktifSahaja || b.status !== "deprecated").length;
+  ocEl("ocKira").textContent = "menunjuk " + tampil + " / " + semua.length + " model";
+  ocEl("ocNota").innerHTML = "Sumber: <b>" + (m.sumber || "—") + "</b> · dikemas kini " + (m.dikemas_kini || "—")
+    + " · katalog mengandungi " + F(m.jumlah_provider) + " penyedia. Model bertanda <span class=\"pil tanya\">Lapuk</span> masih boleh dipanggil tetapi sudah tidak disyorkan penyedia.";
+}
+async function ocMuat(segar){
+  try {
+    const url = "opencode_models.json" + (segar ? "?t=" + Date.now() : "");
+    const r = await fetch(url, {cache: segar ? "reload" : "default"});
+    if (!r.ok) throw new Error("HTTP " + r.status);
+    ocData = await r.json();
+    ocLukis();
+  } catch(e){
+    ocEl("ocNota").innerHTML = "<b>Katalog tak dapat dimuat:</b> " + (e.message || e);
+  }
+}
+ocEl("ocCari").addEventListener("input", ocLukis);
+ocEl("ocTapis").addEventListener("click", () => {
+  ocAktifSahaja = !ocAktifSahaja;
+  ocEl("ocTapis").className = "btn" + (ocAktifSahaja ? " on" : "");
+  ocEl("ocTapis").textContent = ocAktifSahaja ? "Aktif sahaja" : "Semua (termasuk lapuk)";
+  ocLukis();
+});
+ocEl("ocSegar").addEventListener("click", () => ocMuat(true));
+ocMuat(false);
+
+/* ── Farm akaun automatik (API tempatan / terowong) ─────────────────── */
+const FARMC = Object.assign({asas:"", tok:""},
+  JSON.parse(localStorage.getItem("farm_api_v1") || "{}"));
+const fEl = id => document.getElementById(id);
+let farmSiap = false;
+
+function farmKod(tajuk, nilai, kecil){
+  return `<div class="kotak"><h4>${tajuk}</h4><div class="nilai">${nilai}</div>`
+       + `<div class="kecil">${kecil || ""}</div></div>`;
+}
+function farmSimpanKonf(){
+  FARMC.asas = (fEl("farmAsas").value || "").trim().replace(/\/+$/, "");
+  FARMC.tok  = (fEl("farmToken").value || "").trim();
+  localStorage.setItem("farm_api_v1", JSON.stringify(FARMC));
+  farmSiap = false;
+  muatFarm();
+}
+async function farmPanggil(path, opts){
+  opts = opts || {};
+  const r = await fetch(FARMC.asas + path, Object.assign({}, opts, {
+    headers: Object.assign({"X-Farm-Token": FARMC.tok}, opts.headers || {})
+  }));
+  const t = await r.text();
+  let j; try { j = JSON.parse(t); } catch(e) { j = {mentah: t}; }
+  if (!r.ok) throw new Error(j.detail || ("HTTP " + r.status));
+  return j;
+}
+async function muatFarm(){
+  fEl("farmAsas").value  = FARMC.asas;
+  fEl("farmToken").value = FARMC.tok;
+  if (!FARMC.asas){
+    fEl("farmKad").innerHTML = farmKod("Status", "—", "API belum diset");
+    fEl("farmNota").innerHTML = "<b>Belum disambung.</b> Isi alamat API farm + token, tekan Simpan & sambung.";
+    return;
+  }
+  try {
+    const s = await farmPanggil("/status");
+    const k = s.akaun || {};
+    const kerja = (s.kerja && s.kerja.berjalan)
+      ? ("jalan · " + s.kerja.jumlah_diminta + " akaun")
+      : "sedia";
+    fEl("farmKad").innerHTML =
+      farmKod("Berjaya hari ini", F(k.berjaya_hari_ini), "jumlah keseluruhan " + F(k.berjaya))
+    + farmKod("Token tersimpan", F(s.token_tersimpan), "≈ " + F(s.mata_mingguan) + " mata/minggu")
+    + farmKod("Akaun gagal", F(k.gagal), "rekod " + F(k.jumlah_rekod))
+    + farmKod("Status kerja", kerja, s.kerja && s.kerja.mula ? ("mula " + s.kerja.mula) : "");
+    const a = s.auto || {};
+    if (a.aktif){
+      fEl("farmKad").innerHTML += farmKod("Auto-farm",
+        F(a.dapat) + "/" + F(a.sasar),
+        "cubaan " + F(a.cubaan) + "/" + F(a.maks) + (a.lapor ? " · " + a.lapor : ""));
+    }
+    const akhir = (k.terakhir && k.terakhir.status) || "?";
+    fEl("farmNota").innerHTML = s.nota
+      ? ("<b>Perhatian:</b> " + s.nota)
+      : ("<b>Sedia.</b> Status terakhir: " + akhir
+         + (k.terakhir && k.terakhir.masa_wib ? " (" + k.terakhir.masa_wib + ")" : ""));
+    const l = await farmPanggil("/log?talian=120");
+    fEl("farmLog").textContent = l.log || "(kosong)";
+    farmSiap = true;
+  } catch(e){
+    fEl("farmKad").innerHTML = farmKod("Status", "terputus", "tak dapat hubungi API");
+    fEl("farmNota").innerHTML = "<b>Gagal sambung:</b> " + (e.message || e)
+      + " — pastikan API farm hidup dan token betul.";
+  }
+}
+async function farmMula(n){
+  if (!farmSiap){ farmSimpanKonf(); return; }
+  try { await farmPanggil("/farm?n=" + n, {method:"POST"}); }
+  catch(e){ alert("Farm gagal dimulakan: " + (e.message || e)); }
+  muatFarm();
+}
+async function farmAuto(n){
+  if (!farmSiap){ farmSimpanKonf(); return; }
+  try { await farmPanggil("/auto?sasar=" + n + "&selang=600&maks=24", {method:"POST"}); }
+  catch(e){ alert("Auto-farm gagal dimulakan: " + (e.message || e)); }
+  muatFarm();
+}
+async function farmHenti(){
+  try { await farmPanggil("/auto/stop", {method:"POST"}); } catch(e){ /* auto mungkin tak aktif */ }
+  try { await farmPanggil("/stop", {method:"POST"}); }
+  catch(e){ alert("Henti gagal: " + (e.message || e)); }
+  muatFarm();
+}
+fEl("farmSimpan").addEventListener("click", farmSimpanKonf);
+fEl("farm1").addEventListener("click", () => farmMula(1));
+fEl("farm5").addEventListener("click", () => farmMula(5));
+fEl("farm10").addEventListener("click", () => farmMula(10));
+fEl("farmAuto5").addEventListener("click", () => farmAuto(5));
+fEl("farmAuto10").addEventListener("click", () => farmAuto(10));
+fEl("farmHenti").addEventListener("click", farmHenti);
+muatFarm();
+setInterval(() => { if (FARMC.asas) muatFarm(); }, 5000);
 
 setInterval(tarik, 60000);
 tarik();
