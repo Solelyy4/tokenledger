@@ -396,122 +396,147 @@ main{max-width:1180px;padding:0 26px 200px}
 .hero{padding:78px 6px 88px}
 .kaki{max-width:1180px}
 </style>
-<style id="merah">
+<style id="cerah">
 /* ==========================================================================
-   TEMA MERAH GELAP — gaya portal (rujukan Tokenomix), SIFAR ANIMASI.
-   Permukaan #161618/#121214, teks #e9e9ec, aksen merah #e5322f,
-   jejari 16px, bayang dalam gelap. Seni anime kekal sebagai tekstur malam.
+   TEMA CERAH HANGAT + AKSEN MERAH — sifar animasi.
+   Latar krim #f3efe9, kad putih hangat, garis nipis, aksen merah #d32b2b.
+   Seni anime dipulihkan penuh (gunung, tasik, kampung, watak) — bukan gelap.
    ========================================================================== */
 :root{
-  --panel:#17171a; --panel2:#1b1b1f;
-  --line:rgba(255,255,255,.09); --line2:rgba(255,255,255,.06);
-  --fg:#e9e9ec; --dim:#b6b6bf; --dim2:#95959f;
-  --acc:#e5322f; --deep:#b4231f; --ok:#34d399; --bad:#f2706d; --blue:#63a9f8;
-  --r:16px; --kaca:none;
+  --panel:rgba(255,253,251,.94); --panel2:rgba(255,253,251,.86);
+  --line:rgba(60,35,20,.14); --line2:rgba(60,35,20,.09);
+  --fg:#2b2420; --dim:#6d6259; --dim2:#8b8078;
+  --acc:#d32b2b; --deep:#a41c1c; --ok:#14805a; --bad:#c4382f; --blue:#2f6fb0;
+  --r:16px; --kaca:blur(10px) saturate(1.08);
 }
-html,body{background:#0c0c0e;color:var(--fg)}
+*,*::before,*::after{animation:none !important;transition:none !important}
+/* NOTA: jangan letak overflow-x:hidden pada html/body — ia mematikan header melekat. */
+html,body{background:#f3efe9;color:var(--fg)}
 body{font-family:"Inter Variable",Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif}
 body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
   background:
-    radial-gradient(115% 62% at 50% -12%, rgba(229,50,47,.20), transparent 58%),
-    radial-gradient(70% 46% at 10% 6%, rgba(229,50,47,.10), transparent 62%),
-    #0c0c0e}
+    radial-gradient(120% 62% at 50% -8%, rgba(211,43,43,.10), transparent 60%),
+    radial-gradient(80% 50% at 8% 4%, rgba(255,196,120,.16), transparent 62%),
+    #f3efe9}
 
-/* --- seni anime jadi tekstur malam yang halus --- */
-#pemandangan{opacity:.16;filter:saturate(.45) brightness(.58) contrast(1.06)}
-#hutan-depan{opacity:.12;filter:brightness(.5) saturate(.55)}
-#hiasan{opacity:.15;filter:saturate(.6) brightness(.66)}
-.sinar{opacity:.08;filter:hue-rotate(-26deg) saturate(2.4)}
-.kabut{background:linear-gradient(180deg,rgba(12,12,14,.9) 0%,rgba(12,12,14,.97) 62%,#0c0c0e 100%)}
-#quasarkun,#bual{display:none}
+/* --- seni anime dipulihkan; lapisan bunga/matahari tambahan dibuang --- */
+#pemandangan{opacity:1;filter:none}
+#hutan-depan{opacity:1;filter:none}
+#hiasan{display:none}
+#quasarkun{display:block}
+#bual{display:block}
+.kabut{background:linear-gradient(180deg,
+    rgba(248,244,239,.80) 0%, rgba(248,244,239,.42) 26%,
+    rgba(248,244,239,.14) 48%, rgba(248,244,239,0) 68%);z-index:2}
 
-/* --- header & pita --- */
-header{background:rgba(12,12,14,.94);border-bottom:1px solid rgba(255,255,255,.07);box-shadow:none}
-.logo{color:#f3f3f6}
-.pita{background:rgba(17,17,19,.94);border-bottom:1px solid rgba(255,255,255,.06);color:#9a9aa2}
-.pita span i{color:var(--acc)}
-.chip{background:#141416;border:1px solid rgba(255,255,255,.08);color:#a5a5ad;box-shadow:none}
-.chip b{color:#ececf0}
+/* --- header + jalur menu lompat --- */
+header{background:rgba(255,253,250,.86);border-bottom:1px solid rgba(60,35,20,.09);
+  box-shadow:0 6px 20px rgba(90,60,40,.08)}
+.bar{max-width:1180px;padding:12px 22px;gap:10px}
+.logo{color:#2b2420}
+.chip{background:rgba(255,255,255,.9);border:1px solid rgba(60,35,20,.1);color:#6d6259;
+  box-shadow:0 1px 3px rgba(90,60,40,.06)}
+.chip b{color:#2b2420}
+.lompat{max-width:1180px;margin:0 auto;padding:0 22px 10px;display:flex;align-items:center;
+  gap:8px;overflow-x:auto;scrollbar-width:thin;-webkit-overflow-scrolling:touch}
+.lompat::-webkit-scrollbar{height:6px}
+.lompat::-webkit-scrollbar-thumb{background:rgba(60,35,20,.22);border-radius:6px}
+.lompat::before{content:"LOMPAT KE";flex:0 0 auto;font-size:10.4px;letter-spacing:.18em;
+  color:#8b8078;font-weight:600;padding-right:2px}
+.lompat a{flex:0 0 auto;display:inline-flex;align-items:center;gap:6px;padding:7px 13px;
+  border-radius:999px;font-size:12.6px;font-weight:550;color:#4a4038;
+  background:rgba(255,255,255,.86);border:1px solid rgba(60,35,20,.1);text-decoration:none;
+  white-space:nowrap}
+.lompat a:hover{border-color:rgba(211,43,43,.45);color:#a41c1c}
+.lompat a.utama{background:#d32b2b;border-color:#d32b2b;color:#fff;font-weight:600;
+  box-shadow:0 4px 14px rgba(211,43,43,.28)}
+.lompat a.utama:hover{background:#a41c1c;border-color:#a41c1c;color:#fff}
 
-/* --- hero gaya portal --- */
-.hero{padding:76px 6px 70px;isolation:isolate}
+/* --- hero --- */
+.hero{padding:64px 6px 58px;isolation:isolate}
 .hero::before{content:"";position:absolute;left:50%;top:-26px;transform:translateX(-50%);
-  width:min(940px,95vw);height:330px;z-index:-1;pointer-events:none;
-  background:radial-gradient(closest-side,rgba(229,50,47,.19),transparent 72%)}
-.kana{color:#ff5a57;letter-spacing:.42em;font-size:11.3px;opacity:1}
-.hero h1{font-family:inherit;font-weight:600;font-size:clamp(31px,4.1vw,54px);line-height:1.08;
-  letter-spacing:-.03em;color:#f5f5f8;text-shadow:none}
-.hero h1 em{font-style:normal;color:#ff4d4a;text-shadow:none}
-/* bayang teks cerah dari tema asal dibuang (latar kini gelap) */
-.hero *,.kana,.jepun,.turun,.kepala *,.kaki,.pita,.chip{text-shadow:none}
-.hero .sub{max-width:600px;font-size:15.8px;line-height:1.7;color:#c0c0c9;text-shadow:none}
-.jepun{color:#a3a3ad;letter-spacing:.2em}
-.turun{color:#8a8a92}
-.turun svg path{stroke:#ff6b62 !important}
+  width:min(940px,95vw);height:320px;z-index:-1;pointer-events:none;
+  background:radial-gradient(closest-side,rgba(255,255,255,.78),transparent 72%)}
+.kana{color:#a41c1c;letter-spacing:.36em;font-size:11.4px}
+.hero h1{font-family:inherit;font-weight:600;font-size:clamp(31px,4vw,52px);line-height:1.09;
+  letter-spacing:-.028em;color:#241f1c;text-shadow:0 1px 14px rgba(255,255,255,.9)}
+.hero h1 em{font-style:normal;color:#d32b2b}
+.hero .sub{max-width:620px;font-size:15.4px;line-height:1.68;color:#5c534c;
+  text-shadow:0 1px 10px rgba(255,255,255,.9)}
+.jepun{color:#8b8078;letter-spacing:.2em}
+.turun{color:#8b8078}
+.turun svg path{stroke:#d32b2b !important}
 
-/* --- tajuk seksyen --- */
-h2{color:#f1f1f4;font-size:19px;font-weight:600;letter-spacing:-.014em;
-  border-bottom:1px solid rgba(255,255,255,.07)}
-h2::after{background:linear-gradient(90deg,var(--acc),rgba(229,50,47,0))}
-h2 small{color:#a3a3ad}
-code,h2 small code{background:#1d1d21;border:1px solid rgba(255,255,255,.10);color:#e4e4ea}
+/* --- tajuk seksyen (sasaran lompat) --- */
+main>h2,h2{color:#241f1c;font-size:19.5px;font-weight:600;letter-spacing:-.015em;
+  scroll-margin-top:118px;text-shadow:none}
+h2::after{background:linear-gradient(90deg,var(--acc),rgba(211,43,43,0))}
+h2 small{color:#6d6259;text-shadow:none}
+code,h2 small code{background:rgba(211,43,43,.08);border:1px solid rgba(211,43,43,.16);color:#a41c1c}
 
-/* --- permukaan kad: gelap, rata, bernafas --- */
-.panel,.kotak,.rb,.mmk{
-  background:linear-gradient(180deg,#1c1c21,#161619);
-  border:1px solid rgba(255,255,255,.10);
-  border-radius:16px;
-  box-shadow:0 26px 64px -34px rgba(0,0,0,.95);
-  backdrop-filter:none}
-.kotak:hover{border-color:rgba(229,50,47,.38);transform:none}
+/* --- kad: putih hangat, rata, bernafas --- */
+.panel,.kotak,.rb,.mmk{background:var(--panel);border:1px solid var(--line2);
+  border-radius:16px;box-shadow:0 14px 34px -22px rgba(90,60,40,.35)}
 .panel{position:relative}
-.panel::before{content:"";position:absolute;left:18px;right:18px;top:-1px;height:1px;
-  background:linear-gradient(90deg,rgba(229,50,47,.55),rgba(229,50,47,0))}
-.baris{border-bottom:1px solid rgba(255,255,255,.06);color:#e2e2e9}
-.baris:hover{background:rgba(255,255,255,.035)}
-.angka{color:#f2f2f5}
-.angka b,.isikad b{color:#fff}
-.nama,.tajuk{color:#e7e7eb}
-.meta,.kepala,.ms,.sep{color:#a0a0aa}
-.cawan,.kucing{opacity:.9}
-.kepala h3,.kepala b{color:#ececf0}
+.panel::before{content:"";position:absolute;left:18px;right:18px;top:-1px;height:2px;border-radius:2px;
+  background:linear-gradient(90deg,rgba(211,43,43,.5),rgba(211,43,43,0))}
+.kotak:hover{border-color:rgba(211,43,43,.34)}
+.baris{border-bottom:1px solid var(--line2);color:#3a322c}
+.baris:hover{background:rgba(211,43,43,.045)}
+.angka{color:#241f1c}
+.nama,.tajuk{color:#2b2420}
+.meta,.kepala,.ms,.sep{color:#6d6259}
 
 /* --- pil / cip status --- */
-.pil{background:#1b1b1f;border-color:rgba(255,255,255,.09);color:#a8a8b0}
-.pil.ok{color:#7ff0c4;background:rgba(52,211,153,.12);border-color:rgba(52,211,153,.3)}
-.pil.bad{color:#ff928f;background:rgba(242,112,109,.12);border-color:rgba(242,112,109,.32)}
-.pil.acc{color:#ffb4b1;background:rgba(229,50,47,.14);border-color:rgba(229,50,47,.34)}
-.pil.blue{color:#9dc8fb;background:rgba(99,169,248,.12);border-color:rgba(99,169,248,.3)}
+.pil{background:rgba(255,255,255,.9);border-color:var(--line);color:#6d6259}
+.pil.ok{color:#0f6446;background:rgba(20,128,90,.1);border-color:rgba(20,128,90,.3)}
+.pil.bad{color:#a4231c;background:rgba(196,56,47,.1);border-color:rgba(196,56,47,.3)}
+.pil.acc{color:#a41c1c;background:rgba(211,43,43,.1);border-color:rgba(211,43,43,.28)}
+.pil.blue{color:#255a92;background:rgba(47,111,176,.1);border-color:rgba(47,111,176,.26)}
 .cip2{color:#fff}
-.cip2.acc{background:rgba(229,50,47,.16);color:#ffb4b1}
-.cip2.bad{background:rgba(242,112,109,.15);color:#ff928f}
-.cip2.ok{background:rgba(52,211,153,.14);color:#7ff0c4}
-.cip2.blue{background:rgba(99,169,248,.14);color:#9dc8fb}
+.cip2.acc{background:rgba(211,43,43,.12);color:#a41c1c}
+.cip2.bad{background:rgba(196,56,47,.12);color:#a4231c}
+.cip2.ok{background:rgba(20,128,90,.12);color:#0f6446}
+.cip2.blue{background:rgba(47,111,176,.12);color:#255a92}
 
 /* --- tolok, carta, penunjuk --- */
-.trel{background:rgba(255,255,255,.08)}
-.tggi{background:linear-gradient(180deg,#ff6f66,rgba(180,35,31,.55))}
-.dot{background:var(--acc);box-shadow:0 0 0 4px rgba(229,50,47,.18)}
-.sbar{background:#141416;border:1px solid rgba(255,255,255,.07)}
-.sbar:hover{background:#1b1b1f;border-color:rgba(229,50,47,.3)}
-.mmk .cincin circle{stroke:#2a2a2f}
+.trel{background:rgba(60,35,20,.1)}
+.tggi{background:linear-gradient(180deg,#e8654f,rgba(164,28,28,.5))}
+.dot{background:var(--acc);box-shadow:0 0 0 4px rgba(211,43,43,.14)}
+.sbar{background:rgba(255,255,255,.9);border:1px solid var(--line2)}
+.sbar:hover{background:#fff;border-color:rgba(211,43,43,.3)}
+.mmk .cincin circle{stroke:rgba(60,35,20,.14)}
 .mmk .cincin circle:last-child{stroke:var(--acc)}
-.mmk{background:linear-gradient(180deg,#1b1b20,#161619)}
 
 /* --- input & penapis --- */
-input[type=search]{background:#141416;border:1px solid rgba(255,255,255,.08);color:var(--fg);box-shadow:none}
-input[type=search]::placeholder{color:#6f6f77}
-input[type=search]:focus{border-color:rgba(229,50,47,.5);box-shadow:0 0 0 3px rgba(229,50,47,.12)}
-.cip button{background:#161619;border:1px solid rgba(255,255,255,.08);color:#a4a4ac}
-.cip button.on{background:rgba(229,50,47,.16);border-color:rgba(229,50,47,.4);color:#ffb4b1}
+input[type=search]{background:#fff;border:1px solid var(--line);color:var(--fg);box-shadow:none}
+input[type=search]::placeholder{color:#9c918a}
+input[type=search]:focus{border-color:rgba(211,43,43,.5);box-shadow:0 0 0 3px rgba(211,43,43,.1)}
+.cip button{background:#fff;border:1px solid var(--line);color:#5c534c}
+.cip button.on{background:rgba(211,43,43,.1);border-color:rgba(211,43,43,.4);color:#a41c1c}
 
 /* --- pautan, kaki, tatal bar --- */
-a{color:#ff6b62}
-.kaki{color:#7b7b83;border-top:1px solid rgba(255,255,255,.06)}
+a{color:#a41c1c}
+.kaki{color:#6d6259;border-top:1px solid rgba(60,35,20,.12);text-shadow:none}
+.kaki a{font-weight:600}
 .inv::-webkit-scrollbar{width:10px;height:10px}
-.inv::-webkit-scrollbar-thumb{background:#2a2a2f;border-radius:8px}
-.inv::-webkit-scrollbar-track{background:transparent}
-::selection{background:rgba(229,50,47,.35)}
+.inv::-webkit-scrollbar-thumb{background:rgba(60,35,20,.22);border-radius:8px}
+::selection{background:rgba(211,43,43,.2)}
+
+/* --- maskot dinaikkan supaya kaki tidak terpotong tepi skrin --- */
+#quasarkun{bottom:22px;right:20px}
+#bual{background:rgba(255,255,255,.96);border:1px solid rgba(211,43,43,.18);color:#2b2420;
+  box-shadow:0 12px 28px rgba(90,60,40,.18)}
+/* --- telefon: header nipis, kedua-dua baris boleh digolek --- */
+@media (max-width:560px){
+  .bar{flex-wrap:nowrap;overflow-x:auto;padding:10px 14px;gap:8px;scrollbar-width:none}
+  .bar::-webkit-scrollbar{height:0}
+  .bar>*{flex:0 0 auto}
+  .lompat{padding:0 14px 8px}
+  #quasarkun{width:126px;height:126px;bottom:14px;right:12px}
+  #bual{left:12px;right:12px;bottom:150px;max-width:none}
+  h2{scroll-margin-top:106px}
+}
 </style>
 </head>
 <body>
@@ -790,7 +815,9 @@ a{color:#ff6b62}
   <span class="chip">kitar <b id="kira">15s</b></span>
   <span class="sep"></span>
   <span class="chip">dikemas <b id="masa">memuat…</b></span>
-</div></header>
+</div>
+  <div class="lompat" id="lompat"><a href="#baki-sebenar" class="utama">Baki sebenar</a><a href="#kesihatan-model">Kesihatan model</a><a href="#gambaran-hari-ini">Gambaran hari ini</a><a href="#model-pakai">Model digunakan</a><a href="#trend-7-hari">Trend 7 hari</a><a href="#minimax-poin">Akaun MiniMax</a><a href="#inventori-model">Semua model</a><a href="#connection-bermasalah">Connection</a></div>
+</header>
 
 <div class="pita"><div id="pitaisi"></div></div>
 
@@ -904,24 +931,24 @@ a{color:#ff6b62}
     </div>
   </section>
 
-  <h2>Gambaran hari ini
+  <h2 id="gambaran-hari-ini">Gambaran hari ini
     <small>Setiap angka diambil daripada rekod panggilan 9router — bukan agakan.</small></h2>
   <div class="kad" id="kad"></div>
 
   <div class="grid2">
     <div>
-      <h2>Model yang digunakan
+      <h2 id="model-pakai">Model yang digunakan
         <small>Token sebenar masuk/keluar bagi setiap model yang bot sudah panggil.</small></h2>
       <div class="panel"><div id="modelpakai"></div></div>
     </div>
     <div>
-      <h2>Trend 7 hari
+      <h2 id="trend-7-hari">Trend 7 hari
         <small>Jumlah token sehari (masuk + keluar).</small></h2>
       <div class="panel" style="padding:14px 16px"><div class="trend" id="trend"></div></div>
     </div>
   </div>
 
-  <h2>Baki sebenar — dilaporkan penyedia
+  <h2 id="baki-sebenar">Baki sebenar — dilaporkan penyedia
     <small>Mistral mendedahkan kuota dalam setiap respons:
     <code>x-ratelimit-remaining-tokens-minute</code>. Angka ini ialah baki sebenar saat ini.</small></h2>
   <div class="panel" style="padding:14px 16px">
@@ -930,18 +957,18 @@ a{color:#ff6b62}
     <div id="bakilain" style="margin-top:12px"></div>
   </div>
 
-  <h2>Akaun MiniMax — poin harian
+  <h2 id="minimax-poin">Akaun MiniMax — poin harian
     <small>Kincir penuh = poin hari ini sudah dituntut (400 poin/akaun/hari).</small></h2>
   <div class="panel" style="padding:14px 16px"><div class="mm" id="mm"></div></div>
 
-  <h2>Kesihatan model — ujian panggilan sebenar
+  <h2 id="kesihatan-model">Kesihatan model — ujian panggilan sebenar
     <small>Setiap model dipanggil 1-2 kali; kelas ikut median latency. Dikemas kini oleh ujian berkala.</small></h2>
   <div class="panel" style="padding:14px 16px">
     <div class="alat" id="sehatringkas"><span class="chip">memuatkan hasil ujian…</span></div>
     <div class="sehat" id="sehat"></div>
   </div>
 
-  <h2>Semua model dalam bot — <span id="juminv">—</span>
+  <h2 id="inventori-model">Semua model dalam bot — <span id="juminv">—</span>
     <small>Inventori katalog 9router. Guna carian atau cip provider untuk menapis.</small></h2>
   <div class="panel" style="padding:12px 16px 16px">
     <div class="alat">
@@ -953,12 +980,15 @@ a{color:#ff6b62}
     <div class="inv" id="inv"></div>
   </div>
 
-  <h2>Connection bermasalah
+  <h2 id="connection-bermasalah">Connection bermasalah
     <small>Hanya yang mempunyai ralat atau kena had kadar.</small></h2>
   <div class="panel" style="padding:12px 16px" id="amaran"></div>
 
   <div class="kaki">
     Sumber: SQLite 9router (usageHistory, usageDaily) · API 9router · API MiniMax (bertandatangan).
+    <b>Daring:</b> <a href="https://solelyy4.github.io/quasar-pulse/" target="_blank" rel="noopener">solelyy4.github.io/quasar-pulse</a>
+    (dikemas setiap 15 minit) · <b>Setempat:</b>
+    <a href="http://127.0.0.1:8890/" target="_blank" rel="noopener">127.0.0.1:8890</a> (data langsung).<br>
     Penyedia tidak mendedahkan baki token melalui API awam — bila tertulis
     <span class="pil">tidak dilaporkan</span>, itu memang tidak dilaporkan, bukan angka rekaan.
   </div>
