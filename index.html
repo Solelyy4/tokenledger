@@ -1,1144 +1,475 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ms">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Quasar Pulse — Token, kuota &amp; kesihatan model 9router</title>
-<meta name="description" content="Papan pemantauan token, kuota dan kesihatan model 9router — angka sebenar daripada rekod panggilan dan laporan penyedia.">
-<meta name="theme-color" content="#f6f7f9">
+<title>NADI — papan token model</title>
+<meta name="description" content="Papan pemantauan token model AI: jumlah token setiap model, baki kuota dan sama ada token boleh ditambah.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23dc2626'/%3E%3Cpath d='M8 21V11m8 10V7m8 14v-6' stroke='white' stroke-width='3.2' stroke-linecap='round'/%3E%3C/svg%3E">
 <style>
-/* ==========================================================================
-   QUASAR PULSE — edisi pemandangan anime
-   langit #3f7fb5→#87CEEB→#FFE6B3 · gunung #7f9fb8/#4e7a5f · tasik #1E90FF
-   hutan #228B22 · dek #8B5A2B · aksen senja #e0762f
-   ========================================================================== */
 :root{
-  --panel:rgba(255,255,255,.80); --panel2:rgba(255,255,255,.62);
-  --line:rgba(23,60,90,.16); --line2:rgba(23,60,90,.10);
-  --fg:#1f3242; --dim:#5c7488; --dim2:#7c93a6;
-  --acc:#e0762f; --deep:#b8561c; --ok:#2f9e6f; --bad:#d9534f; --blue:#3a7ca5;
-  --r:16px; --kaca:blur(14px) saturate(1.15);
-}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-html,body{margin:0;background:#cfe6f4;color:var(--fg);
-  font:15px/1.55 "Inter Variable",Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;
-  -webkit-font-smoothing:antialiased}
-body{overflow-x:hidden}
-
-/* ====================== LAPISAN PEMANDANGAN ====================== */
-#pemandangan{position:fixed;left:0;right:0;bottom:0;width:100%;height:100%;z-index:0;
-  pointer-events:none;will-change:transform}
-#langit{position:fixed;inset:0;width:100%;height:100%;z-index:1;pointer-events:none}
-/* Kanvas hadapan: kelopak & habuk cahaya terapung DI ATAS kad data (z-index tinggi,
-   pointer-events:none) supaya rasa "dunia anime hidup" kekal walau skrol jauh. */
-#serbuk{position:fixed;inset:0;width:100%;height:100%;z-index:7;pointer-events:none}
-#hutan-depan{position:fixed;left:0;right:0;bottom:0;width:100%;height:100%;z-index:2;
-  pointer-events:none;will-change:transform}
-.sinar{position:fixed;left:24%;top:30%;width:180vmax;height:180vmax;margin:-90vmax 0 0 -90vmax;
-  z-index:1;pointer-events:none;opacity:.45;
-  background:conic-gradient(from 0deg,rgba(255,240,205,.16) 0 3deg,transparent 3deg 26deg,
-    rgba(255,236,196,.10) 26deg 28deg,transparent 28deg 52deg,
-    rgba(255,240,205,.14) 52deg 55deg,transparent 55deg 84deg,
-    rgba(255,236,196,.09) 84deg 86deg,transparent 86deg 118deg,
-    rgba(255,240,205,.12) 118deg 121deg,transparent 121deg 152deg,
-    rgba(255,236,196,.10) 152deg 154deg,transparent 154deg 190deg,
-    rgba(255,240,205,.13) 190deg 193deg,transparent 193deg 228deg,
-    rgba(255,236,196,.09) 228deg 230deg,transparent 230deg 268deg,
-    rgba(255,240,205,.12) 268deg 271deg,transparent 271deg 306deg,
-    rgba(255,236,196,.10) 306deg 308deg,transparent 308deg 360deg);
-  animation:sinar-pusing 150s linear infinite}
-@keyframes sinar-pusing{to{transform:rotate(360deg)}}
-
-/* tumbuhan bergoyang */
-.goyang{transform-box:fill-box;transform-origin:50% 100%;animation:goyang-angin 6s ease-in-out infinite}
-@keyframes goyang-angin{0%,100%{transform:rotate(-1.6deg)}50%{transform:rotate(1.6deg)}}
-.rumput{transform-box:fill-box;transform-origin:50% 100%;animation:rumput-goyang 3.6s ease-in-out infinite}
-@keyframes rumput-goyang{0%,100%{transform:skewX(-5deg) rotate(-3deg)}50%{transform:skewX(6deg) rotate(4deg)}}
-.bunga{transform-box:fill-box;transform-origin:50% 100%;animation:bunga-goyang 4.4s ease-in-out infinite}
-@keyframes bunga-goyang{0%,100%{transform:rotate(-4deg)}50%{transform:rotate(5deg)}}
-.daun{transform-box:fill-box;transform-origin:0% 100%;animation:daun-goyang 5.2s ease-in-out infinite}
-@keyframes daun-goyang{0%,100%{transform:rotate(-2.4deg)}50%{transform:rotate(3deg)}}
-.lampu{animation:lampu-kedip 3.6s ease-in-out infinite}
-@keyframes lampu-kedip{0%,100%{opacity:.95}45%{opacity:.5}70%{opacity:1}}
-.kilau-tasik rect{animation:tasik-gerak 9s ease-in-out infinite}
-@keyframes tasik-gerak{0%,100%{transform:translateX(-46px);opacity:.16}
-  50%{transform:translateX(46px);opacity:.34}}
-
-/* ====================== WATAK ANIME ====================== */
-#quasarkun{position:fixed;right:16px;bottom:10px;width:196px;height:196px;z-index:5;
-  pointer-events:auto;cursor:pointer;filter:drop-shadow(0 10px 18px rgba(20,60,90,.28));
-  animation:nafas 6.4s ease-in-out infinite}
-@keyframes nafas{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-3px) scale(1.012)}}
-#quasarkun .mata{transform-box:fill-box;transform-origin:center;animation:kelip-mata 5.6s infinite}
-@keyframes kelip-mata{0%,93%,100%{transform:scaleY(1)}96%{transform:scaleY(.08)}}
-#quasarkun .rambut path,#quasarkun .selendang{transform-box:fill-box;transform-origin:right center;
-  animation:rambut-angin 4.6s ease-in-out infinite}
-@keyframes rambut-angin{0%,100%{transform:rotate(-2.5deg)}50%{transform:rotate(4deg)}}
-#quasarkun .lengan{transform-box:fill-box;transform-origin:right center;
-  animation:seruput 12s ease-in-out infinite}
-@keyframes seruput{0%,70%,100%{transform:rotate(0)}80%{transform:rotate(-10deg)}92%{transform:rotate(-2deg)}}
-#quasarkun .wap{animation:wap-naik 3.2s ease-in-out infinite}
-#quasarkun .wap.w2{animation-delay:.9s}
-@keyframes wap-naik{0%{opacity:0;transform:translateY(6px)}40%{opacity:.65}
-  100%{opacity:0;transform:translateY(-16px)}}
-#quasarkun .ekorkucing{transform-box:fill-box;transform-origin:left center;
-  animation:ekor-kucing 2.6s ease-in-out infinite}
-@keyframes ekor-kucing{0%,100%{transform:rotate(-6deg)}50%{transform:rotate(9deg)}}
-#quasarkun.lompat{animation:lompat .8s cubic-bezier(.3,1.6,.4,1)}
-@keyframes lompat{0%{transform:translateY(0) scale(1)}
-  35%{transform:translateY(-40px) scale(1.07) rotate(-4deg)}100%{transform:translateY(0) scale(1)}}
-
-/* ====================== GELEMBUNG CAKAP ====================== */
-#bual{position:fixed;right:214px;bottom:86px;z-index:6;max-width:290px;
-  background:rgba(255,255,255,.94);border:1px solid rgba(255,255,255,.85);border-radius:16px;
-  padding:10px 14px;font-size:12.8px;color:var(--fg);
-  box-shadow:0 12px 30px rgba(20,60,90,.22);backdrop-filter:var(--kaca);
-  opacity:0;transform:translateY(8px) scale(.96);transition:.32s ease;pointer-events:none}
-#bual.tunjuk{opacity:1;transform:none}
-#bual::after{content:"";position:absolute;right:-8px;bottom:20px;border:8px solid transparent;
-  border-left-color:rgba(255,255,255,.94)}
-#bual b{color:var(--acc)}
-
-/* ====================== TAJUK ====================== */
-header{position:sticky;top:0;z-index:8;background:rgba(255,255,255,.66);
-  backdrop-filter:var(--kaca);border-bottom:1px solid rgba(255,255,255,.6);
-  box-shadow:0 6px 22px rgba(20,60,90,.10)}
-.bar{max-width:1480px;margin:0 auto;display:flex;align-items:center;gap:12px;
-  padding:13px 26px;flex-wrap:wrap}
-.logo{display:flex;align-items:center;gap:10px;font-weight:650;letter-spacing:-.02em;font-size:17px;
-  color:#16303f}
-.logo small{font-weight:450;font-size:11.5px;color:var(--dim);letter-spacing:.04em}
-.dot{width:11px;height:11px;border-radius:50%;background:var(--acc);
-  box-shadow:0 0 0 4px rgba(224,118,47,.16);animation:denyut 2.1s ease-in-out infinite}
-@keyframes denyut{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(.7);opacity:.55}}
-.bar .sep{flex:1}
-.chip{border:1px solid rgba(255,255,255,.75);background:rgba(255,255,255,.72);border-radius:999px;
-  padding:6px 13px;font-size:12.5px;color:var(--dim);display:inline-flex;gap:7px;align-items:center;
-  white-space:nowrap;box-shadow:0 3px 10px rgba(20,60,90,.07)}
-.chip b{color:var(--fg);font-variant-numeric:tabular-nums}
-.chip.live{color:#12603f;border-color:rgba(47,158,111,.45);background:rgba(226,247,238,.9)}
-.chip.snap{color:#235b7d;border-color:rgba(58,124,165,.42);background:rgba(228,242,250,.9)}
-
-/* ====================== PITA BERGILIR ====================== */
-.pita{position:relative;z-index:3;border-bottom:1px solid rgba(255,255,255,.55);
-  background:linear-gradient(90deg,rgba(255,244,224,.78),rgba(255,255,255,.34) 45%,rgba(226,242,250,.5));
-  backdrop-filter:var(--kaca);overflow:hidden;white-space:nowrap}
-.pita>div{display:inline-block;padding:8px 0;animation:pita-jalan 52s linear infinite}
-.pita span{margin:0 22px;font-size:12.4px;color:#3c5568}
-.pita span b{color:#16303f;font-variant-numeric:tabular-nums}
-.pita i{color:var(--acc);font-style:normal}
-@keyframes pita-jalan{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-
-main{position:relative;z-index:3;max-width:1480px;margin:0 auto;padding:0 26px 150px}
-
-/* ====================== HERO ====================== */
-.hero{position:relative;text-align:center;padding:64px 10px 78px;
-  animation:hero-masuk 1.5s cubic-bezier(.2,.7,.2,1) both}
-@keyframes hero-masuk{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
-.hero .kana{font-size:12.5px;letter-spacing:.42em;color:#2f4f68;text-transform:uppercase;
-  margin:0 0 10px;opacity:.85}
-.hero h1{margin:0;font-size:clamp(38px,6.4vw,78px);line-height:1.02;letter-spacing:-.045em;
-  font-weight:700;color:#12293a;
-  text-shadow:0 2px 18px rgba(255,255,255,.75),0 1px 2px rgba(255,255,255,.6)}
-.hero h1 em{font-style:normal;color:var(--acc)}
-.hero .sub{margin:14px auto 0;max-width:660px;font-size:15.5px;color:#2b4a61;
-  text-shadow:0 1px 10px rgba(255,255,255,.85)}
-.hero .jepun{margin:16px 0 0;font-size:13px;color:#3c5a72;letter-spacing:.16em;opacity:.9}
-.turun{margin-top:26px;display:inline-flex;flex-direction:column;align-items:center;gap:5px;
-  font-size:11.5px;letter-spacing:.2em;color:#3c5a72;text-transform:uppercase}
-.turun svg{animation:turun-bob 2.6s ease-in-out infinite}
-@keyframes turun-bob{0%,100%{transform:translateY(0);opacity:.6}50%{transform:translateY(7px);opacity:1}}
-
-/* ====================== KAD ====================== */
-h2{font-size:19px;font-weight:640;letter-spacing:-.025em;margin:36px 0 4px;color:#12293a;
-  text-shadow:0 1px 12px rgba(255,255,255,.8)}
-h2 small{display:block;font-size:12.5px;color:#42627a;font-weight:430;letter-spacing:0;margin-top:3px;
-  text-shadow:0 1px 8px rgba(255,255,255,.8)}
-h2 code{background:rgba(255,255,255,.7);padding:1px 6px;border-radius:6px;font-size:11.5px}
-.kad{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(232px,1fr))}
-.kotak{position:relative;overflow:visible;background:var(--panel);border:1px solid rgba(255,255,255,.75);
-  border-radius:var(--r);padding:16px 18px;min-height:134px;backdrop-filter:var(--kaca);
-  box-shadow:0 10px 26px rgba(20,60,90,.13);
-  transition:transform .25s ease,border-color .25s ease;
-  animation:tkx-in .6s cubic-bezier(.2,.7,.2,1) both}
-.kotak:nth-child(2){animation-delay:.06s}.kotak:nth-child(3){animation-delay:.12s}
-.kotak:nth-child(4){animation-delay:.18s}.kotak:nth-child(5){animation-delay:.24s}
-.kotak:nth-child(6){animation-delay:.30s}.kotak:nth-child(7){animation-delay:.36s}
-@keyframes tkx-in{from{opacity:0;transform:translateY(20px) scale(.98)}to{opacity:1;transform:none}}
-.kotak::after{content:"";position:absolute;inset:0;border-radius:var(--r);overflow:hidden;
-  pointer-events:none;
-  background:linear-gradient(105deg,transparent 35%,rgba(255,242,214,.55) 50%,transparent 65%);
-  transform:translateX(-130%)}
-.kotak:hover::after{animation:sapu .9s ease}
-@keyframes sapu{to{transform:translateX(130%)}}
-.kotak:hover{border-color:rgba(224,118,47,.5);transform:translateY(-2px)}
-.kotak h4{margin:0;font-size:12px;text-transform:uppercase;letter-spacing:.13em;color:var(--dim);
-  font-weight:580}
-.kotak h4::before{content:"\2726";color:var(--acc);margin-right:6px;opacity:.55;display:inline-block;
-  animation:kerlip 2.8s ease-in-out infinite}
-@keyframes kerlip{0%,100%{opacity:.3;transform:scale(.85)}50%{opacity:.95;transform:scale(1.12)}}
-.isikad{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:6px 0 2px}
-.besar{flex:1 1 auto;min-width:0;font-size:clamp(21px,1.5vw + 11px,29px);font-weight:660;
-  letter-spacing:-.045em;font-variant-numeric:tabular-nums;line-height:1.15;white-space:nowrap;
-  color:#10293a}
-.besar i{font-style:normal;font-size:16px;color:var(--acc);margin-left:5px}
-.kecil{font-size:12.5px;color:var(--dim2)}
-.tolok{flex:0 0 auto;width:58px;height:58px;position:relative}
-.tolok svg{transform:rotate(-90deg);display:block}
-.tolok circle{fill:none;stroke-width:6;stroke-linecap:round}
-.tolok .trek{stroke:rgba(23,60,90,.12)}
-.tolok .nadi{stroke:var(--acc);animation:nadi 2.6s ease-in-out infinite alternate}
-@keyframes nadi{from{opacity:.55}to{opacity:1}}
-/* rubah mengintai dari tepi kad */
-.intai{position:absolute;left:50%;bottom:-44px;width:78px;margin-left:-39px;opacity:0;
-  transition:bottom .35s ease,opacity .35s ease;pointer-events:none;z-index:2;
-  filter:drop-shadow(0 6px 12px rgba(20,60,90,.22))}
-.kotak:hover .intai{bottom:-4px;opacity:1}
-
-/* ====================== PANEL ====================== */
-.grid2{display:grid;gap:16px;grid-template-columns:1.35fr 1fr}
-.panel{background:var(--panel);border:1px solid rgba(255,255,255,.75);border-radius:var(--r);
-  padding:6px 16px 14px;backdrop-filter:var(--kaca);box-shadow:0 10px 26px rgba(20,60,90,.12);
-  animation:tkx-in .6s cubic-bezier(.2,.7,.2,1) both}
-.panel h3{margin:14px 0 12px;font-size:12px;text-transform:uppercase;letter-spacing:.12em;
-  color:var(--dim);font-weight:580}
-.baris{display:grid;grid-template-columns:minmax(150px,1.5fr) 74px 1fr 96px;gap:12px;align-items:center;
-  padding:9px 6px;border-bottom:1px solid var(--line2);font-size:13.5px}
-.baris:last-child{border-bottom:none}
-.baris:hover{background:rgba(255,255,255,.55)}
-.nama{display:flex;align-items:center;gap:9px;min-width:0}
-.nama b{font-weight:560;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.pil{font-size:10.5px;padding:2px 8px;border-radius:999px;border:1px solid var(--line);color:var(--dim);
-  white-space:nowrap;background:rgba(255,255,255,.5)}
-.pil.acc{color:#a2501a;border-color:rgba(224,118,47,.45);background:rgba(255,236,214,.85)}
-.pil.ok{color:#1c6b4a;border-color:rgba(47,158,111,.4);background:rgba(226,247,238,.85)}
-.pil.bad{color:#8f2f2b;border-color:rgba(217,83,79,.4);background:rgba(253,233,232,.85)}
-.pil.blue{color:#245a78;border-color:rgba(58,124,165,.4);background:rgba(228,242,250,.85)}
-.trel{height:7px;border-radius:999px;background:rgba(23,60,90,.12);overflow:hidden;position:relative}
-.trel i{display:block;height:100%;border-radius:999px;
-  background:linear-gradient(90deg,var(--deep),#f6b26b);
-  transition:width .9s cubic-bezier(.2,.8,.2,1)}
-.trel::after{content:"";position:absolute;inset:0;
-  background:linear-gradient(90deg,transparent,rgba(255,255,255,.65),transparent);
-  animation:kilau 2.6s linear infinite}
-@keyframes kilau{from{transform:translateX(-100%)}to{transform:translateX(100%)}}
-.angka{text-align:right;font-variant-numeric:tabular-nums;color:var(--fg)}
-.mm{display:grid;gap:11px;grid-template-columns:repeat(auto-fill,minmax(198px,1fr));
-  max-height:430px;overflow:auto;padding:2px}
-.mmk{background:var(--panel2);border:1px solid rgba(255,255,255,.7);border-radius:13px;padding:12px 13px;
-  position:relative;animation:tkx-in .5s ease both;backdrop-filter:var(--kaca);
-  transition:transform .2s ease,border-color .2s ease}
-.mmk:hover{border-color:rgba(224,118,47,.45);transform:translateY(-2px)}
-.mmk .mail{font-size:12px;color:var(--fg);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.mmk .meta{font-size:11px;color:var(--dim);margin-top:6px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-.cincin{position:absolute;right:10px;top:10px;width:34px;height:34px}
-.cincin svg{transform:rotate(-90deg)}
-.cincin circle{fill:none;stroke-width:4;stroke-linecap:round}
-.ringkasbaki{display:grid;gap:11px;grid-template-columns:repeat(auto-fit,minmax(172px,1fr));margin:2px 0 14px}
-.rb{background:var(--panel2);border:1px solid rgba(255,255,255,.7);border-radius:12px;padding:11px 13px}
-.rb span{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--dim)}
-.rb b{display:block;font-size:21px;font-weight:630;letter-spacing:-.035em;margin-top:4px;
-  font-variant-numeric:tabular-nums;color:#10293a}
-.rb em{font-style:normal;font-size:12px;color:var(--acc)}
-.barbaki{height:5px;border-radius:999px;background:rgba(23,60,90,.12);margin-top:9px;overflow:hidden}
-.barbaki i{display:block;height:100%;background:linear-gradient(90deg,var(--deep),#f6b26b);
-  transition:width .9s cubic-bezier(.2,.8,.2,1)}
-.amar{display:flex;gap:11px;align-items:flex-start;padding:10px 6px;border-bottom:1px solid var(--line2);
-  font-size:13px}
-.amar:last-child{border-bottom:none}
-.amar .isi{min-width:0;flex:1}
-.amar .tajuk{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.trend{display:flex;align-items:flex-end;gap:12px;height:170px;padding:8px 4px 0}
-.tbatang{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:7px;
-  height:100%}
-.tbatang .tggi{width:100%;max-width:74px;border-radius:9px 9px 3px 3px;
-  background:linear-gradient(180deg,#f6b26b,rgba(184,86,28,.45));
-  transition:height 1s cubic-bezier(.2,.8,.2,1);min-height:3px}
-.tbatang span{font-size:11px;color:var(--dim);font-variant-numeric:tabular-nums}
-.alat{display:flex;gap:9px;flex-wrap:wrap;align-items:center;margin:14px 0 6px}
-input[type=search]{flex:1;min-width:210px;background:rgba(255,255,255,.8);
-  border:1px solid rgba(255,255,255,.8);color:var(--fg);border-radius:11px;padding:10px 14px;
-  font:inherit;font-size:13px;outline:none;box-shadow:inset 0 1px 3px rgba(20,60,90,.08)}
-input[type=search]::placeholder{color:var(--dim2)}
-input[type=search]:focus{border-color:rgba(224,118,47,.6);background:#fff}
-.cip{display:flex;gap:7px;flex-wrap:wrap;margin:12px 0 4px;max-height:118px;overflow:auto}
-.cip button{background:rgba(255,255,255,.68);border:1px solid rgba(255,255,255,.8);color:var(--dim);
-  border-radius:999px;padding:5px 12px;font:inherit;font-size:12px;cursor:pointer;transition:.18s}
-.cip button:hover{color:var(--fg);border-color:rgba(224,118,47,.5);transform:translateY(-1px)}
-.cip button.on{color:#8f4413;border-color:rgba(224,118,47,.55);background:rgba(255,236,214,.95)}
-.inv{max-height:470px;overflow:auto}
-.kaki{margin-top:44px;padding-top:18px;border-top:1px solid rgba(255,255,255,.6);color:#43607a;
-  font-size:12px;text-shadow:0 1px 8px rgba(255,255,255,.7)}
-.kaki a{color:var(--deep)}
-
-/* kesihatan model */
-.sehat{display:grid;gap:7px;margin-top:12px}
-.sbar{display:grid;grid-template-columns:1fr auto auto;gap:10px;align-items:center;
-  padding:8px 11px;border:1px solid rgba(255,255,255,.7);border-radius:11px;
-  background:rgba(255,255,255,.5);font-size:12.5px}
-.sbar:hover{background:rgba(255,255,255,.78)}
-.sbar .nm{font-family:ui-monospace,monospace;font-size:12px;overflow:hidden;text-overflow:ellipsis;
-  white-space:nowrap}
-.sbar .ms{color:var(--dim);font-variant-numeric:tabular-nums}
-.sbar .cip2{font-size:10.5px;letter-spacing:.06em;padding:3px 8px;border-radius:999px;font-weight:700}
-.c-lancar{background:rgba(47,158,111,.16);color:#1c6b4a;border:1px solid rgba(47,158,111,.4)}
-.c-sederhana{background:rgba(224,118,47,.16);color:#8f4413;border:1px solid rgba(224,118,47,.42)}
-.c-lambat{background:rgba(217,140,60,.18);color:#8a5019;border:1px solid rgba(217,140,60,.45)}
-.c-gagal{background:rgba(217,83,79,.16);color:#8f2f2b;border:1px solid rgba(217,83,79,.42)}
-
-/* letupan kelopak */
-.letup{position:fixed;width:9px;height:9px;border-radius:50%;pointer-events:none;z-index:9;
-  background:var(--acc);box-shadow:0 0 10px 2px rgba(224,118,47,.45);
-  animation:letup .95s ease-out forwards}
-@keyframes letup{0%{transform:translate(0,0) scale(1);opacity:1}
-  100%{transform:translate(var(--dx),var(--dy)) scale(.2);opacity:0}}
-
-/* skrin muat */
-#muat{position:fixed;inset:0;z-index:20;display:flex;flex-direction:column;align-items:center;
-  justify-content:center;gap:16px;transition:opacity .6s;
-  background:linear-gradient(180deg,#4f8fc0,#87CEEB 46%,#ffe6b3 78%,#f7d9a8)}
-#muat.tutup{opacity:0;pointer-events:none}
-#muat p{color:#1d3b52;font-size:13px;margin:0;text-shadow:0 1px 8px rgba(255,255,255,.8)}
-#muat svg{animation:nafas 3.4s ease-in-out infinite}
-
-/* kemunculan seksyen */
-.boleh-muncul{opacity:0;transform:translateY(26px);
-  transition:opacity .85s cubic-bezier(.2,.7,.2,1),transform .85s cubic-bezier(.2,.7,.2,1)}
-.boleh-muncul.muncul{opacity:1;transform:none}
-
-@media (prefers-reduced-motion: reduce){
-  *{animation-duration:.001s !important;animation-iteration-count:1 !important;
-    transition-duration:.001s !important;scroll-behavior:auto !important}
-  .boleh-muncul{opacity:1 !important;transform:none !important}
-}
-/* Kabut sinematik: haba ufuk hangat + viginet hujung (di bawah main, jadi teks kekal tajam) */
-.kabut{position:fixed;inset:0;z-index:2;pointer-events:none;
-  background:
-    linear-gradient(to bottom, rgba(255,234,201,.15) 0%, rgba(255,234,201,.05) 22%, transparent 34%),
-    radial-gradient(125% 95% at 50% 44%, transparent 52%, rgba(17,31,50,.30) 100%)}
-/* Skrin rendah (landskap telefon): gelembung watak bertindih tajuk hero — sembunyikan */
-@media (max-width:820px), (max-height:620px){ #bual{display:none} }
-@media (max-width:1000px){
-  .grid2{grid-template-columns:1fr}
-  .baris{grid-template-columns:1.3fr 64px 1fr}
-  #quasarkun{width:130px;height:130px;right:8px;bottom:6px}
-  #bual{right:146px;bottom:64px;max-width:210px}
-  .hero{padding:44px 6px 58px}
-  main{padding-bottom:110px}
-}
-@media (max-width:640px){
-  .bar{padding:11px 15px;gap:9px}
-  main{padding:0 15px 96px}
-  #quasarkun{width:106px;height:106px}
-  .chip{font-size:11.5px;padding:5px 10px}
-  .hero h1{font-size:34px}
-}
-</style>
-<style id="statik">
-/* ==========================================================================
-   EDISI STATIK — tiada gerakan sama sekali, gaya diperhalusi untuk dicetak/
-   dilihat sebagai satu poster anime. Semua animasi & keyframes dimatikan.
-   ========================================================================== */
-*,*::before,*::after{animation:none !important}
-html{scroll-behavior:auto}
-.boleh-muncul{opacity:1 !important;transform:none !important}
-#hiasan{position:fixed;inset:0;width:100%;height:100%;z-index:1;pointer-events:none}
-.sinar{opacity:.34}
-
-/* ---- tipografi poster ---- */
-h1{font-family:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
-  font-weight:600;line-height:1.04;letter-spacing:-.014em;color:#0d2735;
-  text-shadow:0 2px 34px rgba(255,255,255,.94),0 1px 3px rgba(13,39,53,.16)}
-h1 em{font-style:italic;color:#bd6020;text-shadow:0 2px 26px rgba(255,241,208,.96),0 1px 2px rgba(120,60,10,.18)}
-h2{position:relative;font-size:20.5px;font-weight:650;letter-spacing:-.014em;color:#0d2735;
-  margin:46px 0 10px;padding-bottom:10px;border-bottom:1px solid rgba(23,60,90,.10)}
-h2::after{content:"";position:absolute;left:0;bottom:-1px;width:82px;height:2px;border-radius:2px;
-  background:linear-gradient(90deg,#e0762f,rgba(224,118,47,0))}
-h2 small{display:block;margin-top:6px;font-size:12.9px;font-weight:400;color:#5f7c92;line-height:1.5}
-h2 small code{background:rgba(255,255,255,.72);border:1px solid rgba(23,60,90,.10);
-  border-radius:6px;padding:1px 5px;font-size:11.8px}
-
-/* ---- hero poster ---- */
-.hero{padding:86px 10px 100px}
-.kana{font-size:11.6px;letter-spacing:.46em;color:#7a5533;opacity:.95}
-.hero .sub{max-width:648px;margin:20px auto 0;font-size:16.5px;line-height:1.68;color:#36536a;
-  text-shadow:0 1px 12px rgba(255,255,255,.94)}
-.jepun{color:#486a85;letter-spacing:.22em;font-size:12.4px;opacity:.95}
-.turun{color:#3f5f79;opacity:.9}
-
-/* ---- kad & panel: kaca hangat ---- */
-.panel{background:linear-gradient(180deg,rgba(255,255,255,.89),rgba(255,255,255,.73));
-  border:1px solid rgba(255,255,255,.92);border-radius:20px;
-  box-shadow:0 16px 40px rgba(13,47,76,.14),inset 0 1px 0 rgba(255,255,255,.96)}
-.isikad{margin:8px 0 3px}
-.angka{font-weight:600;color:#0f2b3a}
-.chip{background:rgba(255,255,255,.87);border:1px solid rgba(255,255,255,.95);color:#486579;
-  box-shadow:0 5px 16px rgba(13,47,76,.10)}
-.pil{background:rgba(255,255,255,.62)}
-header{background:linear-gradient(180deg,rgba(255,255,255,.84),rgba(255,255,255,.58));
-  box-shadow:0 8px 28px rgba(13,47,76,.12)}
-.logo{color:#102939;letter-spacing:-.012em}
-.bar{padding:14px 26px}
-.pita{background:linear-gradient(90deg,rgba(255,246,231,.88),rgba(255,255,255,.52) 48%,rgba(228,242,250,.6))}
-#quasarkun{filter:drop-shadow(0 14px 26px rgba(16,46,70,.32)) saturate(1.05)}
-.kaki{color:#4d6a7f}
-
-/* kad data: beri ruang bernafas */
-.kad{gap:20px;grid-template-columns:repeat(auto-fit,minmax(244px,1fr))}
-.panel{padding:14px 18px 16px}
-.grid2{gap:22px}
-main>h2:first-of-type{margin-top:40px}
-.kaki{padding:44px 0 26px}
-
-/* kolum dikuncupkan supaya pemandangan senja kekal kelihatan di kiri & kanan */
-.bar{max-width:1180px}
-main{max-width:1180px;padding:0 26px 200px}
-.hero{padding:78px 6px 88px}
-.kaki{max-width:1180px}
-</style>
-<style id="tech">
-/* ==========================================================================
-   QUASAR PULSE — MODERN TECH DASHBOARD
-   Tiada ilustrasi/gambar. Logo sahaja. Sifar animasi.
-   Latar #f6f7f9 + grid halus, kad putih, garis #e6e8ec, aksen merah #dc2626.
-   ========================================================================== */
-:root{
-  --bg:#f6f7f9; --panel:#ffffff; --panel2:#fbfcfd;
-  --line:#e6e8ec; --line2:#eef0f3;
+  --bg:#f6f7f9; --panel:#fff; --line:#e6e8ec; --line2:#eef0f3;
   --fg:#111827; --dim:#6b7280; --dim2:#9ca3af;
-  --acc:#dc2626; --deep:#b91c1c; --ok:#0f9d63; --bad:#dc2626; --blue:#2563eb;
-  --r:14px; --kaca:none;
+  --acc:#dc2626; --deep:#b91c1c; --ok:#0f9d63;
 }
-*,*::before,*::after{animation:none !important;transition:none !important}
-html,body{background:var(--bg);color:var(--fg)}
-body{font-family:"Inter Variable",Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;
-  -webkit-font-smoothing:antialiased}
-/* grid teknikal halus — CSS sahaja, bukan imej */
+*,*::before,*::after{animation:none !important;transition:none !important;box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--bg);color:var(--fg);
+  font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;
+  -webkit-font-smoothing:antialiased;font-size:14px;line-height:1.5}
 body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
-  background:
-    radial-gradient(64% 34% at 50% -8%, rgba(220,38,38,.07), transparent 62%),
-    linear-gradient(#eef0f3 1px, transparent 1px) 0 0/100% 52px,
-    linear-gradient(90deg,#eef0f3 1px, transparent 1px) 0 0/52px 100%,
-    var(--bg)}
-/* sisa lapisan ilustrasi lama (jika ada) disorok keras */
-#pemandangan,#hutan-depan,#hiasan,#quasarkun,#bual,.sinar,.kabut,.turun,.jepun,.hero::before{display:none !important}
-
-/* --- header --- */
-header{background:rgba(255,255,255,.9);backdrop-filter:blur(10px);
-  border-bottom:1px solid var(--line);box-shadow:none}
-.bar{max-width:1240px;padding:11px 22px;gap:12px}
-.logo{display:flex;align-items:center;gap:9px;font-size:14.6px;font-weight:700;
-  letter-spacing:.06em;color:#0b1220}
-.logo svg{flex:0 0 auto;border-radius:8px}
-.logo .jenama{letter-spacing:.06em}
-.logo small{font-size:10.6px;font-weight:500;letter-spacing:.06em;color:var(--dim2);
+  background:radial-gradient(64% 30% at 50% -6%,rgba(220,38,38,.06),transparent 62%),
+    linear-gradient(#eef0f3 1px,transparent 1px) 0 0/100% 52px,
+    linear-gradient(90deg,#eef0f3 1px,transparent 1px) 0 0/52px 100%,var(--bg)}
+a{color:var(--deep);text-decoration:none}
+b{font-variant-numeric:tabular-nums}
+/* ---------- bar atas ---------- */
+header{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.94);
+  backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.bar{max-width:1240px;margin:0 auto;padding:10px 22px;display:flex;align-items:center;gap:12px}
+.jenama{display:flex;align-items:center;gap:9px;font-weight:750;font-size:15px;letter-spacing:.14em;color:#0b1220}
+.jenama svg{display:block;border-radius:8px}
+.jenama span{font-weight:500;font-size:10.5px;letter-spacing:.08em;color:var(--dim2);
   text-transform:uppercase;border-left:1px solid var(--line);padding-left:10px;margin-left:2px}
-.chip{background:#fff;border:1px solid var(--line);color:var(--dim);border-radius:9px;
-  font-size:11.6px;padding:5px 9px;letter-spacing:.01em}
-.chip b{color:#0b1220;font-variant-numeric:tabular-nums}
-
-/* --- jalur lompat --- */
-.lompat{max-width:1240px;margin:0 auto;padding:0 22px 10px;display:flex;align-items:center;gap:7px;
-  overflow-x:auto;scrollbar-width:thin}
-.lompat::-webkit-scrollbar{height:5px}
-.lompat::-webkit-scrollbar-thumb{background:#d6dae0;border-radius:6px}
-.lompat::before{content:"LOMPAT KE";flex:0 0 auto;font-size:9.8px;letter-spacing:.16em;
-  color:var(--dim2);font-weight:700}
-.lompat a{flex:0 0 auto;padding:6px 12px;border-radius:8px;font-size:12.2px;font-weight:550;
-  color:#374151;background:#fff;border:1px solid var(--line);text-decoration:none;white-space:nowrap}
-.lompat a:hover{border-color:#c7cbd2;color:#0b1220;background:#fbfcfd}
-.lompat a.utama{background:var(--acc);border-color:var(--acc);color:#fff;font-weight:650}
-.lompat a.utama:hover{background:var(--deep);border-color:var(--deep);color:#fff}
-
-/* --- hero: kiri, padat, tanpa hiasan --- */
-.hero{text-align:left;padding:38px 2px 26px;isolation:auto}
-.kana{color:var(--acc);letter-spacing:.18em;font-size:10.8px;font-weight:700;
-  text-transform:uppercase;margin:0 0 10px}
-.hero h1{font-family:inherit;font-weight:700;font-size:clamp(25px,3vw,37px);line-height:1.16;
-  letter-spacing:-.022em;color:#0b1220;text-shadow:none;margin:0}
-.hero h1 em{font-style:normal;color:var(--acc)}
-.hero .sub{margin:12px 0 0;max-width:660px;font-size:14.4px;line-height:1.62;color:var(--dim);
-  text-shadow:none}
-
-/* --- tajuk seksyen --- */
-main{max-width:1240px;padding:0 22px 64px}
-h2,h2{font-size:14.6px;font-weight:650;letter-spacing:.01em;color:#0b1220;
-  margin:32px 0 12px;padding-bottom:9px;border-bottom:1px solid var(--line);
-  scroll-margin-top:112px;text-shadow:none}
-h2::after{width:46px;height:2px;background:var(--acc);border-radius:2px}
-h2 small{font-size:12.3px;color:var(--dim);font-weight:400;margin-top:5px;text-shadow:none}
-code,h2 small code{background:#f3f4f6;border:1px solid var(--line);color:#b91c1c;border-radius:5px}
-
-/* --- kad --- */
-.kad{gap:14px;grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
-.grid2{gap:16px}
-.panel,.rb,.mmk{background:var(--panel);border:1px solid var(--line);border-radius:14px;
-  box-shadow:0 1px 2px rgba(16,24,40,.04)}
-.panel{position:relative}
-.panel::before{content:none}
-.kotak{background:var(--panel);border:1px solid var(--line);border-radius:14px;
-  box-shadow:0 1px 2px rgba(16,24,40,.04);padding:15px 16px;min-height:126px}
-.kotak::after{content:none}
-.kotak:hover{border-color:#d6dae0;transform:none}
-.kotak h4{font-size:10.8px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim2);font-weight:650}
-.kotak h4::before{content:"";width:6px;height:6px;border-radius:2px;background:var(--acc);
-  display:inline-block;margin-right:7px;vertical-align:middle;opacity:1}
-.isikad{gap:10px}
-.besar{color:#0b1220;font-weight:700;letter-spacing:-.03em}
-.besar i{color:var(--acc);font-size:14px;font-weight:600}
-.intai{display:none !important}
-
-/* --- baris & jadual --- */
-.baris{border-bottom:1px solid var(--line2);color:#374151;font-size:13px;padding:9px 4px}
-.baris:hover{background:#fafbfc}
-.baris:last-child{border-bottom:none}
-.nama,.tajuk{color:#0b1220;font-weight:550}
-.angka{color:#0b1220;font-weight:650;font-variant-numeric:tabular-nums}
-.meta,.kepala,.ms,.sep,.kecil{color:var(--dim)}
-.amk,.amar{border-bottom:1px solid var(--line2)}
-.mail{color:#374151}
-
-/* --- tolok & carta --- */
-.trel{background:#eef0f3;height:6px;border-radius:999px}
-.tggi{background:linear-gradient(180deg,#ef4444,#b91c1c);border-radius:6px 6px 2px 2px}
-.barbaki{background:#eef0f3;height:5px}
-.barbaki i{background:linear-gradient(90deg,#b91c1c,#f87171)}
-.dot{background:var(--acc);box-shadow:0 0 0 3px rgba(220,38,38,.15)}
-.mmk .cincin circle{stroke:#eef0f3}
-.mmk .cincin circle:last-child{stroke:var(--acc)}
-
-/* --- pil & cip status --- */
-.pil{background:#f3f4f6;border:1px solid var(--line);color:#4b5563;border-radius:6px;
-  font-size:11px;font-weight:600;letter-spacing:.02em;padding:2px 7px}
-.pil.ok{background:rgba(15,157,99,.08);color:#0b7a4d;border-color:rgba(15,157,99,.24)}
-.pil.bad{background:rgba(220,38,38,.07);color:#b91c1c;border-color:rgba(220,38,38,.22)}
-.pil.acc{background:rgba(220,38,38,.07);color:#b91c1c;border-color:rgba(220,38,38,.22)}
-.pil.blue{background:rgba(37,99,235,.07);color:#1d4ed8;border-color:rgba(37,99,235,.22)}
-.cip2{border-radius:5px;font-weight:650;letter-spacing:.03em}
-.cip2.acc{background:rgba(220,38,38,.09);color:#b91c1c}
-.cip2.bad{background:rgba(220,38,38,.09);color:#b91c1c}
-.cip2.ok{background:rgba(15,157,99,.09);color:#0b7a4d}
-.cip2.blue{background:rgba(37,99,235,.09);color:#1d4ed8}
-
-/* --- input, penapis, baris amaran --- */
-input[type=search]{background:#fff;border:1px solid var(--line);color:var(--fg);border-radius:9px;
-  box-shadow:none;font-size:12.6px;padding:8px 12px}
-input[type=search]::placeholder{color:var(--dim2)}
-input[type=search]:focus{border-color:rgba(220,38,38,.5);box-shadow:0 0 0 3px rgba(220,38,38,.08)}
-.cip button{background:#fff;border:1px solid var(--line);color:var(--dim);border-radius:7px;
-  font-size:11.8px;padding:4px 10px}
-.cip button:hover{color:#0b1220;border-color:#c7cbd2;transform:none}
-.cip button.on{background:rgba(220,38,38,.07);border-color:rgba(220,38,38,.3);color:#b91c1c;font-weight:650}
-.sbar{background:#fbfcfd;border:1px solid var(--line);border-radius:9px}
-.sbar:hover{background:#fff;border-color:#d6dae0}
-.pita{background:#fff;border-bottom:1px solid var(--line);color:var(--dim)}
-.pita span{display:inline-flex;align-items:center;padding:0 13px;border-right:1px solid var(--line)}
-.pita span:last-child{border-right:none}
-.pita i{display:none}
-
-/* --- kaki & tatal --- */
-.kaki{margin-top:34px;padding-top:16px;border-top:1px solid var(--line);color:var(--dim2);
-  font-size:11.4px;line-height:1.75;text-shadow:none}
-.kaki a{color:#b91c1c;font-weight:600;text-decoration:none;border-bottom:1px solid rgba(185,28,28,.25)}
-.kaki a:hover{border-bottom-color:#b91c1c}
-a{color:#b91c1c}
-.inv::-webkit-scrollbar{width:9px;height:9px}
-.inv::-webkit-scrollbar-thumb{background:#d6dae0;border-radius:8px}
-::selection{background:rgba(220,38,38,.16)}
-/* skrin memuat statik */
-#muat{background:rgba(246,247,249,.97)}
-#muat .kotakmuat{display:flex;flex-direction:column;gap:6px;padding:18px 22px;background:#fff;
-  border:1px solid var(--line);border-left:3px solid var(--acc);border-radius:12px;
-  box-shadow:0 1px 2px rgba(16,24,40,.04)}
-#muat .kotakmuat b{font-size:13px;color:#0b1220}
-#muat .kotakmuat span{font-size:12px;color:var(--dim)}
-
-/* --- jalur menu lompat: boleh digolek (butang + seret + roda) --- */
-.jalur{max-width:1240px;margin:0 auto;padding:0 22px 10px;display:flex;align-items:center;gap:7px}
-.jalur::before{content:"LOMPAT KE";flex:0 0 auto;font-size:9.8px;letter-spacing:.16em;
+.cip{display:inline-flex;align-items:center;gap:6px;background:#fff;border:1px solid var(--line);
+  color:var(--dim);border-radius:8px;font-size:11.5px;padding:5px 9px;white-space:nowrap}
+.cip b{color:#0b1220;font-weight:650}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--acc);display:inline-block}
+.jarak{flex:1 1 auto}
+/* ---------- jalur lompat ---------- */
+.jalur{max-width:1240px;margin:0 auto;padding:0 22px 9px;display:flex;align-items:center;gap:7px}
+.jalur::before{content:"PERGI KE";flex:0 0 auto;font-size:9.8px;letter-spacing:.16em;
   color:var(--dim2);font-weight:700;margin-right:2px}
 .lompat{flex:1 1 auto;min-width:0;display:flex;align-items:center;gap:7px;overflow-x:auto;
   padding:2px 0 6px;scrollbar-width:thin;cursor:grab}
 .lompat::-webkit-scrollbar{height:6px}
 .lompat::-webkit-scrollbar-thumb{background:#c7cbd2;border-radius:6px}
-.lompat::-webkit-scrollbar-track{background:transparent}
-.lompat a{cursor:pointer}
+.lompat a{flex:0 0 auto;padding:6px 12px;border-radius:8px;font-size:12.2px;font-weight:550;
+  color:#374151;background:#fff;border:1px solid var(--line);white-space:nowrap;cursor:pointer}
+.lompat a:hover{border-color:#c7cbd2;color:#0b1220;background:#fbfcfd}
+.lompat a.utama{background:var(--acc);border-color:var(--acc);color:#fff;font-weight:650}
 .golek{flex:0 0 auto;width:27px;height:27px;display:grid;place-items:center;padding:0;
-  border:1px solid var(--line);border-radius:7px;background:#fff;color:#374151;
-  font-size:16px;line-height:1;cursor:pointer}
+  border:1px solid var(--line);border-radius:7px;background:#fff;color:#374151;font-size:16px;
+  line-height:1;cursor:pointer}
 .golek:hover{background:#f3f4f6;border-color:#c7cbd2}
-.golek:active{background:#e9ebef}
 .golek[disabled]{opacity:.35;cursor:default}
-/* kad metrik boleh ditekan -> lompat ke seksyen berkaitan */
-.kotak{cursor:pointer}
+/* ---------- isi ---------- */
+main{max-width:1240px;margin:0 auto;padding:22px 22px 64px;position:relative;z-index:1}
+.hero{padding:6px 2px 20px}
+.hero h1{margin:0;font-size:clamp(22px,2.6vw,31px);line-height:1.18;letter-spacing:-.02em;color:#0b1220}
+.hero h1 em{font-style:normal;color:var(--acc)}
+.hero p{margin:9px 0 0;max-width:680px;color:var(--dim);font-size:13.6px}
+h2{font-size:14.8px;font-weight:680;margin:30px 0 12px;padding-bottom:9px;
+  border-bottom:1px solid var(--line);color:#0b1220;scroll-margin-top:118px;position:relative}
+h2::after{content:"";position:absolute;left:0;bottom:-1px;width:46px;height:2px;background:var(--acc)}
+h2 small{display:block;font-size:12.2px;color:var(--dim);font-weight:400;margin-top:5px}
+/* kad ringkasan */
+.kad{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:13px}
+.kotak{background:var(--panel);border:1px solid var(--line);border-radius:13px;padding:14px 15px;
+  box-shadow:0 1px 2px rgba(16,24,40,.04);cursor:pointer}
 .kotak:hover{border-color:#c7cbd2;background:#fcfcfd}
-.kotak:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
-/* tiada ikon hiasan dalam tajuk kad */
-.kotak h4::before{content:none !important;display:none !important}
-/* --- jalur berjalan: statik + boleh digolek (tiada animasi) --- */
-.pita{overflow-x:auto;white-space:nowrap;scrollbar-width:thin}
-.pita::-webkit-scrollbar{height:5px}
-.pita::-webkit-scrollbar-thumb{background:#dfe3e8;border-radius:6px}
-/* --- jalur data lain: golek jika melimpah (tiada terpotong) --- */
-.ringkasbaki,.mm,.sehat,.alat,.cip,.inv{overflow-x:auto;scrollbar-width:thin}
-.ringkasbaki::-webkit-scrollbar,.mm::-webkit-scrollbar,.sehat::-webkit-scrollbar,
-.alat::-webkit-scrollbar,.cip::-webkit-scrollbar,.inv::-webkit-scrollbar{height:7px}
-.ringkasbaki::-webkit-scrollbar-thumb,.mm::-webkit-scrollbar-thumb,.sehat::-webkit-scrollbar-thumb,
-.alat::-webkit-scrollbar-thumb,.cip::-webkit-scrollbar-thumb,.inv::-webkit-scrollbar-thumb{
-  background:#dfe3e8;border-radius:8px}
-@media (max-width:560px){
-  .jalur{padding:0 12px 8px;gap:5px}
-  .jalur::before{display:none}
-  .golek{width:25px;height:25px}
-}
-@media (max-width:560px){
-  .bar{flex-wrap:nowrap;overflow-x:auto;padding:10px 14px;gap:8px;scrollbar-width:none}
+.kotak h4{margin:0 0 8px;font-size:10.6px;letter-spacing:.09em;text-transform:uppercase;color:var(--dim2);font-weight:680}
+.kotak .nilai{font-size:25px;font-weight:720;letter-spacing:-.03em;color:#0b1220;line-height:1.1}
+.kotak .nilai i{font-style:normal;font-size:13px;color:var(--acc);font-weight:650;margin-left:3px}
+.kotak .kecil{font-size:11.6px;color:var(--dim);margin-top:6px}
+/* jadual */
+.balut{background:var(--panel);border:1px solid var(--line);border-radius:13px;overflow:hidden;
+  box-shadow:0 1px 2px rgba(16,24,40,.04)}
+.golekbar{overflow-x:auto;scrollbar-width:thin}
+.golekbar::-webkit-scrollbar{height:7px}
+.golekbar::-webkit-scrollbar-thumb{background:#dfe3e8;border-radius:8px}
+table{width:100%;border-collapse:collapse;font-size:12.9px;min-width:760px}
+th,td{padding:9px 11px;text-align:left;border-bottom:1px solid var(--line2);white-space:nowrap}
+th{font-size:10.6px;letter-spacing:.07em;text-transform:uppercase;color:var(--dim2);
+  font-weight:680;background:#fbfcfd;cursor:pointer;user-select:none}
+th:hover{color:#0b1220}
+th.kanan,td.kanan{text-align:right}
+th.turun::after{content:" ↓";color:var(--acc)}
+th.naik::after{content:" ↑";color:var(--acc)}
+tbody tr:hover{background:#fafbfc}
+tbody tr:last-child td{border-bottom:none}
+tfoot td{background:#fbfcfd;font-weight:700;color:#0b1220;border-top:1px solid var(--line)}
+td.nama{white-space:normal;min-width:190px;color:#0b1220;font-weight:600}
+td .penyedia{display:block;font-size:11px;color:var(--dim2);font-weight:400;margin-top:1px}
+.pil{display:inline-block;padding:2px 7px;border-radius:6px;font-size:10.8px;font-weight:650;
+  letter-spacing:.02em;border:1px solid}
+.pil.boleh{background:rgba(15,157,99,.08);color:#0b7a4d;border-color:rgba(15,157,99,.24)}
+.pil.tidak{background:rgba(220,38,38,.07);color:#b91c1c;border-color:rgba(220,38,38,.22)}
+.pil.tanya{background:#f3f4f6;color:#4b5563;border-color:var(--line)}
+.bar-kongsi{background:#eef0f3;height:5px;border-radius:999px;min-width:60px;overflow:hidden;margin-bottom:3px}
+.bar-kongsi i{display:block;height:100%;background:linear-gradient(90deg,#b91c1c,#f87171)}
+/* tools */
+.alat{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:0 0 10px}
+input[type=search]{flex:1 1 240px;min-width:180px;background:#fff;border:1px solid var(--line);
+  border-radius:9px;padding:8px 12px;font-size:12.8px;color:var(--fg);font-family:inherit}
+input[type=search]::placeholder{color:var(--dim2)}
+input[type=search]:focus{outline:none;border-color:rgba(220,38,38,.5);box-shadow:0 0 0 3px rgba(220,38,38,.08)}
+.btn{background:#fff;border:1px solid var(--line);border-radius:8px;padding:6px 11px;font-size:12px;
+  color:var(--dim);cursor:pointer;font-family:inherit}
+.btn:hover{color:#0b1220;border-color:#c7cbd2}
+.btn.on{background:rgba(220,38,38,.07);border-color:rgba(220,38,38,.3);color:#b91c1c;font-weight:650}
+/* penjelasan */
+.nota{background:#fff;border:1px solid var(--line);border-left:3px solid var(--acc);
+  border-radius:10px;padding:12px 14px;font-size:12.6px;color:#374151;margin:12px 0 0}
+.nota b{color:#0b1220}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:14px}
+.senarai{background:#fff;border:1px solid var(--line);border-radius:12px;padding:6px 14px}
+.senarai .baris{display:flex;justify-content:space-between;gap:12px;padding:8px 0;
+  border-bottom:1px solid var(--line2);font-size:12.7px;color:#374151}
+.senarai .baris:last-child{border-bottom:none}
+.senarai .baris b{color:#0b1220}
+.ralat{font-size:11.6px;color:var(--dim);word-break:break-word}
+footer{max-width:1240px;margin:0 auto;padding:0 22px 44px;color:var(--dim2);font-size:11.4px;
+  line-height:1.8;position:relative;z-index:1}
+footer a{font-weight:600;border-bottom:1px solid rgba(185,28,28,.25)}
+#muat{position:fixed;inset:0;background:rgba(246,247,249,.97);display:grid;place-items:center;z-index:99}
+#muat .kotakmuat{background:#fff;border:1px solid var(--line);border-left:3px solid var(--acc);
+  border-radius:12px;padding:16px 20px;font-size:13px;color:#0b1220}
+@media(max-width:560px){
+  .bar{flex-wrap:nowrap;overflow-x:auto;gap:8px;padding:9px 14px;scrollbar-width:none}
   .bar::-webkit-scrollbar{height:0}
   .bar>*{flex:0 0 auto}
-  .lompat{padding:0 14px 8px}
-  main{padding:0 14px 56px}
-  .logo small{display:none}
-  h2{scroll-margin-top:100px}
+  .jarak{display:none}
+  .jalur{padding:0 12px 8px;gap:5px}
+  .jalur::before{display:none}
+  main{padding:18px 14px 56px}
+  footer{padding:0 14px 40px}
+  h2{scroll-margin-top:104px}
 }
 </style>
 </head>
 <body>
-<div id="quasarkun" hidden></div>
+<div id="muat"><div class="kotakmuat">Memuatkan data token…</div></div>
 
-<!-- ==================== PEMANDANGAN: gunung, tasik, kampung, hutan ==================== -->
-
-
-<!-- ==================== LANGIT: awan, matahari, burung, kelopak (canvas) ==================== -->
-
-
-<!-- ==================== DEK KAYU + DAUN HADAPAN (paralaks kuat) ==================== -->
-
-
-<!-- ==================== WATAK ANIME (profil, duduk di dek, memegang cawan) ==================== -->
-
-
-<!-- ==================== TAJUK ==================== -->
-<header><div class="bar">
-  <div class="logo">
-    <svg width="28" height="28" viewBox="0 0 32 32" aria-hidden="true">
-      <rect x="1" y="1" width="30" height="30" rx="8" fill="#dc2626"/>
-      <path d="M7 20.6h4.3l2.4-6.5 2.9 9.3 2.6-6.7H25" fill="none" stroke="#fff"
-            stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/>
-    </svg>
-    <span class="jenama">QUASAR PULSE</span>
-    <small>9router · token intelligence</small>
+<header>
+  <div class="bar">
+    <div class="jenama">
+      <svg width="26" height="26" viewBox="0 0 32 32" aria-hidden="true">
+        <rect width="32" height="32" rx="8" fill="#dc2626"/>
+        <path d="M8 21V11m8 10V7m8 14v-6" stroke="#fff" stroke-width="3.2" stroke-linecap="round"/>
+      </svg>
+      NADI<span>papan token model</span>
+    </div>
+    <div class="jarak"></div>
+    <div class="cip" id="cipmasa">snapshot <b>—</b></div>
+    <div class="cip" id="cipstatus"><span class="dot"></span> <b>menyambung…</b></div>
   </div>
-  <span class="chip" id="dada">…menghubung</span>
-  <span class="chip">WIB <b id="jam">—</b></span>
-  <span class="chip">kitar <b id="kira">15s</b></span>
-  <span class="sep"></span>
-  <span class="chip">dikemas <b id="masa">memuat…</b></span>
-</div>
   <div class="jalur">
-    <button class="golek" id="golekKiri" type="button" aria-label="Golek menu ke kiri">&lsaquo;</button>
-    <div class="lompat" id="lompat"><a href="#baki-sebenar" class="utama">Baki sebenar</a><a href="#kesihatan-model">Kesihatan model</a><a href="#gambaran-hari-ini">Gambaran hari ini</a><a href="#model-pakai">Model digunakan</a><a href="#trend-7-hari">Trend 7 hari</a><a href="#minimax-poin">Akaun MiniMax</a><a href="#inventori-model">Semua model</a><a href="#connection-bermasalah">Connection</a></div>
-    <button class="golek" id="golekKanan" type="button" aria-label="Golek menu ke kanan">&rsaquo;</button>
+    <button class="golek" id="golekKiri" type="button" aria-label="Golek ke kiri">&lsaquo;</button>
+    <div class="lompat" id="lompat">
+      <a href="#token-model" class="utama">Token ikut model</a>
+      <a href="#baki-modal">Baki &amp; modal</a>
+      <a href="#boleh-tambah">Boleh tambah?</a>
+      <a href="#kesihatan">Kesihatan sambungan</a>
+      <a href="#inventori">Model tersedia</a>
+    </div>
+    <button class="golek" id="golekKanan" type="button" aria-label="Golek ke kanan">&rsaquo;</button>
   </div>
 </header>
 
-<div class="pita"><div id="pitaisi"></div></div>
-
-
-
-<!-- Hiasan statik (tiada gerakan): matahari senja + sinar, awan, burung, dedaun & bunga latar depan -->
-
-
 <main>
-  <section class="hero">
-    <p class="kana">9router · token intelligence</p>
-    <h1>Token, kuota &amp; kesihatan model<br>dalam satu papan.</h1>
-    <p class="sub">Setiap angka diambil terus daripada rekod panggilan 9router dan laporan penyedia.
-      Yang tidak dilaporkan ditanda jujur — tiada angka rekaan.</p>
-  </section>
+  <div class="hero">
+    <h1>Berapa token dipakai, <em>berapa lagi tinggal</em>.</h1>
+    <p>Setiap angka di sini datang dari rekod permintaan sebenar 9router. Bila penyedia tidak
+       melaporkan baki, papan ini tulis “tidak dilaporkan” — bukan reka angka.</p>
+  </div>
 
-  <h2 id="gambaran-hari-ini">Gambaran hari ini
-    <small>Setiap angka diambil daripada rekod panggilan 9router — bukan agakan.</small></h2>
+  <h2 id="ringkasan">Ringkasan
+    <small>Jumlah keseluruhan merentas semua model yang digunakan.</small>
+  </h2>
   <div class="kad" id="kad"></div>
 
+  <h2 id="token-model">Token ikut model
+    <small>Jumlah token setiap model (masuk + keluar). Klik tajuk kolum untuk menyusun.</small>
+  </h2>
+  <div class="alat">
+    <input type="search" id="cari" placeholder="Cari model atau penyedia…" autocomplete="off">
+    <button class="btn on" data-tapis="semua">7 hari</button>
+    <button class="btn" data-tapis="30">30 hari</button>
+  </div>
+  <div class="balut"><div class="golekbar">
+    <table id="jadual">
+      <thead><tr>
+        <th data-kunci="nama">Model</th>
+        <th data-kunci="req" class="kanan">Permintaan</th>
+        <th data-kunci="masuk" class="kanan">Token masuk</th>
+        <th data-kunci="keluar" class="kanan">Token keluar</th>
+        <th data-kunci="jumlah" class="kanan">Jumlah token</th>
+        <th data-kunci="bahagian" class="kanan">Bahagian</th>
+        <th data-kunci="boleh">Token boleh ditambah?</th>
+      </tr></thead>
+      <tbody id="badan"></tbody>
+      <tfoot><tr>
+        <td>Jumlah</td>
+        <td class="kanan" id="jreq">—</td>
+        <td class="kanan" id="jmasuk">—</td>
+        <td class="kanan" id="jkeluar">—</td>
+        <td class="kanan" id="jjumlah">—</td>
+        <td class="kanan">100%</td>
+        <td></td>
+      </tr></tfoot>
+    </table>
+  </div></div>
+
+  <h2 id="baki-modal">Baki &amp; modal
+    <small>Hanya angka yang benar-benar dilaporkan penyedia. Tiada anggaran yang direka.</small>
+  </h2>
   <div class="grid2">
-    <div>
-      <h2 id="model-pakai">Model yang digunakan
-        <small>Token sebenar masuk/keluar bagi setiap model yang bot sudah panggil.</small></h2>
-      <div class="panel"><div id="modelpakai"></div></div>
-    </div>
-    <div>
-      <h2 id="trend-7-hari">Trend 7 hari
-        <small>Jumlah token sehari (masuk + keluar).</small></h2>
-      <div class="panel" style="padding:14px 16px"><div class="trend" id="trend"></div></div>
-    </div>
+    <div class="senarai" id="bakiMiniMax"></div>
+    <div class="senarai" id="bakiMistral"></div>
+  </div>
+  <div class="nota" id="notaBaki"></div>
+
+  <h2 id="boleh-tambah">Boleh tambah token?
+    <small>Kuota terikat pada akaun penyedia, bukan pada model. Ini jawapan jujur ikut penyedia yang awak guna.</small>
+  </h2>
+  <div class="grid2" id="penyedia"></div>
+
+  <h2 id="kesihatan">Kesihatan sambungan
+    <small>Akaun yang sihat vs bermasalah, dan ralat terkini.</small>
+  </h2>
+  <div class="grid2">
+    <div class="senarai" id="sehatRingkas"></div>
+    <div class="senarai" id="amaran"></div>
   </div>
 
-  <h2 id="baki-sebenar">Baki sebenar — dilaporkan penyedia
-    <small>Mistral mendedahkan kuota dalam setiap respons:
-    <code>x-ratelimit-remaining-tokens-minute</code>. Angka ini ialah baki sebenar saat ini.</small></h2>
-  <div class="panel" style="padding:14px 16px">
-    <div class="ringkasbaki" id="ringkasbaki"></div>
-    <div class="mm" id="bakimist"></div>
-    <div id="bakilain" style="margin-top:12px"></div>
-  </div>
-
-  <h2 id="minimax-poin">Akaun MiniMax — poin harian
-    <small>Kincir penuh = poin hari ini sudah dituntut (400 poin/akaun/hari).</small></h2>
-  <div class="panel" style="padding:14px 16px"><div class="mm" id="mm"></div></div>
-
-  <h2 id="kesihatan-model">Kesihatan model — ujian panggilan sebenar
-    <small>Setiap model dipanggil 1-2 kali; kelas ikut median latency. Dikemas kini oleh ujian berkala.</small></h2>
-  <div class="panel" style="padding:14px 16px">
-    <div class="alat" id="sehatringkas"><span class="chip">memuatkan hasil ujian…</span></div>
-    <div class="sehat" id="sehat"></div>
-  </div>
-
-  <h2 id="inventori-model">Semua model dalam bot — <span id="juminv">—</span>
-    <small>Inventori katalog 9router. Guna carian atau cip provider untuk menapis.</small></h2>
-  <div class="panel" style="padding:12px 16px 16px">
-    <div class="alat">
-      <input type="search" id="cari" placeholder="cari model atau provider… (cth: minimax, vision, 200k)">
-      <span class="chip">dijumpai <b id="jumtap">0</b></span>
-      <span class="chip" id="cipaktif">semua provider</span>
-    </div>
-    <div class="cip" id="cip"></div>
-    <div class="inv" id="inv"></div>
-  </div>
-
-  <h2 id="connection-bermasalah">Connection bermasalah
-    <small>Hanya yang mempunyai ralat atau kena had kadar.</small></h2>
-  <div class="panel" style="padding:12px 16px" id="amaran"></div>
-
-  <div class="kaki">
-    Sumber: SQLite 9router (usageHistory, usageDaily) · API 9router · API MiniMax (bertandatangan).
-    <b>Daring:</b> <a href="https://solelyy4.github.io/quasar-pulse/" target="_blank" rel="noopener">solelyy4.github.io/quasar-pulse</a>
-    (dikemas setiap 15 minit) · <b>Setempat:</b>
-    <a href="http://127.0.0.1:8890/" target="_blank" rel="noopener">127.0.0.1:8890</a> (data langsung).<br>
-    Penyedia tidak mendedahkan baki token melalui API awam — bila tertulis
-    <span class="pil">tidak dilaporkan</span>, itu memang tidak dilaporkan, bukan angka rekaan.
-  </div>
+  <h2 id="inventori">Model tersedia
+    <small>Semua model yang boleh dipanggil melalui 9router (bukan yang dipakai).</small>
+  </h2>
+  <div class="senarai" id="inventori"></div>
 </main>
 
-<div id="bual" hidden></div>
-
-<div id="muat"><div class="kotakmuat"><b>Memuatkan data</b><span>menarik angka daripada 9router…</span></div></div>
+<footer>
+  <div id="kaki">Memuatkan…</div>
+</footer>
 
 <script>
-const F = n => (n || 0).toLocaleString('en-US');
-const T = n => n >= 1e9 ? (n/1e9).toFixed(2)+'B' : n >= 1e6 ? (n/1e6).toFixed(2)+'M'
-              : n >= 1e3 ? (n/1e3).toFixed(1)+'k' : String(n||0);
-const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-const rup = (v, min, max) => Math.max(min, Math.min(max, v));
-const WARNA_SENJA = '#dc2626';
-let D = null, tapis = '', provpilih = '', modSumber = '';
+const F = n => (n === null || n === undefined || isNaN(n)) ? "—" : Math.round(n).toLocaleString("ms-MY");
+const P = n => (n === null || n === undefined || isNaN(n)) ? "—" : (Math.round(n * 10) / 10).toLocaleString("ms-MY") + "%";
+const esc = s => String(s == null ? "" : s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 
-/* ---------- angka naik perlahan ---------- */
-const lihir = new Map();
-function naik(el, sasaran){
-  const mula = lihir.get(el) ?? 0;
-  if (mula === sasaran) return;
-  lihir.set(el, sasaran);
-  const t0 = performance.now(), jangka = 640;
-  (function langkah(t){
-    const k = rup((t - t0) / jangka, 0, 1), e = 1 - Math.pow(1 - k, 3);
-    el.textContent = F(Math.round(mula + (sasaran - mula) * e));
-    if (k < 1) requestAnimationFrame(langkah);
-  })(t0);
-}
-
-/* ---------- gelembung cakap watak ---------- */
-let bualTimer = null;
-function bual(teks, ms = 5200){
-  const b = document.getElementById('bual');
-  if (!b) return;
-  b.innerHTML = teks;
-  b.classList.add('tunjuk');
-  clearTimeout(bualTimer);
-  bualTimer = setTimeout(() => b.classList.remove('tunjuk'), ms);
-}
-
-/* ---------- letupan kelopak + watak melompat ---------- */
-function letupBintang(x, y){
-  for (let i = 0; i < 12; i++){
-    const p = document.createElement('div');
-    p.className = 'letup';
-    const a = Math.random() * Math.PI * 2, j = 34 + Math.random() * 54;
-    p.style.cssText = `left:${x}px;top:${y}px;--dx:${(Math.cos(a)*j).toFixed(0)}px;`
-      + `--dy:${(Math.sin(a)*j).toFixed(0)}px;`
-      + `background:${['#ff9dc0','#ffd08a','#fff3c4','#9fd4f0'][i % 4]}`;
-    document.body.appendChild(p);
-    setTimeout(() => p.remove(), 1000);
-  }
-  const k = document.getElementById('quasarkun');
-  if (!k) return;
-  k.classList.remove('lompat'); void k.offsetWidth; k.classList.add('lompat');
-}
-
-function cincin(p, saiz, warna){
-  const r = (saiz - 6) / 2, c = 2 * Math.PI * r, pct = rup(p, 0, 1);
-  return `<svg width="${saiz}" height="${saiz}">
-    <circle class="trek" cx="${saiz/2}" cy="${saiz/2}" r="${r}" stroke="rgba(23,60,90,.14)"/>
-    <circle cx="${saiz/2}" cy="${saiz/2}" r="${r}" stroke="${warna}"
-      stroke-dasharray="${(c*pct).toFixed(1)} ${c.toFixed(1)}"
-      style="fill:none;stroke-width:5;stroke-linecap:round"/>
-  </svg>`;
-}
-
-/* tiada ikon emoji: papan ini tanpa bunga, daun, gunung, ombak */
-function pita(d){
-  const r = d.ringkas;
-  const b = [
-    `TOKEN HARI INI <b>${F(r.token_hari)}</b>`,
-    `TOKEN 7 HARI <b>${F(r.token_7)}</b>`,
-    `MODEL TERSEDIA <b>${F(r.model_tersedia)}</b>`,
-    `CONNECTION SIHAT <b>${F(r.connection_sihat)}/${F(r.connection)}</b>`,
-    `PERMINTAAN <b>${F(r.req_hari)}</b>`,
-    `MINIMAX CLAIM <b>${F(r.mm_claim_hari)}/${F(r.mm_akaun)}</b>`,
-    `KOLAM POIN <b>${F(r.mm_pool_minggu)}</b>`,
-    ...d.model.slice(0, 10).map(m => `${esc(m.model)} <b>${T(m.in_7 + m.out_7)}</b>`),
-  ];
-  const isi = b.map(x => `<span>${x}</span>`).join('');
-  document.getElementById('pitaisi').innerHTML = isi;  /* tiada animasi marquee: kandungan sekali sahaja */
-}
+let DATA = null, TEMPOH = 7, SUSUN = {kunci:"jumlah", arah:-1}, CARI = "";
 
 function kad(d){
-  const r = d.ringkas, m = d.model;
-  const maks = Math.max(1, ...m.map(x => x.in_7 + x.out_7));
+  const r = d.ringkas, m = d.modal || {};
   const senarai = [
-    ['Token hari ini', r.token_hari, `${F(r.req_hari)} permintaan`, 0.72],
-    ['Token 7 hari', r.token_7, `${F(r.model_diguna)} model aktif`,
-      rup(r.token_7 / (maks * Math.max(1, m.length)), .15, .95)],
-    ['Model tersedia', r.model_tersedia, `${F(r.provider)} provider`, 1],
-    ['Connection sihat', r.connection_sihat, `daripada ${F(r.connection)}`,
-      r.connection ? r.connection_sihat / r.connection : 0],
-    ['Akaun MiniMax', r.mm_akaun, `${F(r.mm_claim_hari)} sudah claim hari ini`,
-      r.mm_akaun ? r.mm_claim_hari / r.mm_akaun : 0],
-    ['Kolam poin MiniMax', r.mm_pool_minggu, 'poin / minggu', 0.55],
-    ['Baki token per minit', r.baki_tok_min, `had ${T(r.had_tok_min)} / minit`,
-      r.had_tok_min ? r.baki_tok_min / r.had_tok_min : 0],
+    ["Jumlah token 7 hari", F(m.jumlah_7 || r.token_7), `${F(m.req_7 || 0)} permintaan · ${F(r.model_diguna)} model`, "#token-model"],
+    ["Jumlah token hari ini", F(r.token_hari), `${F(r.req_hari)} permintaan hari ini`, "#token-model"],
+    ["Token 30 hari", F(m.jumlah_30 || 0), "asas kira modal sebulan", "#baki-modal"],
+    ["Model digunakan", F(r.model_diguna), `daripada ${F(r.model_tersedia)} model tersedia`, "#inventori"],
+    ["Akaun sihat", `${F(r.connection_sihat)}/${F(r.connection)}`, `${F(r.provider)} penyedia berdaftar`, "#kesihatan"]
   ];
-  const wadah = document.getElementById('kad');
-  if (wadah.children.length !== senarai.length){
-    wadah.innerHTML = senarai.map(([t, v, k, p]) =>
-      `<div class="kotak"><h4>${t}</h4>
-        <div class="isikad"><div class="besar">0</div>
-          <div class="tolok">${cincin(p, 58, WARNA_SENJA)}</div></div>
-        <div class="kecil">${k}</div>
-        </div>`).join('');
-    wadah.querySelectorAll('.besar').forEach(el => lihir.set(el, 0));
+  const el = document.getElementById("kad");
+  el.innerHTML = senarai.map(([t,v,k,l]) =>
+    `<div class="kotak" data-lompat="${l}"><h4>${t}</h4><div class="nilai">${v}</div><div class="kecil">${k}</div></div>`
+  ).join("");
+  el.querySelectorAll(".kotak").forEach(k => k.addEventListener("click", () => {
+    const s = document.querySelector(k.dataset.lompat);
+    if (s) s.scrollIntoView();
+  }));
+}
+
+function barisModel(){
+  const m = (DATA.modal || {}).model || [];
+  let baris = m.map(x => ({
+    nama: x.nama, penyedia: x.penyedia,
+    req: TEMPOH === 30 ? (x.req_30 || 0) : (x.req_7 || 0),
+    masuk: x.masuk_7 || 0,
+    keluar: x.keluar_7 || 0,
+    jumlah: TEMPOH === 30 ? (x.jumlah_30 || 0) : (x.jumlah_7 || 0),
+    bahagian: TEMPOH === 30
+      ? (DATA.modal.jumlah_30 ? Math.round(1000 * (x.jumlah_30 || 0) / DATA.modal.jumlah_30) / 10 : 0)
+      : (x.bahagian || 0),
+    boleh: x.boleh, label: x.boleh_tambah, kuota: x.kuota_jenis
+  }));
+  if (CARI.trim()){
+    const q = CARI.toLowerCase();
+    baris = baris.filter(b => (b.nama + " " + b.penyedia).toLowerCase().includes(q));
   }
-  wadah.querySelectorAll('.kotak').forEach((k, i) => {
-    naik(k.querySelector('.besar'), senarai[i][1]);
-    k.querySelector('.kecil').textContent = senarai[i][2];
-    k.querySelector('.tolok').innerHTML = cincin(senarai[i][3], 58, WARNA_SENJA);
+  const kunci = SUSUN.kunci, arah = SUSUN.arah;
+  baris.sort((a,b) => {
+    const va = a[kunci], vb = b[kunci];
+    if (typeof va === "string" || typeof vb === "string") return arah * String(va).localeCompare(String(vb));
+    return arah * ((va || 0) - (vb || 0));
   });
+  return baris;
 }
 
-function modelpakai(d){
-  const m = d.model, maks = Math.max(1, ...m.map(x => x.in_7 + x.out_7));
-  document.getElementById('modelpakai').innerHTML = m.length ? m.map(x => {
-    const j = x.in_7 + x.out_7;
-    return `<div class="baris">
-      <div class="nama"><b title="${esc(x.model)}">${esc(x.model)}</b>
-        ${x.req_hari > 0 ? '<span class="pil acc">hari ini</span>' : '<span class="pil">sepi</span>'}</div>
-      <div class="angka">${F(x.req_hari)}</div>
-      <div class="trel"><i style="width:${((j / maks) * 100).toFixed(1)}%"></i></div>
-      <div class="angka">${T(x.in_hari + x.out_hari)}<div class="kecil">${T(j)} / 7h</div></div>
-    </div>`;
-  }).join('') : '<div class="kecil" style="padding:14px 6px">tiada penggunaan direkod</div>';
-}
-
-function trend(d){
-  const h = (d.hari || []).slice().reverse(), maks = Math.max(1, ...h.map(x => x.masuk + x.keluar));
-  document.getElementById('trend').innerHTML = h.map(x => {
-    const j = x.masuk + x.keluar;
-    return `<div class="tbatang" title="${x.tarikh}: ${F(j)} token">
-      <div class="tggi" style="height:${rup(j / maks * 100, 2, 100)}%"></div>
-      <span>${x.tarikh.slice(5)}</span><span>${T(j)}</span></div>`;
-  }).join('') || '<div class="kecil">tiada data</div>';
+function jadual(){
+  const baris = barisModel();
+  const el = document.getElementById("badan");
+  el.innerHTML = baris.map(b => {
+    const pil = b.boleh === true ? `<span class="pil boleh">${esc(b.label)}</span>`
+              : b.boleh === false ? `<span class="pil tidak">${esc(b.label)}</span>`
+              : `<span class="pil tanya">${esc(b.label)}</span>`;
+    return `<tr>
+      <td class="nama">${esc(b.nama)}<span class="penyedia">${esc(b.penyedia)} · ${esc(b.kuota)}</span></td>
+      <td class="kanan">${F(b.req)}</td>
+      <td class="kanan">${F(b.masuk)}</td>
+      <td class="kanan">${F(b.keluar)}</td>
+      <td class="kanan"><b>${F(b.jumlah)}</b></td>
+      <td class="kanan"><div class="bar-kongsi"><i style="width:${Math.min(100, b.bahagian)}%"></i></div>${P(b.bahagian)}</td>
+      <td>${pil}</td>
+    </tr>`;
+  }).join("") || `<tr><td colspan="7" style="color:#6b7280">Tiada model sepadan.</td></tr>`;
+  document.getElementById("jreq").textContent = F(baris.reduce((s,b)=>s+b.req,0));
+  document.getElementById("jmasuk").textContent = F(baris.reduce((s,b)=>s+b.masuk,0));
+  document.getElementById("jkeluar").textContent = F(baris.reduce((s,b)=>s+b.keluar,0));
+  document.getElementById("jjumlah").textContent = F(baris.reduce((s,b)=>s+b.jumlah,0));
+  document.querySelectorAll("#jadual th").forEach(th => {
+    th.classList.remove("naik","turun");
+    if (th.dataset.kunci === SUSUN.kunci) th.classList.add(SUSUN.arah === 1 ? "naik" : "turun");
+  });
 }
 
 function baki(d){
-  const b = d.baki || {}, mist = b.mistral || [], r = d.ringkas;
-  const pt = r.had_tok_min ? r.baki_tok_min / r.had_tok_min : 0;
-  const pr = r.had_req_min ? r.baki_req_min / r.had_req_min : 0;
-  document.getElementById('ringkasbaki').innerHTML = `
-    <div class="rb"><span>baki token / minit</span><b>${F(r.baki_tok_min)}<em> / ${T(r.had_tok_min)}</em></b>
-      <div class="barbaki"><i style="width:${(pt*100).toFixed(1)}%"></i></div></div>
-    <div class="rb"><span>baki permintaan / minit</span><b>${F(r.baki_req_min)}<em> / ${F(r.had_req_min)}</em></b>
-      <div class="barbaki"><i style="width:${(pr*100).toFixed(1)}%"></i></div></div>
-    <div class="rb"><span>akaun Mistral sihat</span><b>${F(r.mistral_sihat)}<em> / ${F(r.mistral_akaun)}</em></b>
-      <div class="barbaki"><i style="width:${r.mistral_akaun ? (r.mistral_sihat/r.mistral_akaun*100).toFixed(1) : 0}%"></i></div></div>
-    <div class="rb"><span>poin MiniMax belum dituntut</span>
-      <b>${F((r.mm_akaun - r.mm_claim_hari) * 400)}<em> poin hari ini</em></b>
-      <div class="barbaki"><i style="width:${r.mm_akaun ? ((r.mm_akaun-r.mm_claim_hari)/r.mm_akaun*100).toFixed(1) : 0}%"></i></div></div>`;
-
-  document.getElementById('bakimist').innerHTML = mist.length ? mist.map(x => {
-    const ok = x.status === 'ok';
-    const ptk = x.had_tok ? (x.baki_tok || 0) / x.had_tok : 0;
-    const prq = x.had_req ? (x.baki_req || 0) / x.had_req : 0;
-    const bila = x.terakhir_guna ? x.terakhir_guna.slice(5, 16).replace('T', ' ') : 'belum guna';
-    return `<div class="mmk">
-      <div class="mail" title="${esc(x.nama || '')}">${esc(x.nama || '—')}</div>
-      <div class="meta"><span class="pil ${ok ? 'ok' : 'bad'}">${esc(x.status)}</span>
-        <span>${x.baki_tok != null ? F(x.baki_tok) : '—'} tok/min</span>
-        <span>${x.baki_req != null ? F(x.baki_req) : '—'} req/min</span>
-        ${x.backoff ? `<span class="pil bad">backoff ${x.backoff}</span>` : ''}</div>
-      <div class="barbaki"><i style="width:${(ptk*100).toFixed(1)}%"></i></div>
-      <div class="barbaki" style="margin-top:4px"><i style="width:${(prq*100).toFixed(1)}%"></i></div>
-      <div class="kecil" style="margin-top:6px">kali akhir: ${esc(bila)}</div>
-    </div>`;
-  }).join('') : '<div class="kecil">tiada kunci Mistral dijumpai</div>';
-
-  document.getElementById('bakilain').innerHTML = (b.lain || []).map(x =>
-    `<div class="amar"><span class="pil">tiada baki dilaporkan</span>
-      <div class="isi"><div class="tajuk">${esc(x.nama)}</div>
-      <div class="kecil">${esc(x.nota)}</div></div></div>`).join('');
+  const m = d.modal || {}, mm = m.baki_minimax || {}, mi = m.baki_mistral || {};
+  document.getElementById("bakiMiniMax").innerHTML = `
+    <div class="baris"><span>Penyedia</span><b>MiniMax</b></div>
+    <div class="baris"><span>Mata kolam (dilaporkan)</span><b>${F(mm.mata_minggu)} mata</b></div>
+    <div class="baris"><span>Akaun berdaftar</span><b>${F(mm.akaun)}</b></div>
+    <div class="baris"><span>Sudah claim hari ini</span><b>${F(mm.claim_hari)}</b></div>
+    <div class="baris"><span>Belum claim (baki mata)</span><b>${F(mm.baki)} akaun</b></div>
+    <div class="baris"><span>Baki token per model</span><b>tidak dilaporkan</b></div>`;
+  document.getElementById("bakiMistral").innerHTML = `
+    <div class="baris"><span>Penyedia</span><b>Mistral</b></div>
+    <div class="baris"><span>Baki token seminit</span><b>${F(mi.baki_tok_min)} / ${F(mi.had_tok_min)}</b></div>
+    <div class="baris"><span>Baki permintaan seminit</span><b>${F(mi.baki_req_min)} / ${F(mi.had_req_min)}</b></div>
+    <div class="baris"><span>Akaun (sihat)</span><b>${F(mi.sihat)} / ${F(mi.akaun)}</b></div>
+    <div class="baris"><span>Baki token per model</span><b>tidak dilaporkan</b></div>`;
+  document.getElementById("notaBaki").innerHTML =
+    `<b>Kenapa tiada “baki token setiap model”?</b> Mistral dan MiniMax tidak menyediakan endpoint ` +
+    `baki token per model, dan tiada header kuota jangka panjang dalam respons mereka — yang ada ` +
+    `hanya had <i>kadar sesaat/minit</i> (Mistral) dan <i>mata kolam</i> (MiniMax). Jadi modal sebenar ` +
+    `awak ialah <b>${F(mm.akaun)} akaun MiniMax</b> (${F(mm.mata_minggu)} mata dilaporkan) + ` +
+    `<b>${F(mi.akaun)} akaun Mistral</b> (${F(mi.sihat)} sihat, ${F(mi.baki_tok_min)} token seminit tinggal). ` +
+    `Kadar pakai 30 hari: <b>${F(m.jumlah_30 || 0)} token</b>.`;
 }
 
-function mm(d){
-  document.getElementById('mm').innerHTML = d.minimax.length ? d.minimax.map(a => {
-    const hidup = a.token === 'hidup';
-    const pct = hidup ? (a.poin_hari ? a.poin_hari / 400 : 0) : 0;
-    const warna = !hidup ? '#d9534f' : (a.sudah_claim ? WARNA_SENJA : '#2f9e6f');
-    return `<div class="mmk">
-      <div class="cincin">${cincin(pct, 34, warna)}</div>
-      <div class="mail" style="padding-right:40px" title="${esc(a.emel)}">${esc(a.emel)}</div>
-      <div class="meta">
-        <span class="pil ${hidup ? (a.sudah_claim ? 'acc' : 'ok') : 'bad'}">
-          ${hidup ? (a.sudah_claim ? 'sudah claim' : 'belum claim') : esc(a.token)}</span>
-        <span>${a.poin_hari != null ? F(a.poin_hari) + ' poin' : '—'}</span>
-        <span>${a.poin_minggu ? T(a.poin_minggu) + '/minggu' : ''}</span>
-      </div></div>`;
-  }).join('') : '<div class="kecil">tiada akaun MiniMax</div>';
+function penyedia(d){
+  const senarai = (d.modal || {}).penyedia || [];
+  document.getElementById("penyedia").innerHTML = senarai.map(p => `
+    <div class="senarai">
+      <div class="baris"><span>Penyedia</span><b>${esc(p.penyedia)}</b></div>
+      <div class="baris"><span>Model digunakan</span><b>${F(p.model)}</b></div>
+      <div class="baris"><span>Token 7 hari</span><b>${F(p.jumlah_7)}</b></div>
+      <div class="baris"><span>Jenis kuota</span><b>${esc(p.kuota_jenis)}</b></div>
+      <div class="baris"><span>Baki dilaporkan</span><b>${esc(p.baki)}</b></div>
+      <div class="baris"><span>Boleh tambah?</span>
+        <b>${p.boleh === true ? '<span class="pil boleh">Boleh</span>' : p.boleh === false ? '<span class="pil tidak">Tidak</span>' : '<span class="pil tanya">Tidak pasti</span>'}</b></div>
+      <div class="baris"><span>Cara</span><b style="font-weight:500;text-align:right">${esc(p.cara_tambah)}</b></div>
+    </div>`).join("");
 }
 
-function amaran(d){
-  document.getElementById('amaran').innerHTML = d.amaran.length ? d.amaran.map(a => `<div class="amar">
-      <span class="pil ${a.rate_limit ? 'bad' : 'acc'}">${a.rate_limit ? 'had kadar' : 'ralat'}</span>
-      <div class="isi"><div class="tajuk">${esc(a.nama)}</div>
-        <div class="kecil">${esc((a.ralat || '—').slice(0, 110))}</div></div>
-      <span class="pil">backoff ${a.backoff ?? 0}</span>
-    </div>`).join('') : '<div class="kecil" style="padding:12px 4px">semua connection bersih</div>';
+function kesihatan(d){
+  const r = d.ringkas;
+  document.getElementById("sehatRingkas").innerHTML = `
+    <div class="baris"><span>Sambungan berdaftar</span><b>${F(r.connection)}</b></div>
+    <div class="baris"><span>Sihat</span><b>${F(r.connection_sihat)}</b></div>
+    <div class="baris"><span>Bermasalah</span><b>${F(r.connection - r.connection_sihat)}</b></div>
+    <div class="baris"><span>Akaun MiniMax (claim hari ini)</span><b>${F(r.mm_claim_hari)} / ${F(r.mm_akaun)}</b></div>
+    <div class="baris"><span>Akaun Mistral sihat</span><b>${F(r.mistral_sihat)} / ${F(r.mistral_akaun)}</b></div>`;
+  const a = (d.amaran || []).slice(0, 8);
+  document.getElementById("amaran").innerHTML = a.length ? a.map(x => {
+    const nama = String(x.nama || "").replace(/\s*[a-z0-9]{8,}@/, " ***@");
+    return `<div class="baris" style="display:block">
+      <b>${esc(nama)}</b>
+      <div class="ralat">${esc(String(x.ralat || "").slice(0, 120))}</div></div>`;
+  }).join("") : `<div class="baris"><span>Tiada amaran direkodkan.</span></div>`;
 }
 
-function cipProvider(d){
-  const kira = d.provider_kira, wadah = document.getElementById('cip');
-  wadah.innerHTML = `<button data-p="" class="${provpilih === '' ? 'on' : ''}">semua (${d.ringkas.model_tersedia})</button>` +
-    Object.entries(kira).slice(0, 40).map(([p, n]) =>
-      `<button data-p="${esc(p)}" class="${provpilih === p ? 'on' : ''}">${esc(p)} ${n}</button>`).join('');
-  wadah.querySelectorAll('button').forEach(b => b.onclick = () => {
-    provpilih = b.dataset.p;
-    document.getElementById('cipaktif').textContent = provpilih || 'semua provider';
-    cipProvider(D); inv(D);
-  });
+function inventori(d){
+  const ikut = {};
+  (d.inventori || []).forEach(m => { ikut[m.provider] = (ikut[m.provider] || 0) + 1; });
+  const senarai = Object.entries(ikut).sort((a,b) => b[1] - a[1]).slice(0, 12);
+  document.getElementById("inventori").innerHTML =
+    `<div class="baris"><span>Jumlah model tersedia</span><b>${F((d.inventori || []).length)}</b></div>` +
+    `<div class="baris"><span>Jumlah penyedia</span><b>${F(Object.keys(ikut).length)}</b></div>` +
+    senarai.map(([p,n]) => `<div class="baris"><span>${esc(p)}</span><b>${F(n)} model</b></div>`).join("");
 }
 
-function inv(d){
-  const dipakai = new Set(d.model.filter(m => m.req_hari > 0).map(m => m.model));
-  const cari = tapis.trim().toLowerCase();
-  let s = d.inventori;
-  if (provpilih) s = s.filter(x => x.provider === provpilih);
-  if (cari) s = s.filter(x => (x.model + ' ' + x.nama + ' ' + x.provider + ' ' + (x.konteks || ''))
-    .toLowerCase().includes(cari));
-  document.getElementById('jumtap').textContent = F(s.length);
-  const papar = s.slice(0, 260);
-  document.getElementById('inv').innerHTML = papar.map(x => `<div class="baris"
-      style="grid-template-columns:minmax(160px,1.6fr) 1fr 118px">
-      <div class="nama"><b title="${esc(x.model)}">${esc(x.model)}</b>
-        ${dipakai.has(x.model) ? '<span class="pil acc">dipakai</span>' : ''}
-        ${x.visi ? '<span class="pil blue">visi</span>' : ''}
-        ${x.taakul ? '<span class="pil">taakul</span>' : ''}</div>
-      <div class="kecil">${esc(x.provider)}</div>
-      <div class="angka kecil">${x.konteks ? T(x.konteks) + ' konteks' : '—'}
-        <div class="kecil">${x.keluaran ? 'keluar ' + T(x.keluaran) : ''}</div></div>
-    </div>`).join('') +
-    (s.length > papar.length
-      ? `<div class="kecil" style="padding:11px 6px">… dan ${F(s.length - papar.length)} lagi — taip carian untuk mengecilkan</div>`
-      : '');
+function kaki(d){
+  document.getElementById("kaki").innerHTML =
+    `Snapshot <b>${esc(d.masa || "—")}</b> · sumber: ${esc(d.sumber || "—")} · ${esc(d.nota || "")}<br>` +
+    `Token dikira daripada rekod permintaan sebenar (prompt + completion). ` +
+    `“Tidak dilaporkan” bermaksud penyedia tidak memberi angka baki — bukan sifar. ` +
+    `· <a href="data.json">data mentah</a>`;
+  document.getElementById("cipmasa").innerHTML = `snapshot <b>${esc(d.masa_ringkas || d.masa || "—")} WIB</b>`;
 }
 
-/* ---------- tarik data: cuba LANGSUNG dulu, kemudian snapshot ---------- */
-async function cuba(url, ms){
-  const kawal = new AbortController();
-  const t = setTimeout(() => kawal.abort(), ms);
-  try { return await (await fetch(url, {cache:'no-store', signal: kawal.signal})).json(); }
-  finally { clearTimeout(t); }
-}
-
-function masaLalu(iso){
-  if (!iso) return 'tidak diketahui';
-  const s = Math.max(0, Math.floor((Date.now() - new Date(iso).getTime()) / 1000));
-  if (s < 90) return 'baru sahaja';
-  if (s < 5400) return `${Math.round(s / 60)} minit lalu`;
-  if (s < 172800) return `${Math.round(s / 3600)} jam lalu`;
-  return `${Math.round(s / 86400)} hari lalu`;
+function lukis(d){
+  DATA = d;
+  kad(d); jadual(); baki(d); penyedia(d); kesihatan(d); inventori(d); kaki(d);
+  const muat = document.getElementById("muat");
+  if (muat) muat.remove();
 }
 
 async function tarik(){
-  let d = null, mod = '';
-  try { d = await cuba('/api/data', 2500); mod = 'langsung'; } catch (e) { d = null; }
-  if (!d || d.ralat){
-    try { d = await cuba('data.json?v=' + Date.now(), 6000); mod = 'snapshot'; }
-    catch (e) { d = null; }
+  const sumber = ["/api/data", "data.json"];
+  for (const u of sumber){
+    try{
+      const r = await fetch(u + "?v=" + Date.now(), {cache:"no-store"});
+      if (!r.ok) continue;
+      const d = await r.json();
+      if (!d || !d.ringkas) continue;
+      document.getElementById("cipstatus").innerHTML =
+        u === "/api/data" ? '<span class="dot"></span> <b>LANGSUNG</b>' : '<span class="dot"></span> <b>snapshot awam</b>';
+      lukis(d);
+      return true;
+    }catch(e){}
   }
-  const dada = document.getElementById('dada');
-  if (!d){ dada.textContent = 'tiada data'; dada.className = 'chip snap'; return; }
-  if (d.masa_ringkas === undefined) d.masa_ringkas = '—';
-
-  modSumber = mod;
-  if (mod === 'langsung'){
-    dada.textContent = '● LANGSUNG — laptop aktif';
-    dada.className = 'chip live';
-    document.getElementById('masa').textContent = d.masa || '—';
-  } else {
-    dada.textContent = '◐ SNAPSHOT — ' + masaLalu(d.dikemas);
-    dada.className = 'chip snap';
-    document.getElementById('masa').textContent = (d.masa || '—');
-  }
-  document.getElementById('jam').textContent = d.masa_ringkas;
-  document.getElementById('juminv').textContent = F(d.ringkas.model_tersedia) + ' model';
-
-  const lama = D && D.ringkas && D.ringkas.token_hari;
-  if (lama && d.ringkas.token_hari > lama){
-    const b = document.getElementById('kad').getBoundingClientRect();
-    letupBintang(b.left + 60, b.top + 40);
-    bual(`Token naik <b>+${F(d.ringkas.token_hari - lama)}</b> sejak kitaran lalu!`);
-  } else if (!lama){
-    bual(`Hai BOZ! Aku Quasar-chan. <b>${F(d.ringkas.model_tersedia)}</b> model dipantau, `
-       + `<b>${F(d.ringkas.connection_sihat)}</b> connection sihat. Duduk, nikmati pemandangan senja.`);
-  }
-  if (mod === 'snapshot' && d.dikemas){
-    setTimeout(() => bual('Mod <b>snapshot</b> — laptop BOZ belum menghantar data baharu.'), 5600);
-  }
-  D = d;
-  if (!document.getElementById('cip').children.length) cipProvider(d);
-  pita(d); kad(d); modelpakai(d); trend(d); baki(d); mm(d); amaran(d);
-  if (document.getElementById('cip').children.length) inv(d);
-  const m = document.getElementById('muat');
-  if (m){ m.classList.add('tutup'); setTimeout(() => m.remove(), 800); }
+  document.getElementById("cipstatus").innerHTML = '<span class="dot"></span> <b>data tidak dapat dimuatkan</b>';
+  const muat = document.getElementById("muat");
+  if (muat) muat.innerHTML = '<div class="kotakmuat">Data belum diterbitkan. Jalankan <b>buat_snapshot.py</b> dahulu.</div>';
+  return false;
 }
 
-let detik = 15;
-document.getElementById('cari').oninput = e => { tapis = e.target.value; if (D) inv(D); };
-document.getElementById('quasarkun').addEventListener('click', () => {
-  const r = document.getElementById('quasarkun').getBoundingClientRect();
-  letupBintang(r.left + r.width / 2, r.top + r.height / 2);
-  const tips = D ? [
-    `Senja keemasan hari ini. Baki token kita <b>${F(D.ringkas.baki_tok_min)}</b> tok/min.`,
-    `Model paling laju sekarang: <b>${(D.model[0] || {}).model || '—'}</b>.`,
-    `Poin MiniMax belum dituntut: <b>${F((D.ringkas.mm_akaun - D.ringkas.mm_claim_hari) * 400)}</b>.`,
-    `Connection bermasalah: <b>${D.amaran.length}</b> — tengok bahagian bawah.`,
-    `Jumlah token 7 hari: <b>${F(D.ringkas.token_7)}</b>. Itu ${T(D.ringkas.token_7)} token!`,
-  ] : ['Tunggu sekejap, aku masih tarik data…'];
-  bual(tips[Math.floor(Math.random() * tips.length)], 6000);
+/* ---- susun, tapis, cari ---- */
+document.querySelectorAll("#jadual th").forEach(th => {
+  th.addEventListener("click", () => {
+    const k = th.dataset.kunci;
+    if (!k) return;
+    SUSUN = {kunci:k, arah: SUSUN.kunci === k ? -SUSUN.arah : -1};
+    jadual();
+  });
 });
-setInterval(() => {
-  if (!D || document.hidden) return;
-  if (Math.random() < .5){
-    bual(`Angin dari tasik. <b>${F(D.ringkas.req_hari)}</b> permintaan hari ini, `
-       + `<b>${T(D.ringkas.token_hari)}</b> token.`);
-  }
-}, 47000);
-document.addEventListener('click', e => {
-  if (e.target.closest('.kotak')) letupBintang(e.clientX, e.clientY);
-});
+document.getElementById("cari").addEventListener("input", e => { CARI = e.target.value; jadual(); });
+document.querySelectorAll("[data-tapis]").forEach(b => b.addEventListener("click", () => {
+  document.querySelectorAll("[data-tapis]").forEach(x => x.classList.remove("on"));
+  b.classList.add("on");
+  TEMPOH = b.dataset.tapis === "30" ? 30 : 7;
+  jadual();
+}));
 
-/* ---------- kesihatan model: baca model.json (hasil ujian panggilan sebenar) ---------- */
-function sehat(keputusan){
-  const el = document.getElementById('sehat'), ringkas = document.getElementById('sehatringkas');
-  if (!el) return;
-  const kelas = k => ({LANCAR:'c-lancar', SEDERHANA:'c-sederhana', LAMBAT:'c-lambat', GAGAL:'c-gagal'}[k] || 'c-gagal');
-  const bilang = {LANCAR:0, SEDERHANA:0, LAMBAT:0, GAGAL:0};
-  (keputusan.hasil || []).forEach(h => { bilang[h.kelas] = (bilang[h.kelas] || 0) + 1; });
-  ringkas.innerHTML = Object.keys(bilang).map(k =>
-    `<span class="chip"><span class="cip2 ${kelas(k)}">${k}</span> <b>${bilang[k]}</b></span>`).join('')
-    + `<span class="chip">diuji <b>${(keputusan.hasil || []).length}</b></span>`
-    + (keputusan.masa ? `<span class="chip">${masaLalu(keputusan.masa)}</span>` : '');
-  el.innerHTML = (keputusan.hasil || []).map(h => `
-    <div class="sbar" title="${esc(h.jawapan || h.sebab || '')}">
-      <span class="nm">${esc(h.model)}</span>
-      <span class="ms">${h.median ? h.median + 's' : '—'}</span>
-      <span class="cip2 ${kelas(h.kelas)}">${h.kelas}</span>
-    </div>`).join('');
-}
-
-async function tarikSehat(){
-  for (const u of ['/api/model', 'model.json?v=' + Date.now()]){
-    try {
-      const r = await fetch(u, {cache:'no-store'});
-      if (r.ok){ sehat(await r.json()); return; }
-    } catch (e) { /* cuba sumber seterusnya */ }
-  }
-  const ringkas = document.getElementById('sehatringkas');
-  if (ringkas) ringkas.innerHTML = '<span class="chip">hasil ujian belum tersedia</span>';
-}
-tarikSehat();
-tarik();
-setInterval(() => {
-  detik--;
-  document.getElementById('kira').textContent = detik + 's';
-  if (detik <= 0){ detik = 15; tarik(); }
-}, 1000);
-
-/* ---------- jalur boleh digolek + kad metrik boleh ditekan ---------- */
+/* ---- jalur lompat: butang, roda, seret ---- */
 (() => {
-  const jalur = document.getElementById('lompat');
-  const kiri = document.getElementById('golekKiri');
-  const kanan = document.getElementById('golekKanan');
-  if (jalur && kiri && kanan){
-    const langkah = () => Math.max(180, Math.round(jalur.clientWidth * 0.6));
-    const kunci = () => {
-      kiri.disabled = jalur.scrollLeft <= 2;
-      kanan.disabled = jalur.scrollLeft + jalur.clientWidth >= jalur.scrollWidth - 2;
-    };
-    kiri.addEventListener('click', () => jalur.scrollBy({left: -langkah()}));
-    kanan.addEventListener('click', () => jalur.scrollBy({left: langkah()}));
-    jalur.addEventListener('scroll', kunci, {passive: true});
-    window.addEventListener('resize', kunci);
-    jalur.addEventListener('wheel', (e) => {
-      if (Math.abs(e.deltaY) > Math.abs(e.deltaX)){ jalur.scrollLeft += e.deltaY; e.preventDefault(); }
-    }, {passive: false});
-    let seret = false, x0 = 0, s0 = 0;
-    jalur.addEventListener('mousedown', (e) => {
-      seret = true; x0 = e.pageX; s0 = jalur.scrollLeft; jalur.style.cursor = 'grabbing';
-    });
-    window.addEventListener('mouseup', () => { seret = false; jalur.style.cursor = ''; });
-    jalur.addEventListener('mousemove', (e) => {
-      if (!seret) return;
-      jalur.scrollLeft = s0 - (e.pageX - x0);
-      if (Math.abs(e.pageX - x0) > 4) e.preventDefault();
-    });
-    kunci();
-  }
-  const PETA = {
-    'Token hari ini': '#model-pakai', 'Token 7 hari': '#trend-7-hari',
-    'Model tersedia': '#inventori-model', 'Connection sihat': '#connection-bermasalah',
-    'Akaun MiniMax': '#minimax-poin', 'Kolam poin MiniMax': '#minimax-poin',
-    'Baki token per minit': '#baki-sebenar'
+  const jalur = document.getElementById("lompat");
+  const kiri = document.getElementById("golekKiri"), kanan = document.getElementById("golekKanan");
+  const langkah = () => Math.max(180, Math.round(jalur.clientWidth * 0.6));
+  const kunci = () => {
+    kiri.disabled = jalur.scrollLeft <= 2;
+    kanan.disabled = jalur.scrollLeft + jalur.clientWidth >= jalur.scrollWidth - 2;
   };
-  const kadWadah = document.getElementById('kad');
-  if (kadWadah){
-    const lompat = (kotak) => {
-      const tajuk = (kotak.querySelector('h4') || {}).textContent || '';
-      const sasaran = PETA[tajuk.trim()];
-      const el = sasaran && document.querySelector(sasaran);
-      if (el) el.scrollIntoView();
-    };
-    kadWadah.addEventListener('click', (e) => {
-      const kotak = e.target.closest('.kotak');
-      if (kotak) lompat(kotak);
-    });
-    kadWadah.addEventListener('keydown', (e) => {
-      if (e.key !== 'Enter' && e.key !== ' ') return;
-      const kotak = e.target.closest('.kotak');
-      if (kotak){ e.preventDefault(); lompat(kotak); }
-    });
-  }
+  kiri.addEventListener("click", () => jalur.scrollBy({left:-langkah()}));
+  kanan.addEventListener("click", () => jalur.scrollBy({left:langkah()}));
+  jalur.addEventListener("scroll", kunci, {passive:true});
+  window.addEventListener("resize", kunci);
+  jalur.addEventListener("wheel", e => {
+    if (Math.abs(e.deltaY) > Math.abs(e.deltaX)){ jalur.scrollLeft += e.deltaY; e.preventDefault(); }
+  }, {passive:false});
+  let seret=false, x0=0, s0=0;
+  jalur.addEventListener("mousedown", e => { seret=true; x0=e.pageX; s0=jalur.scrollLeft; jalur.style.cursor="grabbing"; });
+  window.addEventListener("mouseup", () => { seret=false; jalur.style.cursor=""; });
+  jalur.addEventListener("mousemove", e => {
+    if (!seret) return;
+    jalur.scrollLeft = s0 - (e.pageX - x0);
+    if (Math.abs(e.pageX - x0) > 4) e.preventDefault();
+  });
+  kunci();
 })();
+
+setInterval(tarik, 60000);
+tarik();
 </script>
-
-
 </body>
 </html>
