@@ -14,6 +14,8 @@ import time
 
 CAP = time.strftime("%Y%m%d-%H%M%S")
 NOTA = "Dipangkas 19 Nov 2026 (arahan BOZ): hanya model MiniMax dikekalkan; Mistral/OpenCode/Keyless dibuang."
+MATI = {"MiniMax-M2.5", "MiniMax-M2.1", "MiniMax-M2.7-highspeed",
+        "mma/MiniMax-M2.5", "mma/MiniMax-M2.1", "mma/MiniMax-M2.7-highspeed"}
 
 
 def simpan(nama: str, data) -> None:
@@ -26,9 +28,11 @@ def simpan(nama: str, data) -> None:
 def main() -> int:
     d = json.load(open("data.json", encoding="utf-8"))
 
-    d["model"] = [m for m in (d.get("model") or []) if "MiniMax" in str(m.get("model", ""))]
+    d["model"] = [m for m in (d.get("model") or [])
+                  if "MiniMax" in str(m.get("model", "")) and str(m.get("model", "")) not in MATI]
     d["inventori"] = [m for m in (d.get("inventori") or [])
-                      if str(m.get("provider")) == "mma" or str(m.get("penuh", "")).startswith("mma/")]
+                      if (str(m.get("provider")) == "mma" or str(m.get("penuh", "")).startswith("mma/"))
+                      and str(m.get("model") or m.get("nama") or "") not in MATI]
     d["provider_kira"] = {"mma": len(d["inventori"])}
     modal = d.get("modal") if isinstance(d.get("modal"), dict) else {}
     modal["model"] = [m for m in (modal.get("model") or [])
@@ -67,7 +71,8 @@ def main() -> int:
     mo = json.load(open("model.json", encoding="utf-8"))
     asal_mo = len(mo.get("hasil") or [])
     mo["hasil"] = [h for h in (mo.get("hasil") or [])
-                   if "minimax" in str(h.get("model", "")).lower()]
+                   if "minimax" in str(h.get("model", "")).lower()
+                   and str(h.get("model", "")) not in MATI]
     mo["bilangan"] = {"jumlah": len(mo["hasil"]), "lulus": len(mo["hasil"]), "gagal": 0}
     mo["keterangan"] = str(mo.get("keterangan", "")) + " " + NOTA
     simpan("model.json", mo)
