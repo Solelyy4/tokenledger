@@ -533,7 +533,9 @@ input[type=search]:focus{border-color:rgba(220,38,38,.5);box-shadow:0 0 0 3px rg
 .sbar{background:#fbfcfd;border:1px solid var(--line);border-radius:9px}
 .sbar:hover{background:#fff;border-color:#d6dae0}
 .pita{background:#fff;border-bottom:1px solid var(--line);color:var(--dim)}
-.pita i{color:var(--acc)}
+.pita span{display:inline-flex;align-items:center;padding:0 13px;border-right:1px solid var(--line)}
+.pita span:last-child{border-right:none}
+.pita i{display:none}
 
 /* --- kaki & tatal --- */
 .kaki{margin-top:34px;padding-top:16px;border-top:1px solid var(--line);color:var(--dim2);
@@ -552,6 +554,44 @@ a{color:#b91c1c}
 #muat .kotakmuat b{font-size:13px;color:#0b1220}
 #muat .kotakmuat span{font-size:12px;color:var(--dim)}
 
+/* --- jalur menu lompat: boleh digolek (butang + seret + roda) --- */
+.jalur{max-width:1240px;margin:0 auto;padding:0 22px 10px;display:flex;align-items:center;gap:7px}
+.jalur::before{content:"LOMPAT KE";flex:0 0 auto;font-size:9.8px;letter-spacing:.16em;
+  color:var(--dim2);font-weight:700;margin-right:2px}
+.lompat{flex:1 1 auto;min-width:0;display:flex;align-items:center;gap:7px;overflow-x:auto;
+  padding:2px 0 6px;scrollbar-width:thin;cursor:grab}
+.lompat::-webkit-scrollbar{height:6px}
+.lompat::-webkit-scrollbar-thumb{background:#c7cbd2;border-radius:6px}
+.lompat::-webkit-scrollbar-track{background:transparent}
+.lompat a{cursor:pointer}
+.golek{flex:0 0 auto;width:27px;height:27px;display:grid;place-items:center;padding:0;
+  border:1px solid var(--line);border-radius:7px;background:#fff;color:#374151;
+  font-size:16px;line-height:1;cursor:pointer}
+.golek:hover{background:#f3f4f6;border-color:#c7cbd2}
+.golek:active{background:#e9ebef}
+.golek[disabled]{opacity:.35;cursor:default}
+/* kad metrik boleh ditekan -> lompat ke seksyen berkaitan */
+.kotak{cursor:pointer}
+.kotak:hover{border-color:#c7cbd2;background:#fcfcfd}
+.kotak:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+/* tiada ikon hiasan dalam tajuk kad */
+.kotak h4::before{content:none !important;display:none !important}
+/* --- jalur berjalan: statik + boleh digolek (tiada animasi) --- */
+.pita{overflow-x:auto;white-space:nowrap;scrollbar-width:thin}
+.pita::-webkit-scrollbar{height:5px}
+.pita::-webkit-scrollbar-thumb{background:#dfe3e8;border-radius:6px}
+/* --- jalur data lain: golek jika melimpah (tiada terpotong) --- */
+.ringkasbaki,.mm,.sehat,.alat,.cip,.inv{overflow-x:auto;scrollbar-width:thin}
+.ringkasbaki::-webkit-scrollbar,.mm::-webkit-scrollbar,.sehat::-webkit-scrollbar,
+.alat::-webkit-scrollbar,.cip::-webkit-scrollbar,.inv::-webkit-scrollbar{height:7px}
+.ringkasbaki::-webkit-scrollbar-thumb,.mm::-webkit-scrollbar-thumb,.sehat::-webkit-scrollbar-thumb,
+.alat::-webkit-scrollbar-thumb,.cip::-webkit-scrollbar-thumb,.inv::-webkit-scrollbar-thumb{
+  background:#dfe3e8;border-radius:8px}
+@media (max-width:560px){
+  .jalur{padding:0 12px 8px;gap:5px}
+  .jalur::before{display:none}
+  .golek{width:25px;height:25px}
+}
 @media (max-width:560px){
   .bar{flex-wrap:nowrap;overflow-x:auto;padding:10px 14px;gap:8px;scrollbar-width:none}
   .bar::-webkit-scrollbar{height:0}
@@ -595,7 +635,11 @@ a{color:#b91c1c}
   <span class="sep"></span>
   <span class="chip">dikemas <b id="masa">memuat…</b></span>
 </div>
-  <div class="lompat" id="lompat"><a href="#baki-sebenar" class="utama">Baki sebenar</a><a href="#kesihatan-model">Kesihatan model</a><a href="#gambaran-hari-ini">Gambaran hari ini</a><a href="#model-pakai">Model digunakan</a><a href="#trend-7-hari">Trend 7 hari</a><a href="#minimax-poin">Akaun MiniMax</a><a href="#inventori-model">Semua model</a><a href="#connection-bermasalah">Connection</a></div>
+  <div class="jalur">
+    <button class="golek" id="golekKiri" type="button" aria-label="Golek menu ke kiri">&lsaquo;</button>
+    <div class="lompat" id="lompat"><a href="#baki-sebenar" class="utama">Baki sebenar</a><a href="#kesihatan-model">Kesihatan model</a><a href="#gambaran-hari-ini">Gambaran hari ini</a><a href="#model-pakai">Model digunakan</a><a href="#trend-7-hari">Trend 7 hari</a><a href="#minimax-poin">Akaun MiniMax</a><a href="#inventori-model">Semua model</a><a href="#connection-bermasalah">Connection</a></div>
+    <button class="golek" id="golekKanan" type="button" aria-label="Golek menu ke kanan">&rsaquo;</button>
+  </div>
 </header>
 
 <div class="pita"><div id="pitaisi"></div></div>
@@ -741,22 +785,21 @@ function cincin(p, saiz, warna){
   </svg>`;
 }
 
-const IKON = {t1:'&#127800;', t2:'&#127811;', t3:'&#9968;&#65039;', t4:'&#127754;'};
-
+/* tiada ikon emoji: papan ini tanpa bunga, daun, gunung, ombak */
 function pita(d){
   const r = d.ringkas;
   const b = [
-    `${IKON.t1} TOKEN HARI INI <b>${F(r.token_hari)}</b>`,
-    `${IKON.t2} TOKEN 7 HARI <b>${F(r.token_7)}</b>`,
-    `${IKON.t3} MODEL TERSEDIA <b>${F(r.model_tersedia)}</b>`,
-    `${IKON.t4} CONNECTION SIHAT <b>${F(r.connection_sihat)}/${F(r.connection)}</b>`,
-    `&#9728;&#65039; PERMINTAAN <b>${F(r.req_hari)}</b>`,
-    `&#10022; MINIMAX CLAIM <b>${F(r.mm_claim_hari)}/${F(r.mm_akaun)}</b>`,
-    `&#10047; KOLAM POIN <b>${F(r.mm_pool_minggu)}</b>`,
+    `TOKEN HARI INI <b>${F(r.token_hari)}</b>`,
+    `TOKEN 7 HARI <b>${F(r.token_7)}</b>`,
+    `MODEL TERSEDIA <b>${F(r.model_tersedia)}</b>`,
+    `CONNECTION SIHAT <b>${F(r.connection_sihat)}/${F(r.connection)}</b>`,
+    `PERMINTAAN <b>${F(r.req_hari)}</b>`,
+    `MINIMAX CLAIM <b>${F(r.mm_claim_hari)}/${F(r.mm_akaun)}</b>`,
+    `KOLAM POIN <b>${F(r.mm_pool_minggu)}</b>`,
     ...d.model.slice(0, 10).map(m => `${esc(m.model)} <b>${T(m.in_7 + m.out_7)}</b>`),
   ];
-  const isi = b.map(x => `<span><i>&#9670;</i> ${x}</span>`).join('');
-  document.getElementById('pitaisi').innerHTML = isi + isi;
+  const isi = b.map(x => `<span>${x}</span>`).join('');
+  document.getElementById('pitaisi').innerHTML = isi;  /* tiada animasi marquee: kandungan sekali sahaja */
 }
 
 function kad(d){
@@ -1038,6 +1081,62 @@ setInterval(() => {
   document.getElementById('kira').textContent = detik + 's';
   if (detik <= 0){ detik = 15; tarik(); }
 }, 1000);
+
+/* ---------- jalur boleh digolek + kad metrik boleh ditekan ---------- */
+(() => {
+  const jalur = document.getElementById('lompat');
+  const kiri = document.getElementById('golekKiri');
+  const kanan = document.getElementById('golekKanan');
+  if (jalur && kiri && kanan){
+    const langkah = () => Math.max(180, Math.round(jalur.clientWidth * 0.6));
+    const kunci = () => {
+      kiri.disabled = jalur.scrollLeft <= 2;
+      kanan.disabled = jalur.scrollLeft + jalur.clientWidth >= jalur.scrollWidth - 2;
+    };
+    kiri.addEventListener('click', () => jalur.scrollBy({left: -langkah()}));
+    kanan.addEventListener('click', () => jalur.scrollBy({left: langkah()}));
+    jalur.addEventListener('scroll', kunci, {passive: true});
+    window.addEventListener('resize', kunci);
+    jalur.addEventListener('wheel', (e) => {
+      if (Math.abs(e.deltaY) > Math.abs(e.deltaX)){ jalur.scrollLeft += e.deltaY; e.preventDefault(); }
+    }, {passive: false});
+    let seret = false, x0 = 0, s0 = 0;
+    jalur.addEventListener('mousedown', (e) => {
+      seret = true; x0 = e.pageX; s0 = jalur.scrollLeft; jalur.style.cursor = 'grabbing';
+    });
+    window.addEventListener('mouseup', () => { seret = false; jalur.style.cursor = ''; });
+    jalur.addEventListener('mousemove', (e) => {
+      if (!seret) return;
+      jalur.scrollLeft = s0 - (e.pageX - x0);
+      if (Math.abs(e.pageX - x0) > 4) e.preventDefault();
+    });
+    kunci();
+  }
+  const PETA = {
+    'Token hari ini': '#model-pakai', 'Token 7 hari': '#trend-7-hari',
+    'Model tersedia': '#inventori-model', 'Connection sihat': '#connection-bermasalah',
+    'Akaun MiniMax': '#minimax-poin', 'Kolam poin MiniMax': '#minimax-poin',
+    'Baki token per minit': '#baki-sebenar'
+  };
+  const kadWadah = document.getElementById('kad');
+  if (kadWadah){
+    const lompat = (kotak) => {
+      const tajuk = (kotak.querySelector('h4') || {}).textContent || '';
+      const sasaran = PETA[tajuk.trim()];
+      const el = sasaran && document.querySelector(sasaran);
+      if (el) el.scrollIntoView();
+    };
+    kadWadah.addEventListener('click', (e) => {
+      const kotak = e.target.closest('.kotak');
+      if (kotak) lompat(kotak);
+    });
+    kadWadah.addEventListener('keydown', (e) => {
+      if (e.key !== 'Enter' && e.key !== ' ') return;
+      const kotak = e.target.closest('.kotak');
+      if (kotak){ e.preventDefault(); lompat(kotak); }
+    });
+  }
+})();
 </script>
 
 
