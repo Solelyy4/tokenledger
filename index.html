@@ -698,5 +698,37 @@ setInterval(() => { if (FARMC.asas) muatFarm(); }, 5000);
 setInterval(tarik, 60000);
 tarik();
 </script>
+
+<!-- MiniMax sahaja (arahan BOZ 19 Nov 2026): sembunyikan bahagian Mistral/OpenCode -->
+<style>
+  nav a[href="#opencode"], #opencode { display: none !important; }
+</style>
+<script>
+(() => {
+  const buang = (el) => { if (el) el.style.display = "none"; };
+  const tapis = () => {
+    document.querySelectorAll("#penyedia > *").forEach(kad => {
+      if ((kad.innerText || "").includes("Mistral")) buang(kad);
+    });
+    document.querySelectorAll("#baki-modal .grid2 > *").forEach(kad => {
+      if ((kad.innerText || "").includes("Mistral")) buang(kad);
+    });
+    document.querySelectorAll("#sehatRingkas .baris").forEach(r => {
+      if ((r.innerText || "").includes("Mistral")) buang(r);
+    });
+    const h = document.querySelector("#opencode");
+    if (h && !h.dataset.sembunyi) {
+      h.dataset.sembunyi = "1"; buang(h);
+      let n = h.nextElementSibling;
+      while (n && n.tagName !== "H2") { buang(n); n = n.nextElementSibling; }
+    }
+  };
+  tapis();
+  document.addEventListener("DOMContentLoaded", tapis);
+  window.addEventListener("load", tapis);
+  setTimeout(tapis, 1200);
+  setTimeout(tapis, 3000);
+})();
+</script>
 </body>
 </html>

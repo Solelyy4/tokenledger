@@ -1,6 +1,6 @@
 {
- "masa": "2026-11-19 05:25:16 WIB",
- "masa_ringkas": "05:25:16",
+ "masa": "2026-11-19 05:26:27 WIB",
+ "masa_ringkas": "05:26:27",
  "ringkas": {
   "token_hari": 202402,
   "token_7": 3363744,
@@ -862,7 +862,7 @@
   },
   "jumlah_models": 10
  },
- "dikemas": "2026-11-19T06:25:16",
+ "dikemas": "2026-11-19T06:26:27",
  "sumber": "laptop BOZ (9router SQLite + API penyedia)",
  "nota": "Dipangkas 19 Nov 2026 (arahan BOZ): hanya model MiniMax dikekalkan; Mistral/OpenCode/Keyless dibuang. Snapshot berkala. Bila laptop aktif, halaman ini automatik bertukar ke mod LANGSUNG dari pelayan setempat."
 }
