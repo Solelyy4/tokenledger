@@ -84,6 +84,21 @@ body{overflow-x:hidden}
   display:inline-block;animation:kerlip 2.6s ease-in-out infinite}
 @keyframes kerlip{0%,100%{opacity:.25;transform:scale(.85)}50%{opacity:.95;transform:scale(1.12)}}
 
+/* panel kesihatan model */
+.sehat{display:grid;gap:7px;margin-top:12px}
+.sbar{display:grid;grid-template-columns:1fr auto auto;gap:10px;align-items:center;
+  padding:8px 11px;border:1px solid var(--line);border-radius:11px;background:rgba(255,255,255,.02);
+  font-size:12.5px}
+.sbar:hover{background:rgba(245,158,11,.06)}
+.sbar .nm{font-family:ui-monospace,monospace;font-size:12px;overflow:hidden;text-overflow:ellipsis;
+  white-space:nowrap}
+.sbar .ms{color:var(--mut);font-variant-numeric:tabular-nums}
+.sbar .cip2{font-size:10.5px;letter-spacing:.06em;padding:3px 8px;border-radius:999px;font-weight:700}
+.c-lancar{background:rgba(52,211,153,.16);color:#34d399;border:1px solid rgba(52,211,153,.35)}
+.c-sederhana{background:rgba(245,158,11,.16);color:#f59e0b;border:1px solid rgba(245,158,11,.35)}
+.c-lambat{background:rgba(251,146,60,.16);color:#fb923c;border:1px solid rgba(251,146,60,.35)}
+.c-gagal{background:rgba(248,113,113,.16);color:#f87171;border:1px solid rgba(248,113,113,.35)}
+
 /* ================= MASKOT ================= */
 .maskot{position:fixed;z-index:3;pointer-events:none}
 /* Quasar-kun duduk di penjuru bawah kiri */
@@ -390,6 +405,13 @@ input[type=search]:focus{border-color:rgba(245,158,11,.45)}
   <h2>Akaun MiniMax — poin harian
     <small>Kincir penuh = poin hari ini sudah dituntut (400 poin/akaun/hari).</small></h2>
   <div class="panel" style="padding:14px 16px"><div class="mm" id="mm"></div></div>
+
+  <h2>Kesihatan model — ujian panggilan sebenar
+    <small>Setiap model dipanggil 1-2 kali; kelas ikut median latency. Dikemas kini oleh ujian berkala.</small></h2>
+  <div class="panel" style="padding:14px 16px">
+    <div class="alat" id="sehatringkas"><span class="chip">memuatkan hasil ujian…</span></div>
+    <div class="sehat" id="sehat"></div>
+  </div>
 
   <h2>Semua model dalam bot — <span id="juminv">—</span>
     <small>Inventori katalog 9router. Guna carian atau cip provider untuk menapis.</small></h2>
@@ -764,6 +786,36 @@ setInterval(() => {
 document.addEventListener('click', e => {
   if (e.target.closest('.kotak')) letupBintang(e.clientX, e.clientY);
 });
+/* ---------- kesihatan model: baca model.json (hasil ujian panggilan sebenar) ---------- */
+function sehat(keputusan){
+  const el = document.getElementById('sehat'), ringkas = document.getElementById('sehatringkas');
+  if (!el) return;
+  const kelas = k => ({LANCAR:'c-lancar', SEDERHANA:'c-sederhana', LAMBAT:'c-lambat', GAGAL:'c-gagal'}[k] || 'c-gagal');
+  const bilang = {LANCAR:0, SEDERHANA:0, LAMBAT:0, GAGAL:0};
+  (keputusan.hasil || []).forEach(h => { bilang[h.kelas] = (bilang[h.kelas] || 0) + 1; });
+  ringkas.innerHTML = Object.keys(bilang).map(k =>
+    `<span class="chip"><span class="cip2 ${kelas(k)}">${k}</span> <b>${bilang[k]}</b></span>`).join('')
+    + `<span class="chip">diuji <b>${(keputusan.hasil || []).length}</b></span>`
+    + (keputusan.masa ? `<span class="chip">${masaLalu(keputusan.masa)}</span>` : '');
+  el.innerHTML = (keputusan.hasil || []).map(h => `
+    <div class="sbar" title="${h.jawapan || h.sebab || ''}">
+      <span class="nm">${h.model}</span>
+      <span class="ms">${h.median ? h.median + 's' : '—'}</span>
+      <span class="cip2 ${kelas(h.kelas)}">${h.kelas}</span>
+    </div>`).join('');
+}
+
+async function tarikSehat(){
+  for (const u of ['/api/model', 'model.json?v=' + Date.now()]){
+    try {
+      const r = await fetch(u, {cache:'no-store'});
+      if (r.ok){ sehat(await r.json()); return; }
+    } catch (e) { /* cuba sumber seterusnya */ }
+  }
+  const ringkas = document.getElementById('sehatringkas');
+  if (ringkas) ringkas.innerHTML = '<span class="chip">hasil ujian belum tersedia</span>';
+}
+tarikSehat();
 tarik();
 setInterval(() => {
   detik--;
