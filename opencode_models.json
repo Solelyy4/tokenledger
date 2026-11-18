@@ -2,7 +2,7 @@
  "meta": {
   "sumber": "https://models.opencode.ai/api.json",
   "doc": "https://opencode.ai/v2/docs/console/models/",
-  "dikemas_kini": "2026-11-19 06:32",
+  "dikemas_kini": "2026-11-19 06:36",
   "jumlah_provider": 324,
   "jumlah_model_opencode": 142,
   "jumlah_percuma": 0,
@@ -10,7 +10,7 @@
   "jumlah_deprecated": 0,
   "konteks_maks": 0,
   "bilangan_1j": 0,
-  "nota_pangkas": "Dipangkas 19 Nov 2026 (arahan BOZ): hanya model MiniMax dikekalkan; Mistral/OpenCode/Keyless dibuang."
+  "nota_pangkas": "Ditapis kepada model MiniMax sahaja (arahan BOZ, 19 Nov 2026)."
  },
  "model": []
 }

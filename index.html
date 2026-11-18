@@ -384,7 +384,7 @@ function jadual(){
 }
 
 function baki(d){
-  const m = d.modal || {}, mm = m.baki_minimax || {}, mi = m.baki_mistral || {};
+  const m = d.modal || {}, mm = m.baki_minimax || {};
   document.getElementById("bakiMiniMax").innerHTML = `
     <div class="baris"><span>Penyedia</span><b>MiniMax</b></div>
     <div class="baris"><span>Mata kolam (dilaporkan)</span><b>${F(mm.mata_minggu)} mata</b></div>
@@ -392,18 +392,12 @@ function baki(d){
     <div class="baris"><span>Sudah claim hari ini</span><b>${F(mm.claim_hari)}</b></div>
     <div class="baris"><span>Belum claim (baki mata)</span><b>${F(mm.baki)} akaun</b></div>
     <div class="baris"><span>Baki token per model</span><b>tidak dilaporkan</b></div>`;
-  document.getElementById("bakiMistral").innerHTML = `
-    <div class="baris"><span>Penyedia</span><b>Mistral</b></div>
-    <div class="baris"><span>Baki token seminit</span><b>${F(mi.baki_tok_min)} / ${F(mi.had_tok_min)}</b></div>
-    <div class="baris"><span>Baki permintaan seminit</span><b>${F(mi.baki_req_min)} / ${F(mi.had_req_min)}</b></div>
-    <div class="baris"><span>Akaun (sihat)</span><b>${F(mi.sihat)} / ${F(mi.akaun)}</b></div>
-    <div class="baris"><span>Baki token per model</span><b>tidak dilaporkan</b></div>`;
+  document.getElementById("bakiMistral").innerHTML = "";
   document.getElementById("notaBaki").innerHTML =
-    `<b>Kenapa tiada “baki token setiap model”?</b> Mistral dan MiniMax tidak menyediakan endpoint ` +
-    `baki token per model, dan tiada header kuota jangka panjang dalam respons mereka — yang ada ` +
-    `hanya had <i>kadar sesaat/minit</i> (Mistral) dan <i>mata kolam</i> (MiniMax). Jadi modal sebenar ` +
-    `awak ialah <b>${F(mm.akaun)} akaun MiniMax</b> (${F(mm.mata_minggu)} mata dilaporkan) + ` +
-    `<b>${F(mi.akaun)} akaun Mistral</b> (${F(mi.sihat)} sihat, ${F(mi.baki_tok_min)} token seminit tinggal). ` +
+    `<b>Kenapa tiada “baki token setiap model”?</b> MiniMax tidak menyediakan endpoint ` +
+    `baki token per model, dan tiada header kuota jangka panjang dalam responsnya — yang ada ` +
+    `hanya <i>mata kolam</i>. Jadi modal sebenar ` +
+    `awak ialah <b>${F(mm.akaun)} akaun MiniMax</b> (${F(mm.mata_minggu)} mata dilaporkan). ` +
     `Kadar pakai 30 hari: <b>${F(m.jumlah_30 || 0)} token</b>.`;
 }
 
@@ -428,8 +422,7 @@ function kesihatan(d){
     <div class="baris"><span>Sambungan berdaftar</span><b>${F(r.connection)}</b></div>
     <div class="baris"><span>Sihat</span><b>${F(r.connection_sihat)}</b></div>
     <div class="baris"><span>Bermasalah</span><b>${F(r.connection - r.connection_sihat)}</b></div>
-    <div class="baris"><span>Akaun MiniMax (claim hari ini)</span><b>${F(r.mm_claim_hari)} / ${F(r.mm_akaun)}</b></div>
-    <div class="baris"><span>Akaun Mistral sihat</span><b>${F(r.mistral_sihat)} / ${F(r.mistral_akaun)}</b></div>`;
+    <div class="baris"><span>Akaun MiniMax (claim hari ini)</span><b>${F(r.mm_claim_hari)} / ${F(r.mm_akaun)}</b></div>`;
   const a = (d.amaran || []).slice(0, 8);
   document.getElementById("amaran").innerHTML = a.length ? a.map(x => {
     const nama = String(x.nama || "").replace(/\s*[a-z0-9]{8,}@/, " ***@");

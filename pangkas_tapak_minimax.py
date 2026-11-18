@@ -13,7 +13,7 @@ import shutil
 import time
 
 CAP = time.strftime("%Y%m%d-%H%M%S")
-NOTA = "Dipangkas 19 Nov 2026 (arahan BOZ): hanya model MiniMax dikekalkan; Mistral/OpenCode/Keyless dibuang."
+NOTA = "Ditapis kepada model MiniMax sahaja (arahan BOZ, 19 Nov 2026)."
 MATI = {"MiniMax-M2.5", "MiniMax-M2.1", "MiniMax-M2.7-highspeed",
         "mma/MiniMax-M2.5", "mma/MiniMax-M2.1", "mma/MiniMax-M2.7-highspeed"}
 
