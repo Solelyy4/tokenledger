@@ -311,6 +311,13 @@ input[type=search]:focus{border-color:rgba(224,118,47,.6);background:#fff}
     transition-duration:.001s !important;scroll-behavior:auto !important}
   .boleh-muncul{opacity:1 !important;transform:none !important}
 }
+/* Kabut sinematik: haba ufuk hangat + viginet hujung (di bawah main, jadi teks kekal tajam) */
+.kabut{position:fixed;inset:0;z-index:2;pointer-events:none;
+  background:
+    linear-gradient(to bottom, rgba(255,234,201,.15) 0%, rgba(255,234,201,.05) 22%, transparent 34%),
+    radial-gradient(125% 95% at 50% 44%, transparent 52%, rgba(17,31,50,.30) 100%)}
+/* Skrin rendah (landskap telefon): gelembung watak bertindih tajuk hero — sembunyikan */
+@media (max-width:820px), (max-height:620px){ #bual{display:none} }
 @media (max-width:1000px){
   .grid2{grid-template-columns:1fr}
   .baris{grid-template-columns:1.3fr 64px 1fr}
@@ -610,6 +617,7 @@ input[type=search]:focus{border-color:rgba(224,118,47,.6);background:#fff}
 
 <div class="pita"><div id="pitaisi"></div></div>
 
+<div class="kabut" aria-hidden="true"></div>
 <main>
   <section class="hero">
     <p class="kana">Living landscape dashboard</p>
