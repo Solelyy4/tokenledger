@@ -1,6 +1,6 @@
 {
- "masa": "2026-11-19 05:36:09 WIB",
- "masa_ringkas": "05:36:09",
+ "masa": "2026-11-19 05:38:27 WIB",
+ "masa_ringkas": "05:38:27",
  "ringkas": {
   "token_hari": 202402,
   "token_7": 3363744,
@@ -19,7 +19,7 @@
   "had_tok_min": 0,
   "baki_req_min": 0,
   "had_req_min": 0,
-  "nota_pangkas": "Ditapis kepada model MiniMax sahaja (arahan BOZ, 19 Nov 2026)."
+  "nota_pangkas": "Ditapis kepada model MiniMax sahaja (arahan BOZ, 19 Nov 2026). Angka token sejarah kekal dalam graf harian termasuk penyedia yang telah dibuang."
  },
  "model": [
   {
@@ -810,22 +810,6 @@
   ],
   "penyedia": [
    {
-    "kunci": "mistral",
-    "penyedia": "Mistral",
-    "model": 4,
-    "req_7": 281,
-    "jumlah_7": 9603391,
-    "jumlah_30": 9603391,
-    "jumlah_hari": 1764174,
-    "kuota_jenis": "Kadar akaun (token/minit)",
-    "boleh_tambah": "Boleh — naik pelan berbayar La Plateforme",
-    "boleh": true,
-    "cara_tambah": "Beli kredit/pelan di console.mistral.ai; akaun percuma kekal pada had kadar.",
-    "akaun": 0,
-    "sihat": 0,
-    "baki": "0 / 0 token seminit"
-   },
-   {
     "kunci": "minimax",
     "penyedia": "MiniMax",
     "model": 6,
@@ -862,7 +846,7 @@
   },
   "jumlah_models": 10
  },
- "dikemas": "2026-11-19T06:36:09",
+ "dikemas": "2026-11-19T06:38:27",
  "sumber": "laptop BOZ (9router SQLite + API penyedia)",
- "nota": "Ditapis kepada model MiniMax sahaja (arahan BOZ, 19 Nov 2026). Snapshot berkala. Bila laptop aktif, halaman ini automatik bertukar ke mod LANGSUNG dari pelayan setempat."
+ "nota": "Ditapis kepada model MiniMax sahaja (arahan BOZ, 19 Nov 2026). Angka token sejarah kekal dalam graf harian termasuk penyedia yang telah dibuang. Snapshot berkala. Bila laptop aktif, halaman ini automatik bertukar ke mod LANGSUNG dari pelayan setempat."
 }

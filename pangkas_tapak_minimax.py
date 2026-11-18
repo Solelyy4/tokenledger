@@ -13,7 +13,8 @@ import shutil
 import time
 
 CAP = time.strftime("%Y%m%d-%H%M%S")
-NOTA = "Ditapis kepada model MiniMax sahaja (arahan BOZ, 19 Nov 2026)."
+NOTA = ("Ditapis kepada model MiniMax sahaja (arahan BOZ, 19 Nov 2026). "
+        "Angka token sejarah kekal dalam graf harian termasuk penyedia yang telah dibuang.")
 MATI = {"MiniMax-M2.5", "MiniMax-M2.1", "MiniMax-M2.7-highspeed",
         "mma/MiniMax-M2.5", "mma/MiniMax-M2.1", "mma/MiniMax-M2.7-highspeed"}
 
@@ -38,6 +39,11 @@ def main() -> int:
     modal["model"] = [m for m in (modal.get("model") or [])
                       if "minimax" in str(m.get("penyedia", "")).lower()
                       or "minimax" in str(m.get("nama", "")).lower()]
+    # kad penyedia: buang Mistral/OpenCode/Keyless, tinggal MiniMax
+    modal["penyedia"] = [p for p in (modal.get("penyedia") or [])
+                         if "minimax" in (str(p.get("kunci", "")) + str(p.get("penyedia", ""))).lower()]
+    modal["baki_mistral"] = {"baki_tok_min": 0, "had_tok_min": 0, "baki_req_min": 0,
+                             "had_req_min": 0, "akaun": 0, "sihat": 0}
     d["modal"] = modal
     asal_guna = len(d.get("connection_guna") or [])
     d["connection_guna"] = [c for c in (d.get("connection_guna") or [])
