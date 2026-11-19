@@ -1,5 +1,5 @@
 {
- "masa": "2026-11-19 14:03:00",
+ "masa": "2026-11-19 14:04:33",
  "lane": {
   "minimax_pool": {
    "jumlah": 142,
@@ -40,12 +40,25 @@
   },
   "novacode": {
    "kod": 429,
-   "pesan": "Free-model quota for opencode/deepseek-v4.1-flash-free is exhausted; 2863s remaining before it can be tried again."
+   "pesan": "Free-model quota for opencode/deepseek-v4.1-flash-free is exhausted; 2781s remaining before it can be tried again."
   }
  },
  "guna_hari_ini": {
-  "jumlah": 0,
-  "ikut_provider": {}
+  "jumlah": 228787,
+  "ikut_provider": {
+   "anthropic-compatible-5ecd2209-dad0-4557-af88-f9a4f54b6841": {
+    "req": 70,
+    "masuk": 25507,
+    "keluar": 2305,
+    "jumlah": 27812
+   },
+   "mistral": {
+    "req": 7,
+    "masuk": 181963,
+    "keluar": 19012,
+    "jumlah": 200975
+   }
+  }
  },
  "siling_harian": {
   "minimax": 1844154,
