@@ -1,6 +1,6 @@
 {
- "masa": "2026-11-20 01:09:33 WIB",
- "masa_ringkas": "01:09:33",
+ "masa": "2026-11-20 01:24:02 WIB",
+ "masa_ringkas": "01:24:02",
  "ringkas": {
   "token_hari": 0,
   "token_7": 85145,
@@ -1092,7 +1092,7 @@
   },
   "jumlah_models": 10
  },
- "dikemas": "2026-11-20T02:09:33",
+ "dikemas": "2026-11-20T02:24:02",
  "sumber": "laptop BOZ (9router SQLite + API penyedia)",
  "nota": "Ditapis kepada model MiniMax sahaja (arahan BOZ, 19 Nov 2026). Angka token sejarah kekal dalam graf harian termasuk penyedia yang telah dibuang. Snapshot berkala. Bila laptop aktif, halaman ini automatik bertukar ke mod LANGSUNG dari pelayan setempat."
 }
