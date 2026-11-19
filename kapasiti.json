@@ -1,5 +1,5 @@
 {
- "masa": "2026-11-19 14:04:33",
+ "masa": "2026-11-19 22:00:20",
  "lane": {
   "minimax_pool": {
    "jumlah": 142,
@@ -14,13 +14,13 @@
      "kod": 200,
      "req_hari": 1000,
      "tpm": 8000,
-     "baki_req": 998
+     "baki_req": 999
     },
     "openai/gpt-oss-120b": {
      "kod": 200,
      "req_hari": 1000,
      "tpm": 8000,
-     "baki_req": 991
+     "baki_req": 999
     },
     "openai/gpt-oss-20b": {
      "kod": 200,
@@ -32,31 +32,36 @@
    "req_hari": 3000
   },
   "pollinations": {
-   "lulus": 6,
+   "lulus": 0,
    "bilangan": 6,
    "token": 0,
    "token_per_saat": 0.0,
    "unjuran_harian": 0
   },
   "novacode": {
-   "kod": 429,
-   "pesan": "Free-model quota for opencode/deepseek-v4.1-flash-free is exhausted; 2781s remaining before it can be tried again."
+   "kod": "ConnectionError"
   }
  },
  "guna_hari_ini": {
-  "jumlah": 228787,
+  "jumlah": 269514,
   "ikut_provider": {
    "anthropic-compatible-5ecd2209-dad0-4557-af88-f9a4f54b6841": {
-    "req": 70,
-    "masuk": 25507,
-    "keluar": 2305,
-    "jumlah": 27812
+    "req": 130,
+    "masuk": 47467,
+    "keluar": 18216,
+    "jumlah": 65683
    },
    "mistral": {
     "req": 7,
     "masuk": 181963,
     "keluar": 19012,
     "jumlah": 200975
+   },
+   "opencode": {
+    "req": 2,
+    "masuk": 1840,
+    "keluar": 1016,
+    "jumlah": 2856
    }
   }
  },
