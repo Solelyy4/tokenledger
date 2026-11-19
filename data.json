@@ -1,6 +1,6 @@
 {
- "masa": "2026-11-19 13:01:02 WIB",
- "masa_ringkas": "13:01:02",
+ "masa": "2026-11-19 13:03:25 WIB",
+ "masa_ringkas": "13:03:25",
  "ringkas": {
   "token_hari": 27812,
   "token_7": 46866,
@@ -396,16 +396,7 @@
    "keluar": 7980
   }
  ],
- "amaran": [
-  {
-   "nama": "Pollinations Free",
-   "ralat": "[502]: semua laluan gagal",
-   "kod": 502,
-   "rate_limit": null,
-   "backoff": 0,
-   "ujian": "unavailable"
-  }
- ],
+ "amaran": [],
  "minimax": [
   {
    "emel": "boza***@euploading.com",
@@ -855,7 +846,7 @@
   },
   "jumlah_models": 9
  },
- "dikemas": "2026-11-19T14:01:02",
+ "dikemas": "2026-11-19T14:03:25",
  "sumber": "laptop BOZ (9router SQLite + API penyedia)",
  "nota": "Ditapis kepada model MiniMax sahaja (arahan BOZ, 19 Nov 2026). Angka token sejarah kekal dalam graf harian termasuk penyedia yang telah dibuang. Snapshot berkala. Bila laptop aktif, halaman ini automatik bertukar ke mod LANGSUNG dari pelayan setempat."
 }
