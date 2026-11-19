@@ -1,0 +1,4 @@
+
+# backup & sementara (jangan masuk repo)
+*.bak-*
+*.sqlite

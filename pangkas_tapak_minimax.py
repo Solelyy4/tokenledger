@@ -13,6 +13,7 @@ import shutil
 import time
 
 CAP = time.strftime("%Y%m%d-%H%M%S")
+BACKUP = "C:/Users/zahin/minimax-kerja/out/tapak_backup"
 NOTA = ("Ditapis kepada model MiniMax sahaja (arahan BOZ, 19 Nov 2026). "
         "Angka token sejarah kekal dalam graf harian termasuk penyedia yang telah dibuang.")
 MATI = {"MiniMax-M2.5", "MiniMax-M2.1", "MiniMax-M2.7-highspeed",
@@ -20,7 +21,9 @@ MATI = {"MiniMax-M2.5", "MiniMax-M2.1", "MiniMax-M2.7-highspeed",
 
 
 def simpan(nama: str, data) -> None:
-    shutil.copy2(nama, f"{nama}.bak-minimax-{CAP}")
+    import os
+    os.makedirs(BACKUP, exist_ok=True)
+    shutil.copy2(nama, os.path.join(BACKUP, f"{os.path.basename(nama)}.bak-minimax-{CAP}"))
     with open(nama, "w", encoding="utf-8") as fh:
         json.dump(data, fh, ensure_ascii=False, indent=1)
         fh.write("\n")
