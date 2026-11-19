@@ -723,5 +723,41 @@ tarik();
   setTimeout(tapis, 3000);
 })();
 </script>
+
+<!-- Kapasiti harian: siling token yang benar-benar diukur (kapasiti.json dari kapasiti_lane.py) -->
+<script>
+(async () => {
+  const F = (n) => (n || 0).toLocaleString("en-MY");
+  const kaki = document.querySelector("#kaki");
+  if (!kaki || !kaki.parentElement) return;
+  const h = document.createElement("h2");
+  h.id = "kapasiti";
+  h.textContent = "Kapasiti harian (diukur)";
+  const kad = document.createElement("div");
+  kad.className = "kad";
+  kad.id = "kapasitiKad";
+  kaki.parentElement.insertBefore(h, kaki);
+  kaki.parentElement.insertBefore(kad, kaki);
+  try {
+    const r = await fetch("kapasiti.json?v=" + Date.now(), { cache: "no-store" });
+    if (!r.ok) throw new Error("HTTP " + r.status);
+    const k = await r.json();
+    const s = k.siling_harian || {};
+    const asas = s.asas || {};
+    const guna = (k.guna_hari_ini || {}).jumlah || 0;
+    kad.innerHTML =
+      `<div class="baris"><span>Jumlah siling harian</span><b>${F(s.jumlah_harian)} token</b></div>` +
+      `<div class="baris"><span>MiniMax pool</span><b>${F(s.minimax)} token</b></div>` +
+      `<div class="baris"><span>Groq percuma</span><b>${F(s.groq)} token</b></div>` +
+      `<div class="baris"><span>Pollinations (WARP)</span><b>${F(s.pollinations)} token</b></div>` +
+      `<div class="baris"><span>Tokoh harian</span><b>${asas.akaun_minimax || 0} akaun · ` +
+      `${asas.token_per_mata_minimax || 0} token/mata · ${asas.req_per_hari_groq || 0} req Groq</b></div>` +
+      `<div class="baris"><span>Sudah digunakan hari ini</span><b>${F(guna)} token</b></div>` +
+      `<div class="baris"><span>Dikemas kini</span><b>${esc(k.masa || "—")} WIB</b></div>`;
+  } catch (e) {
+    kad.innerHTML = `<div class="baris"><span>Kapasiti belum diterbitkan.</span></div>`;
+  }
+})();
+</script>
 </body>
 </html>

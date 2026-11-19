@@ -1,0 +1,63 @@
+{
+ "masa": "2026-11-19 14:00:03",
+ "lane": {
+  "minimax_pool": {
+   "jumlah": 142,
+   "aktif": 142,
+   "panggilan": 635,
+   "masuk": 113972,
+   "keluar": 115222
+  },
+  "groq": {
+   "model": {
+    "qwen/qwen3.8-27b": {
+     "kod": 200,
+     "req_hari": 1000,
+     "tpm": 8000,
+     "baki_req": 997
+    },
+    "openai/gpt-oss-120b": {
+     "kod": 200,
+     "req_hari": 1000,
+     "tpm": 8000,
+     "baki_req": 990
+    },
+    "openai/gpt-oss-20b": {
+     "kod": 200,
+     "req_hari": 1000,
+     "tpm": 8000,
+     "baki_req": 998
+    }
+   },
+   "req_hari": 3000
+  },
+  "pollinations": {
+   "lulus": 0,
+   "bilangan": 6,
+   "token": 0,
+   "token_per_saat": 0.0,
+   "unjuran_harian": 0
+  },
+  "novacode": {
+   "kod": 429,
+   "pesan": "Free-model quota for opencode/deepseek-v4.1-flash-free is exhausted; 3052s remaining before it can be tried again."
+  }
+ },
+ "guna_hari_ini": {
+  "jumlah": 0,
+  "ikut_provider": {}
+ },
+ "siling_harian": {
+  "minimax": 1844154,
+  "groq": 750000,
+  "pollinations": 70000,
+  "jumlah_harian": 2664154,
+  "asas": {
+   "token_per_mata_minimax": 32.5,
+   "mata_per_akaun_hari": 400,
+   "akaun_minimax": 142,
+   "req_per_hari_groq": 3000,
+   "token_per_req_groq": 250
+  }
+ }
+}

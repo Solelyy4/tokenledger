@@ -2,9 +2,9 @@
  "meta": {
   "sumber": "https://models.opencode.ai/api.json",
   "doc": "https://opencode.ai/v2/docs/console/models/",
-  "dikemas_kini": "2026-11-19 06:54",
+  "dikemas_kini": "2026-11-19 14:01",
   "jumlah_provider": 324,
-  "jumlah_model_opencode": 142,
+  "jumlah_model_opencode": 144,
   "jumlah_percuma": 0,
   "jumlah_aktif": 0,
   "jumlah_deprecated": 0,

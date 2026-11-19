@@ -1,6 +1,6 @@
 {
- "masa": "2026-11-19 05:54:02 WIB",
- "masa_ringkas": "05:54:02",
+ "masa": "2026-11-19 13:01:02 WIB",
+ "masa_ringkas": "13:01:02",
  "ringkas": {
   "token_hari": 27812,
   "token_7": 46866,
@@ -10,8 +10,8 @@
   "connection": 26,
   "connection_sihat": 26,
   "mm_akaun": 31,
-  "mm_claim_hari": 31,
-  "mm_pool_minggu": 124000,
+  "mm_claim_hari": 0,
+  "mm_pool_minggu": 120000,
   "provider": 1,
   "mistral_akaun": 0,
   "mistral_sihat": 0,
@@ -396,23 +396,32 @@
    "keluar": 7980
   }
  ],
- "amaran": [],
+ "amaran": [
+  {
+   "nama": "Pollinations Free",
+   "ralat": "[502]: semua laluan gagal",
+   "kod": 502,
+   "rate_limit": null,
+   "backoff": 0,
+   "ujian": "unavailable"
+  }
+ ],
  "minimax": [
   {
    "emel": "boza***@euploading.com",
-   "token": "hidup",
-   "uid": "579354980422144009",
-   "poin_hari": 400,
-   "sudah_claim": true,
-   "hari_ke": 1,
-   "poin_minggu": 4000
+   "token": "ralat:HTTPError",
+   "uid": null,
+   "poin_hari": null,
+   "sudah_claim": null,
+   "hari_ke": null,
+   "poin_minggu": 0
   },
   {
    "emel": "bozm***@euploading.com",
    "token": "hidup",
    "uid": "579355255186812930",
    "poin_hari": 400,
-   "sudah_claim": true,
+   "sudah_claim": false,
    "hari_ke": 1,
    "poin_minggu": 4000
   },
@@ -421,7 +430,7 @@
    "token": "hidup",
    "uid": "579355619021701120",
    "poin_hari": 400,
-   "sudah_claim": true,
+   "sudah_claim": false,
    "hari_ke": 1,
    "poin_minggu": 4000
   },
@@ -430,7 +439,7 @@
    "token": "hidup",
    "uid": "579356040763174918",
    "poin_hari": 400,
-   "sudah_claim": true,
+   "sudah_claim": false,
    "hari_ke": 1,
    "poin_minggu": 4000
   },
@@ -439,7 +448,7 @@
    "token": "hidup",
    "uid": "579356460113866754",
    "poin_hari": 400,
-   "sudah_claim": true,
+   "sudah_claim": false,
    "hari_ke": 1,
    "poin_minggu": 4000
   },
@@ -448,7 +457,7 @@
    "token": "hidup",
    "uid": "579356821855825925",
    "poin_hari": 400,
-   "sudah_claim": true,
+   "sudah_claim": false,
    "hari_ke": 1,
    "poin_minggu": 4000
   },
@@ -457,7 +466,7 @@
    "token": "hidup",
    "uid": "579357189947924486",
    "poin_hari": 400,
-   "sudah_claim": true,
+   "sudah_claim": false,
    "hari_ke": 1,
    "poin_minggu": 4000
   },
@@ -466,7 +475,7 @@
    "token": "hidup",
    "uid": "579374303446458369",
    "poin_hari": 400,
-   "sudah_claim": true,
+   "sudah_claim": false,
    "hari_ke": 1,
    "poin_minggu": 4000
   },
@@ -475,7 +484,7 @@
    "token": "hidup",
    "uid": "579375657472647170",
    "poin_hari": 400,
-   "sudah_claim": true,
+   "sudah_claim": false,
    "hari_ke": 1,
    "poin_minggu": 4000
   },
@@ -484,7 +493,7 @@
    "token": "hidup",
    "uid": "579375936700030977",
    "poin_hari": 400,
-   "sudah_claim": true,
+   "sudah_claim": false,
    "hari_ke": 1,
    "poin_minggu": 4000
   },
@@ -493,7 +502,7 @@
    "token": "hidup",
    "uid": "579376195681538048",
    "poin_hari": 400,
-   "sudah_claim": true,
+   "sudah_claim": false,
    "hari_ke": 1,
    "poin_minggu": 4000
   },
@@ -502,7 +511,7 @@
    "token": "hidup",
    "uid": "579376537139818505",
    "poin_hari": 400,
-   "sudah_claim": true,
+   "sudah_claim": false,
    "hari_ke": 1,
    "poin_minggu": 4000
   },
@@ -511,7 +520,7 @@
    "token": "hidup",
    "uid": "579376776408096772",
    "poin_hari": 400,
-   "sudah_claim": true,
+   "sudah_claim": false,
    "hari_ke": 1,
    "poin_minggu": 4000
   },
@@ -520,7 +529,7 @@
    "token": "hidup",
    "uid": "579377058093359112",
    "poin_hari": 400,
-   "sudah_claim": true,
+   "sudah_claim": false,
    "hari_ke": 1,
    "poin_minggu": 4000
   },
@@ -529,7 +538,7 @@
    "token": "hidup",
    "uid": "579377285621772296",
    "poin_hari": 400,
-   "sudah_claim": true,
+   "sudah_claim": false,
    "hari_ke": 1,
    "poin_minggu": 4000
   },
@@ -538,7 +547,7 @@
    "token": "hidup",
    "uid": "579377536315322370",
    "poin_hari": 400,
-   "sudah_claim": true,
+   "sudah_claim": false,
    "hari_ke": 1,
    "poin_minggu": 4000
   },
@@ -547,7 +556,7 @@
    "token": "hidup",
    "uid": "579377765273972739",
    "poin_hari": 400,
-   "sudah_claim": true,
+   "sudah_claim": false,
    "hari_ke": 1,
    "poin_minggu": 4000
   },
@@ -556,7 +565,7 @@
    "token": "hidup",
    "uid": "579378049194795014",
    "poin_hari": 400,
-   "sudah_claim": true,
+   "sudah_claim": false,
    "hari_ke": 1,
    "poin_minggu": 4000
   },
@@ -565,7 +574,7 @@
    "token": "hidup",
    "uid": "579378645368983553",
    "poin_hari": 400,
-   "sudah_claim": true,
+   "sudah_claim": false,
    "hari_ke": 1,
    "poin_minggu": 4000
   },
@@ -574,7 +583,7 @@
    "token": "hidup",
    "uid": "579378893998931976",
    "poin_hari": 400,
-   "sudah_claim": true,
+   "sudah_claim": false,
    "hari_ke": 1,
    "poin_minggu": 4000
   },
@@ -583,7 +592,7 @@
    "token": "hidup",
    "uid": "579379136454868992",
    "poin_hari": 400,
-   "sudah_claim": true,
+   "sudah_claim": false,
    "hari_ke": 1,
    "poin_minggu": 4000
   },
@@ -592,7 +601,7 @@
    "token": "hidup",
    "uid": "579379456568344581",
    "poin_hari": 400,
-   "sudah_claim": true,
+   "sudah_claim": false,
    "hari_ke": 1,
    "poin_minggu": 4000
   },
@@ -601,7 +610,7 @@
    "token": "hidup",
    "uid": "579379743618134025",
    "poin_hari": 400,
-   "sudah_claim": true,
+   "sudah_claim": false,
    "hari_ke": 1,
    "poin_minggu": 4000
   },
@@ -610,7 +619,7 @@
    "token": "hidup",
    "uid": "579379993384730626",
    "poin_hari": 400,
-   "sudah_claim": true,
+   "sudah_claim": false,
    "hari_ke": 1,
    "poin_minggu": 4000
   },
@@ -619,7 +628,7 @@
    "token": "hidup",
    "uid": "579380258653478916",
    "poin_hari": 400,
-   "sudah_claim": true,
+   "sudah_claim": false,
    "hari_ke": 1,
    "poin_minggu": 4000
   },
@@ -628,7 +637,7 @@
    "token": "hidup",
    "uid": "579380576657240069",
    "poin_hari": 400,
-   "sudah_claim": true,
+   "sudah_claim": false,
    "hari_ke": 1,
    "poin_minggu": 4000
   },
@@ -637,7 +646,7 @@
    "token": "hidup",
    "uid": "579563989741752320",
    "poin_hari": 400,
-   "sudah_claim": true,
+   "sudah_claim": false,
    "hari_ke": 1,
    "poin_minggu": 4000
   },
@@ -646,7 +655,7 @@
    "token": "hidup",
    "uid": "579564509650894857",
    "poin_hari": 400,
-   "sudah_claim": true,
+   "sudah_claim": false,
    "hari_ke": 1,
    "poin_minggu": 4000
   },
@@ -655,7 +664,7 @@
    "token": "hidup",
    "uid": "579567733283909638",
    "poin_hari": 400,
-   "sudah_claim": true,
+   "sudah_claim": false,
    "hari_ke": 1,
    "poin_minggu": 4000
   },
@@ -664,7 +673,7 @@
    "token": "hidup",
    "uid": "579568031029157893",
    "poin_hari": 400,
-   "sudah_claim": true,
+   "sudah_claim": false,
    "hari_ke": 1,
    "poin_minggu": 4000
   },
@@ -673,7 +682,7 @@
    "token": "hidup",
    "uid": "579568271098531844",
    "poin_hari": 400,
-   "sudah_claim": true,
+   "sudah_claim": false,
    "hari_ke": 1,
    "poin_minggu": 4000
   }
@@ -700,7 +709,7 @@
     "boleh_tambah": "Boleh — tuntut mata harian / beli kredit",
     "boleh": true,
     "cara_tambah": "Tambah akaun (claim mata) atau beli kredit di platform MiniMax.",
-    "bahagian": 0.4
+    "bahagian": 0.9
    },
    {
     "nama": "MiniMax-M3",
@@ -721,7 +730,7 @@
     "boleh_tambah": "Boleh — tuntut mata harian / beli kredit",
     "boleh": true,
     "cara_tambah": "Tambah akaun (claim mata) atau beli kredit di platform MiniMax.",
-    "bahagian": 0.1
+    "bahagian": 0.2
    },
    {
     "nama": "MiniMax-M3.1",
@@ -742,7 +751,7 @@
     "boleh_tambah": "Boleh — tuntut mata harian / beli kredit",
     "boleh": true,
     "cara_tambah": "Tambah akaun (claim mata) atau beli kredit di platform MiniMax.",
-    "bahagian": 0.0
+    "bahagian": 0.1
    },
    {
     "nama": "MiniMax-M3.1-preview",
@@ -763,7 +772,7 @@
     "boleh_tambah": "Boleh — tuntut mata harian / beli kredit",
     "boleh": true,
     "cara_tambah": "Tambah akaun (claim mata) atau beli kredit di platform MiniMax.",
-    "bahagian": 0.0
+    "bahagian": 0.1
    },
    {
     "nama": "MiniMax-M2.5",
@@ -822,8 +831,8 @@
     "boleh": true,
     "cara_tambah": "Tambah akaun (claim mata) atau beli kredit di platform MiniMax.",
     "akaun": 31,
-    "sihat": 31,
-    "baki": "124,000 mata kolam · 0 akaun belum claim"
+    "sihat": 0,
+    "baki": "120,000 mata kolam · 31 akaun belum claim"
    }
   ],
   "jumlah_7": 46866,
@@ -839,14 +848,14 @@
    "sihat": 0
   },
   "baki_minimax": {
-   "mata_minggu": 124000,
+   "mata_minggu": 120000,
    "akaun": 31,
-   "claim_hari": 31,
-   "baki": 0
+   "claim_hari": 0,
+   "baki": 31
   },
-  "jumlah_models": 10
+  "jumlah_models": 9
  },
- "dikemas": "2026-11-19T06:54:02",
+ "dikemas": "2026-11-19T14:01:02",
  "sumber": "laptop BOZ (9router SQLite + API penyedia)",
  "nota": "Ditapis kepada model MiniMax sahaja (arahan BOZ, 19 Nov 2026). Angka token sejarah kekal dalam graf harian termasuk penyedia yang telah dibuang. Snapshot berkala. Bila laptop aktif, halaman ini automatik bertukar ke mod LANGSUNG dari pelayan setempat."
 }
