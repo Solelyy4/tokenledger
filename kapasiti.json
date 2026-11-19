@@ -1,5 +1,5 @@
 {
- "masa": "2026-11-19 14:00:03",
+ "masa": "2026-11-19 14:03:00",
  "lane": {
   "minimax_pool": {
    "jumlah": 142,
@@ -14,25 +14,25 @@
      "kod": 200,
      "req_hari": 1000,
      "tpm": 8000,
-     "baki_req": 997
+     "baki_req": 998
     },
     "openai/gpt-oss-120b": {
      "kod": 200,
      "req_hari": 1000,
      "tpm": 8000,
-     "baki_req": 990
+     "baki_req": 991
     },
     "openai/gpt-oss-20b": {
      "kod": 200,
      "req_hari": 1000,
      "tpm": 8000,
-     "baki_req": 998
+     "baki_req": 999
     }
    },
    "req_hari": 3000
   },
   "pollinations": {
-   "lulus": 0,
+   "lulus": 6,
    "bilangan": 6,
    "token": 0,
    "token_per_saat": 0.0,
@@ -40,7 +40,7 @@
   },
   "novacode": {
    "kod": 429,
-   "pesan": "Free-model quota for opencode/deepseek-v4.1-flash-free is exhausted; 3052s remaining before it can be tried again."
+   "pesan": "Free-model quota for opencode/deepseek-v4.1-flash-free is exhausted; 2863s remaining before it can be tried again."
   }
  },
  "guna_hari_ini": {
