@@ -1,6 +1,6 @@
 {
- "masa": "2026-11-20 00:54:02 WIB",
- "masa_ringkas": "00:54:02",
+ "masa": "2026-11-20 01:09:33 WIB",
+ "masa_ringkas": "01:09:33",
  "ringkas": {
   "token_hari": 0,
   "token_7": 85145,
@@ -10,8 +10,8 @@
   "connection": 31,
   "connection_sihat": 31,
   "mm_akaun": 31,
-  "mm_claim_hari": 30,
-  "mm_pool_minggu": 120000,
+  "mm_claim_hari": 29,
+  "mm_pool_minggu": 116000,
   "provider": 1,
   "mistral_akaun": 0,
   "mistral_sihat": 0,
@@ -399,6 +399,12 @@
  ],
  "hari": [
   {
+   "tarikh": "2026-11-20",
+   "req": 1,
+   "masuk": 1781,
+   "keluar": 387
+  },
+  {
    "tarikh": "2026-11-19",
    "req": 140,
    "masuk": 231668,
@@ -433,12 +439,6 @@
    "req": 3,
    "masuk": 192724,
    "keluar": 13861
-  },
-  {
-   "tarikh": "2026-11-13",
-   "req": 2,
-   "masuk": 36546,
-   "keluar": 7980
   }
  ],
  "amaran": [
@@ -844,12 +844,12 @@
   },
   {
    "emel": "nurn***@gienetic-agent.web.id",
-   "token": "hidup",
-   "uid": "579379743618134025",
-   "poin_hari": 400,
-   "sudah_claim": true,
-   "hari_ke": 2,
-   "poin_minggu": 4000
+   "token": "ralat:HTTPError",
+   "uid": null,
+   "poin_hari": null,
+   "sudah_claim": null,
+   "hari_ke": null,
+   "poin_minggu": 0
   },
   {
    "emel": "y1db***@gienetic-agent.web.id",
@@ -1068,8 +1068,8 @@
     "boleh": true,
     "cara_tambah": "Tambah akaun (claim mata) atau beli kredit di platform MiniMax.",
     "akaun": 31,
-    "sihat": 30,
-    "baki": "120,000 mata kolam · 1 akaun belum claim"
+    "sihat": 29,
+    "baki": "116,000 mata kolam · 2 akaun belum claim"
    }
   ],
   "jumlah_7": 85145,
@@ -1085,14 +1085,14 @@
    "sihat": 0
   },
   "baki_minimax": {
-   "mata_minggu": 120000,
+   "mata_minggu": 116000,
    "akaun": 31,
-   "claim_hari": 30,
-   "baki": 1
+   "claim_hari": 29,
+   "baki": 2
   },
   "jumlah_models": 10
  },
- "dikemas": "2026-11-20T01:54:02",
+ "dikemas": "2026-11-20T02:09:33",
  "sumber": "laptop BOZ (9router SQLite + API penyedia)",
  "nota": "Ditapis kepada model MiniMax sahaja (arahan BOZ, 19 Nov 2026). Angka token sejarah kekal dalam graf harian termasuk penyedia yang telah dibuang. Snapshot berkala. Bila laptop aktif, halaman ini automatik bertukar ke mod LANGSUNG dari pelayan setempat."
 }
