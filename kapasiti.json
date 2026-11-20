@@ -1,5 +1,5 @@
 {
- "masa": "2026-11-20 17:40:00",
+ "masa": "2026-11-21 00:46:29",
  "lane": {
   "minimax_pool": {
    "jumlah": 142,
@@ -43,15 +43,8 @@
   }
  },
  "guna_hari_ini": {
-  "jumlah": 2168,
-  "ikut_provider": {
-   "opencode": {
-    "req": 1,
-    "masuk": 1781,
-    "keluar": 387,
-    "jumlah": 2168
-   }
-  }
+  "jumlah": 0,
+  "ikut_provider": {}
  },
  "siling_harian": {
   "minimax": 1844154,
