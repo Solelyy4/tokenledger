@@ -1,12 +1,12 @@
 {
- "masa": "2026-11-19 22:00:20",
+ "masa": "2026-11-20 17:40:00",
  "lane": {
   "minimax_pool": {
    "jumlah": 142,
    "aktif": 142,
-   "panggilan": 635,
-   "masuk": 113972,
-   "keluar": 115222
+   "panggilan": 675,
+   "masuk": 140146,
+   "keluar": 359112
   },
   "groq": {
    "model": {
@@ -43,25 +43,13 @@
   }
  },
  "guna_hari_ini": {
-  "jumlah": 269514,
+  "jumlah": 2168,
   "ikut_provider": {
-   "anthropic-compatible-5ecd2209-dad0-4557-af88-f9a4f54b6841": {
-    "req": 130,
-    "masuk": 47467,
-    "keluar": 18216,
-    "jumlah": 65683
-   },
-   "mistral": {
-    "req": 7,
-    "masuk": 181963,
-    "keluar": 19012,
-    "jumlah": 200975
-   },
    "opencode": {
-    "req": 2,
-    "masuk": 1840,
-    "keluar": 1016,
-    "jumlah": 2856
+    "req": 1,
+    "masuk": 1781,
+    "keluar": 387,
+    "jumlah": 2168
    }
   }
  },
