@@ -1,6 +1,6 @@
 {
- "masa": "2026-11-20 01:54:48 WIB",
- "masa_ringkas": "01:54:48",
+ "masa": "2026-11-20 21:27:01 WIB",
+ "masa_ringkas": "21:27:01",
  "ringkas": {
   "token_hari": 0,
   "token_7": 85145,
@@ -10,8 +10,8 @@
   "connection": 31,
   "connection_sihat": 31,
   "mm_akaun": 31,
-  "mm_claim_hari": 29,
-  "mm_pool_minggu": 116000,
+  "mm_claim_hari": 30,
+  "mm_pool_minggu": 120000,
   "provider": 1,
   "mistral_akaun": 0,
   "mistral_sihat": 0,
@@ -400,9 +400,9 @@
  "hari": [
   {
    "tarikh": "2026-11-20",
-   "req": 1,
-   "masuk": 1781,
-   "keluar": 387
+   "req": 8,
+   "masuk": 15945,
+   "keluar": 5070
   },
   {
    "tarikh": "2026-11-19",
@@ -486,6 +486,14 @@
    "nama": "ginevra4cd7bb@7om.arcadehearth.com",
    "ralat": "[401]: {\"error\":\"invalid access token\"}",
    "kod": 401,
+   "rate_limit": null,
+   "backoff": 0,
+   "ujian": "unavailable"
+  },
+  {
+   "nama": "Pollinations Free",
+   "ralat": "[502]: fetch failed (cause: ECONNREFUSED: connect ECONNREFUSED 127.0.0.1:8892)",
+   "kod": 502,
    "rate_limit": null,
    "backoff": 0,
    "ujian": "unavailable"
@@ -579,6 +587,38 @@
    "ujian": "unavailable"
   },
   {
+   "nama": "nurnlc5v@gienetic-agent.web.id",
+   "ralat": "[401]: {\"error\":\"invalid access token\"}",
+   "kod": 401,
+   "rate_limit": null,
+   "backoff": 0,
+   "ujian": "unavailable"
+  },
+  {
+   "nama": "uhflqycg@ayogiakbar.cv",
+   "ralat": "[401]: {\"error\":\"invalid access token\"}",
+   "kod": 401,
+   "rate_limit": null,
+   "backoff": 0,
+   "ujian": "unavailable"
+  },
+  {
+   "nama": "q6p7pc17@ayogiakbar.cv",
+   "ralat": "[401]: {\"error\":\"invalid access token\"}",
+   "kod": 401,
+   "rate_limit": null,
+   "backoff": 0,
+   "ujian": "unavailable"
+  },
+  {
+   "nama": "bwreccw9@ayogiakbar.cv",
+   "ralat": "[401]: {\"error\":\"invalid access token\"}",
+   "kod": 401,
+   "rate_limit": null,
+   "backoff": 0,
+   "ujian": "unavailable"
+  },
+  {
    "nama": "6gl5aper@gienetic-agent.web.id",
    "ralat": "[401]: {\"error\":\"invalid access token\"}",
    "kod": 401,
@@ -596,46 +636,6 @@
   },
   {
    "nama": "huto5xut@ayogiakbar.cv",
-   "ralat": "[401]: {\"error\":\"invalid access token\"}",
-   "kod": 401,
-   "rate_limit": null,
-   "backoff": 0,
-   "ujian": "unavailable"
-  },
-  {
-   "nama": "aemx36bs@gienetic-agent.web.id",
-   "ralat": "[401]: {\"error\":\"invalid access token\"}",
-   "kod": 401,
-   "rate_limit": null,
-   "backoff": 0,
-   "ujian": "unavailable"
-  },
-  {
-   "nama": "zyuy7itd@gienetic-agent.web.id",
-   "ralat": "[401]: {\"error\":\"invalid access token\"}",
-   "kod": 401,
-   "rate_limit": null,
-   "backoff": 0,
-   "ujian": "unavailable"
-  },
-  {
-   "nama": "h9a3jr6x@ayogiakbar.cv",
-   "ralat": "[401]: {\"error\":\"invalid access token\"}",
-   "kod": 401,
-   "rate_limit": null,
-   "backoff": 0,
-   "ujian": "unavailable"
-  },
-  {
-   "nama": "oyxft3ey@gienetic-agent.web.id",
-   "ralat": "[401]: {\"error\":\"invalid access token\"}",
-   "kod": 401,
-   "rate_limit": null,
-   "backoff": 0,
-   "ujian": "unavailable"
-  },
-  {
-   "nama": "m04rrh2f@gienetic-agent.web.id",
    "ralat": "[401]: {\"error\":\"invalid access token\"}",
    "kod": 401,
    "rate_limit": null,
@@ -844,12 +844,12 @@
   },
   {
    "emel": "nurn***@gienetic-agent.web.id",
-   "token": "ralat:HTTPError",
-   "uid": null,
-   "poin_hari": null,
-   "sudah_claim": null,
-   "hari_ke": null,
-   "poin_minggu": 0
+   "token": "hidup",
+   "uid": "579379743618134025",
+   "poin_hari": 400,
+   "sudah_claim": true,
+   "hari_ke": 2,
+   "poin_minggu": 4000
   },
   {
    "emel": "y1db***@gienetic-agent.web.id",
@@ -931,10 +931,10 @@
     "nama": "MiniMax-M3.1-flash-preview",
     "penyedia": "MiniMax",
     "penyedia_kunci": "minimax",
-    "req_hari": 136,
-    "masuk_hari": 49836,
-    "keluar_hari": 18392,
-    "jumlah_hari": 68228,
+    "req_hari": 61,
+    "masuk_hari": 22358,
+    "keluar_hari": 15921,
+    "jumlah_hari": 38279,
     "req_7": 147,
     "masuk_7": 54064,
     "keluar_7": 18890,
@@ -946,16 +946,16 @@
     "boleh_tambah": "Boleh — tuntut mata harian / beli kredit",
     "boleh": true,
     "cara_tambah": "Tambah akaun (claim mata) atau beli kredit di platform MiniMax.",
-    "bahagian": 1.9
+    "bahagian": 2.1
    },
    {
     "nama": "MiniMax-M3",
     "penyedia": "MiniMax",
     "penyedia_kunci": "minimax",
-    "req_hari": 14,
-    "masuk_hari": 5431,
-    "keluar_hari": 389,
-    "jumlah_hari": 5820,
+    "req_hari": 0,
+    "masuk_hari": 0,
+    "keluar_hari": 0,
+    "jumlah_hari": 0,
     "req_7": 17,
     "masuk_7": 6572,
     "keluar_7": 487,
@@ -973,10 +973,10 @@
     "nama": "MiniMax-M3.1",
     "penyedia": "MiniMax",
     "penyedia_kunci": "minimax",
-    "req_hari": 7,
-    "masuk_hari": 2525,
-    "keluar_hari": 212,
-    "jumlah_hari": 2737,
+    "req_hari": 0,
+    "masuk_hari": 0,
+    "keluar_hari": 0,
+    "jumlah_hari": 0,
     "req_7": 7,
     "masuk_7": 2525,
     "keluar_7": 212,
@@ -994,10 +994,10 @@
     "nama": "MiniMax-M3.1-preview",
     "penyedia": "MiniMax",
     "penyedia_kunci": "minimax",
-    "req_hari": 6,
-    "masuk_hari": 2238,
-    "keluar_hari": 157,
-    "jumlah_hari": 2395,
+    "req_hari": 0,
+    "masuk_hari": 0,
+    "keluar_hari": 0,
+    "jumlah_hari": 0,
     "req_7": 6,
     "masuk_7": 2238,
     "keluar_7": 157,
@@ -1015,10 +1015,10 @@
     "nama": "MiniMax-M2.5",
     "penyedia": "MiniMax",
     "penyedia_kunci": "minimax",
-    "req_hari": 13,
-    "masuk_hari": 474,
-    "keluar_hari": 368,
-    "jumlah_hari": 842,
+    "req_hari": 0,
+    "masuk_hari": 0,
+    "keluar_hari": 0,
+    "jumlah_hari": 0,
     "req_7": 15,
     "masuk_7": 552,
     "keluar_7": 438,
@@ -1036,10 +1036,10 @@
     "nama": "MiniMax-M2.7-highspeed",
     "penyedia": "MiniMax",
     "penyedia_kunci": "minimax",
-    "req_hari": 6,
-    "masuk_hari": 210,
-    "keluar_hari": 140,
-    "jumlah_hari": 350,
+    "req_hari": 0,
+    "masuk_hari": 0,
+    "keluar_hari": 0,
+    "jumlah_hari": 0,
     "req_7": 6,
     "masuk_7": 210,
     "keluar_7": 140,
@@ -1068,8 +1068,8 @@
     "boleh": true,
     "cara_tambah": "Tambah akaun (claim mata) atau beli kredit di platform MiniMax.",
     "akaun": 31,
-    "sihat": 29,
-    "baki": "116,000 mata kolam · 2 akaun belum claim"
+    "sihat": 30,
+    "baki": "120,000 mata kolam · 1 akaun belum claim"
    }
   ],
   "jumlah_7": 85145,
@@ -1085,14 +1085,14 @@
    "sihat": 0
   },
   "baki_minimax": {
-   "mata_minggu": 116000,
+   "mata_minggu": 120000,
    "akaun": 31,
-   "claim_hari": 29,
-   "baki": 2
+   "claim_hari": 30,
+   "baki": 1
   },
   "jumlah_models": 10
  },
- "dikemas": "2026-11-20T02:54:48",
+ "dikemas": "2026-11-20T22:27:01",
  "sumber": "laptop BOZ (9router SQLite + API penyedia)",
  "nota": "Ditapis kepada model MiniMax sahaja (arahan BOZ, 19 Nov 2026). Angka token sejarah kekal dalam graf harian termasuk penyedia yang telah dibuang. Snapshot berkala. Bila laptop aktif, halaman ini automatik bertukar ke mod LANGSUNG dari pelayan setempat."
 }
