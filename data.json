@@ -1,6 +1,6 @@
 {
- "masa": "2026-11-21 17:54:02 WIB",
- "masa_ringkas": "17:54:02",
+ "masa": "2026-11-21 18:09:02 WIB",
+ "masa_ringkas": "18:09:02",
  "ringkas": {
   "token_hari": 0,
   "token_7": 85145,
@@ -491,6 +491,14 @@
    "ujian": "unavailable"
   },
   {
+   "nama": "Pollinations Free",
+   "ralat": "[502]: fetch failed (cause: ECONNREFUSED: connect ECONNREFUSED 127.0.0.1:8892)",
+   "kod": 502,
+   "rate_limit": null,
+   "backoff": 0,
+   "ujian": "unavailable"
+  },
+  {
    "nama": "Kilo Keyless",
    "ralat": "[401]: {\"error\":{\"code\":\"INVALID_TOKEN\",\"message\":\"Your authentication token is invalid. Please sign in again.\"},\"error_",
    "kod": 401,
@@ -512,6 +520,14 @@
    "kod": 401,
    "rate_limit": null,
    "backoff": 0,
+   "ujian": "unavailable"
+  },
+  {
+   "nama": "OVH Keyless v2",
+   "ralat": "[429]: {\n  \"message\":\"API rate limit exceeded\",\n  \"request_id\":\"143c232bbdc06350f652b61b993b6d5a\"\n}",
+   "kod": 429,
+   "rate_limit": null,
+   "backoff": 1,
    "ujian": "unavailable"
   },
   {
@@ -620,22 +636,6 @@
   },
   {
    "nama": "wzy7xxvn@ayogiakbar.cv",
-   "ralat": "[401]: {\"error\":\"invalid access token\"}",
-   "kod": 401,
-   "rate_limit": null,
-   "backoff": 0,
-   "ujian": "unavailable"
-  },
-  {
-   "nama": "huto5xut@ayogiakbar.cv",
-   "ralat": "[401]: {\"error\":\"invalid access token\"}",
-   "kod": 401,
-   "rate_limit": null,
-   "backoff": 0,
-   "ujian": "unavailable"
-  },
-  {
-   "nama": "aemx36bs@gienetic-agent.web.id",
    "ralat": "[401]: {\"error\":\"invalid access token\"}",
    "kod": 401,
    "rate_limit": null,
@@ -1092,7 +1092,7 @@
   },
   "jumlah_models": 10
  },
- "dikemas": "2026-11-21T18:54:02",
+ "dikemas": "2026-11-21T19:09:02",
  "sumber": "laptop BOZ (9router SQLite + API penyedia)",
  "nota": "Ditapis kepada model MiniMax sahaja (arahan BOZ, 19 Nov 2026). Angka token sejarah kekal dalam graf harian termasuk penyedia yang telah dibuang. Snapshot berkala. Bila laptop aktif, halaman ini automatik bertukar ke mod LANGSUNG dari pelayan setempat."
 }
