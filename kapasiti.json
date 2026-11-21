@@ -1,5 +1,5 @@
 {
- "masa": "2026-11-21 13:01:34",
+ "masa": "2026-11-21 19:02:23",
  "lane": {
   "minimax_pool": {
    "jumlah": 142,
@@ -17,19 +17,13 @@
      "baki_req": 999
     },
     "openai/gpt-oss-120b": {
-     "kod": 200,
-     "req_hari": 1000,
-     "tpm": 8000,
-     "baki_req": 999
+     "kod": "ConnectionError"
     },
     "openai/gpt-oss-20b": {
-     "kod": 200,
-     "req_hari": 1000,
-     "tpm": 8000,
-     "baki_req": 999
+     "kod": "SSLError"
     }
    },
-   "req_hari": 3000
+   "req_hari": 1000
   },
   "pollinations": {
    "lulus": 0,
@@ -48,14 +42,14 @@
  },
  "siling_harian": {
   "minimax": 1844154,
-  "groq": 750000,
+  "groq": 250000,
   "pollinations": 70000,
-  "jumlah_harian": 2664154,
+  "jumlah_harian": 2164154,
   "asas": {
    "token_per_mata_minimax": 32.5,
    "mata_per_akaun_hari": 400,
    "akaun_minimax": 142,
-   "req_per_hari_groq": 3000,
+   "req_per_hari_groq": 1000,
    "token_per_req_groq": 250
   }
  }
