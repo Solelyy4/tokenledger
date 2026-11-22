@@ -1,5 +1,5 @@
 {
- "masa": "2026-11-21T19:09:02",
+ "masa": "2026-11-23T00:15:08",
  "keterangan": "Ujian panggilan sebenar ke gateway 9router (max_tokens kecil, 1-2 pusingan).",
  "bilangan": {
   "jumlah": 25,
@@ -136,24 +136,6 @@
   {
    "model": "mistral/mistral-medium-latest",
    "lulus": false,
-   "median": 0.01,
-   "status": "404",
-   "kelas": "GAGAL",
-   "jawapan": "",
-   "sebab": "No active credentials for provider: mistral"
-  },
-  {
-   "model": "kgw/kwaipilot/kat-coder-pro-v2.5:free",
-   "lulus": false,
-   "median": 0.01,
-   "status": "404",
-   "kelas": "GAGAL",
-   "jawapan": "",
-   "sebab": "No active credentials for provider: kilo-gateway"
-  },
-  {
-   "model": "mistral/mistral-large-latest",
-   "lulus": false,
    "median": 0.03,
    "status": "404",
    "kelas": "GAGAL",
@@ -161,7 +143,7 @@
    "sebab": "No active credentials for provider: mistral"
   },
   {
-   "model": "kgw/kilo-auto/frontier",
+   "model": "kgw/kwaipilot/kat-coder-pro-v2.5:free",
    "lulus": false,
    "median": 0.03,
    "status": "404",
@@ -172,34 +154,25 @@
   {
    "model": "mmf/mimo-auto",
    "lulus": false,
-   "median": 0.25,
+   "median": 0.28,
    "status": "502",
    "kelas": "GAGAL",
    "jawapan": "",
    "sebab": "[502]: MiMo bootstrap failed: 404"
   },
   {
-   "model": "oc/muse-spark-1.2-contributor-free",
-   "lulus": false,
-   "median": 0.3,
-   "status": "400",
-   "kelas": "GAGAL",
-   "jawapan": "",
-   "sebab": "[400]: {\"error\":{\"type\":\"server_error\",\"message\":\"Upstream request failed: Model is unavailable.\"}}"
-  },
-  {
    "model": "oc/union-alpha",
    "lulus": false,
-   "median": 0.31,
+   "median": 0.29,
    "status": "400",
    "kelas": "GAGAL",
    "jawapan": "",
    "sebab": "[400]: {\"type\":\"error\",\"error\":{\"type\":\"api_error\",\"message\":\"Upstream request failed: Model is unavailable.\"}}"
   },
   {
-   "model": "oc/muse-spark-1.3-contributor-free",
+   "model": "oc/muse-spark-1.2-contributor-free",
    "lulus": false,
-   "median": 0.34,
+   "median": 0.33,
    "status": "400",
    "kelas": "GAGAL",
    "jawapan": "",
@@ -215,9 +188,18 @@
    "sebab": "[kilo-gateway/nvidia/nemotron-3-super-120b-a12b:free] [404]: {\"error\":\"The requested model 'nvidia/nemotron-3-super-120b"
   },
   {
+   "model": "oc/muse-spark-1.3-contributor-free",
+   "lulus": false,
+   "median": 0.49,
+   "status": "400",
+   "kelas": "GAGAL",
+   "jawapan": "",
+   "sebab": "[400]: {\"error\":{\"type\":\"server_error\",\"message\":\"Upstream request failed: Model is unavailable.\"}}"
+  },
+  {
    "model": "oc/jev-1.13-free",
    "lulus": false,
-   "median": 0.71,
+   "median": 0.64,
    "status": "400",
    "kelas": "GAGAL",
    "jawapan": "",
@@ -231,6 +213,24 @@
    "kelas": "GAGAL",
    "jawapan": "",
    "sebab": "[kilo-gateway/kilo-auto/balanced] [401]: {\"error\":{\"code\":\"PAID_MODEL_AUTH_REQUIRED\",\"message\":\"You need to sign in to u"
+  },
+  {
+   "model": "mistral/mistral-large-latest",
+   "lulus": false,
+   "median": 0.0,
+   "status": "404",
+   "kelas": "GAGAL",
+   "jawapan": "",
+   "sebab": "No active credentials for provider: mistral"
+  },
+  {
+   "model": "kgw/kilo-auto/frontier",
+   "lulus": false,
+   "median": 0.0,
+   "status": "404",
+   "kelas": "GAGAL",
+   "jawapan": "",
+   "sebab": "No active credentials for provider: kilo-gateway"
   }
  ]
 }

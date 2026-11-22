@@ -1,17 +1,17 @@
 {
- "masa": "2026-11-21 18:09:02 WIB",
- "masa_ringkas": "18:09:02",
+ "masa": "2026-11-22 23:15:08 WIB",
+ "masa_ringkas": "23:15:08",
  "ringkas": {
   "token_hari": 0,
-  "token_7": 85145,
+  "token_7": 79180,
   "req_hari": 0,
   "model_diguna": 4,
   "model_tersedia": 4,
   "connection": 31,
   "connection_sihat": 31,
   "mm_akaun": 31,
-  "mm_claim_hari": 0,
-  "mm_pool_minggu": 0,
+  "mm_claim_hari": 30,
+  "mm_pool_minggu": 120000,
   "provider": 1,
   "mistral_akaun": 0,
   "mistral_sihat": 0,
@@ -27,9 +27,9 @@
    "req_hari": 0,
    "in_hari": 0,
    "out_hari": 0,
-   "req_7": 147,
-   "in_7": 54064,
-   "out_7": 18890,
+   "req_7": 136,
+   "in_7": 49836,
+   "out_7": 18392,
    "ralat": 0,
    "terakhir": "2026-11-19T14:05:15.182Z",
    "baki": "tidak dilaporkan"
@@ -39,9 +39,9 @@
    "req_hari": 0,
    "in_hari": 0,
    "out_hari": 0,
-   "req_7": 17,
-   "in_7": 6572,
-   "out_7": 487,
+   "req_7": 14,
+   "in_7": 5431,
+   "out_7": 389,
    "ralat": 0,
    "terakhir": "2026-11-18T22:23:31.218Z",
    "baki": "tidak dilaporkan"
@@ -399,6 +399,18 @@
  ],
  "hari": [
   {
+   "tarikh": "2026-11-22",
+   "req": 65,
+   "masuk": 754428,
+   "keluar": 6995
+  },
+  {
+   "tarikh": "2026-11-21",
+   "req": 44,
+   "masuk": 16820,
+   "keluar": 1423
+  },
+  {
    "tarikh": "2026-11-20",
    "req": 8,
    "masuk": 15945,
@@ -427,18 +439,6 @@
    "req": 23,
    "masuk": 784935,
    "keluar": 83505
-  },
-  {
-   "tarikh": "2026-11-15",
-   "req": 19,
-   "masuk": 128164,
-   "keluar": 14484
-  },
-  {
-   "tarikh": "2026-11-14",
-   "req": 3,
-   "masuk": 192724,
-   "keluar": 13861
   }
  ],
  "amaran": [
@@ -491,14 +491,6 @@
    "ujian": "unavailable"
   },
   {
-   "nama": "Pollinations Free",
-   "ralat": "[502]: fetch failed (cause: ECONNREFUSED: connect ECONNREFUSED 127.0.0.1:8892)",
-   "kod": 502,
-   "rate_limit": null,
-   "backoff": 0,
-   "ujian": "unavailable"
-  },
-  {
    "nama": "Kilo Keyless",
    "ralat": "[401]: {\"error\":{\"code\":\"INVALID_TOKEN\",\"message\":\"Your authentication token is invalid. Please sign in again.\"},\"error_",
    "kod": 401,
@@ -515,22 +507,6 @@
    "ujian": "unavailable"
   },
   {
-   "nama": "ChatGPT Access Token",
-   "ralat": "[401]: {\"detail\":\"Could not parse your authentication token. Please try signing in again.\"}",
-   "kod": 401,
-   "rate_limit": null,
-   "backoff": 0,
-   "ujian": "unavailable"
-  },
-  {
-   "nama": "OVH Keyless v2",
-   "ralat": "[429]: {\n  \"message\":\"API rate limit exceeded\",\n  \"request_id\":\"143c232bbdc06350f652b61b993b6d5a\"\n}",
-   "kod": 429,
-   "rate_limit": null,
-   "backoff": 1,
-   "ujian": "unavailable"
-  },
-  {
    "nama": "w2drwnxl@ayogiakbar.cv",
    "ralat": "[401]: {\"error\":\"invalid access token\"}",
    "kod": 401,
@@ -539,25 +515,9 @@
    "ujian": "unavailable"
   },
   {
-   "nama": "figment89showmen@icloud.com",
-   "ralat": "[400]: {\"detail\":\"The 'gpt-5' model is not supported when using Codex with a ChatGPT account.\",\"error\":{\"type\":\"invalid_",
-   "kod": 400,
-   "rate_limit": null,
-   "backoff": 0,
-   "ujian": "unavailable"
-  },
-  {
    "nama": "kfnkzu1t@ayogiakbar.cv",
    "ralat": "[401]: {\"error\":\"invalid access token\"}",
    "kod": 401,
-   "rate_limit": null,
-   "backoff": 0,
-   "ujian": "unavailable"
-  },
-  {
-   "nama": "finales_armory_7e@icloud.com",
-   "ralat": "[400]: {\"detail\":\"The 'gpt-5' model is not supported when using Codex with a ChatGPT account.\",\"error\":{\"type\":\"invalid_",
-   "kod": 400,
    "rate_limit": null,
    "backoff": 0,
    "ujian": "unavailable"
@@ -641,12 +601,52 @@
    "rate_limit": null,
    "backoff": 0,
    "ujian": "unavailable"
+  },
+  {
+   "nama": "huto5xut@ayogiakbar.cv",
+   "ralat": "[401]: {\"error\":\"invalid access token\"}",
+   "kod": 401,
+   "rate_limit": null,
+   "backoff": 0,
+   "ujian": "unavailable"
+  },
+  {
+   "nama": "aemx36bs@gienetic-agent.web.id",
+   "ralat": "[401]: {\"error\":\"invalid access token\"}",
+   "kod": 401,
+   "rate_limit": null,
+   "backoff": 0,
+   "ujian": "unavailable"
+  },
+  {
+   "nama": "zyuy7itd@gienetic-agent.web.id",
+   "ralat": "[401]: {\"error\":\"invalid access token\"}",
+   "kod": 401,
+   "rate_limit": null,
+   "backoff": 0,
+   "ujian": "unavailable"
+  },
+  {
+   "nama": "h9a3jr6x@ayogiakbar.cv",
+   "ralat": "[401]: {\"error\":\"invalid access token\"}",
+   "kod": 401,
+   "rate_limit": null,
+   "backoff": 0,
+   "ujian": "unavailable"
+  },
+  {
+   "nama": "oyxft3ey@gienetic-agent.web.id",
+   "ralat": "[401]: {\"error\":\"invalid access token\"}",
+   "kod": 401,
+   "rate_limit": null,
+   "backoff": 0,
+   "ujian": "unavailable"
   }
  ],
  "minimax": [
   {
    "emel": "boza***@euploading.com",
-   "token": "ralat:URLError",
+   "token": "ralat:HTTPError",
    "uid": null,
    "poin_hari": null,
    "sudah_claim": null,
@@ -655,273 +655,273 @@
   },
   {
    "emel": "bozm***@euploading.com",
-   "token": "ralat:URLError",
-   "uid": null,
-   "poin_hari": null,
-   "sudah_claim": null,
-   "hari_ke": null,
-   "poin_minggu": 0
+   "token": "hidup",
+   "uid": "579355255186812930",
+   "poin_hari": 400,
+   "sudah_claim": true,
+   "hari_ke": 1,
+   "poin_minggu": 4000
   },
   {
    "emel": "bozi***@euploading.com",
-   "token": "ralat:URLError",
-   "uid": null,
-   "poin_hari": null,
-   "sudah_claim": null,
-   "hari_ke": null,
-   "poin_minggu": 0
+   "token": "hidup",
+   "uid": "579355619021701120",
+   "poin_hari": 400,
+   "sudah_claim": true,
+   "hari_ke": 1,
+   "poin_minggu": 4000
   },
   {
    "emel": "bozt***@euploading.com",
-   "token": "ralat:URLError",
-   "uid": null,
-   "poin_hari": null,
-   "sudah_claim": null,
-   "hari_ke": null,
-   "poin_minggu": 0
+   "token": "hidup",
+   "uid": "579356040763174918",
+   "poin_hari": 400,
+   "sudah_claim": true,
+   "hari_ke": 1,
+   "poin_minggu": 4000
   },
   {
    "emel": "bozw***@euploading.com",
-   "token": "ralat:URLError",
-   "uid": null,
-   "poin_hari": null,
-   "sudah_claim": null,
-   "hari_ke": null,
-   "poin_minggu": 0
+   "token": "hidup",
+   "uid": "579356460113866754",
+   "poin_hari": 400,
+   "sudah_claim": true,
+   "hari_ke": 1,
+   "poin_minggu": 4000
   },
   {
    "emel": "bozk***@euploading.com",
-   "token": "ralat:URLError",
-   "uid": null,
-   "poin_hari": null,
-   "sudah_claim": null,
-   "hari_ke": null,
-   "poin_minggu": 0
+   "token": "hidup",
+   "uid": "579356821855825925",
+   "poin_hari": 400,
+   "sudah_claim": true,
+   "hari_ke": 1,
+   "poin_minggu": 4000
   },
   {
    "emel": "bozw***@euploading.com",
-   "token": "ralat:URLError",
-   "uid": null,
-   "poin_hari": null,
-   "sudah_claim": null,
-   "hari_ke": null,
-   "poin_minggu": 0
+   "token": "hidup",
+   "uid": "579357189947924486",
+   "poin_hari": 400,
+   "sudah_claim": true,
+   "hari_ke": 1,
+   "poin_minggu": 4000
   },
   {
    "emel": "ew0n***@gienetic-agent.web.id",
-   "token": "ralat:URLError",
-   "uid": null,
-   "poin_hari": null,
-   "sudah_claim": null,
-   "hari_ke": null,
-   "poin_minggu": 0
+   "token": "hidup",
+   "uid": "579374303446458369",
+   "poin_hari": 400,
+   "sudah_claim": true,
+   "hari_ke": 1,
+   "poin_minggu": 4000
   },
   {
    "emel": "kfnk***@ayogiakbar.cv",
-   "token": "ralat:URLError",
-   "uid": null,
-   "poin_hari": null,
-   "sudah_claim": null,
-   "hari_ke": null,
-   "poin_minggu": 0
+   "token": "hidup",
+   "uid": "579375657472647170",
+   "poin_hari": 400,
+   "sudah_claim": true,
+   "hari_ke": 1,
+   "poin_minggu": 4000
   },
   {
    "emel": "w2dr***@ayogiakbar.cv",
-   "token": "ralat:URLError",
-   "uid": null,
-   "poin_hari": null,
-   "sudah_claim": null,
-   "hari_ke": null,
-   "poin_minggu": 0
+   "token": "hidup",
+   "uid": "579375936700030977",
+   "poin_hari": 400,
+   "sudah_claim": true,
+   "hari_ke": 1,
+   "poin_minggu": 4000
   },
   {
    "emel": "lin9***@ayogiakbar.cv",
-   "token": "ralat:URLError",
-   "uid": null,
-   "poin_hari": null,
-   "sudah_claim": null,
-   "hari_ke": null,
-   "poin_minggu": 0
+   "token": "hidup",
+   "uid": "579376195681538048",
+   "poin_hari": 400,
+   "sudah_claim": true,
+   "hari_ke": 1,
+   "poin_minggu": 4000
   },
   {
    "emel": "m04r***@gienetic-agent.web.id",
-   "token": "ralat:URLError",
-   "uid": null,
-   "poin_hari": null,
-   "sudah_claim": null,
-   "hari_ke": null,
-   "poin_minggu": 0
+   "token": "hidup",
+   "uid": "579376537139818505",
+   "poin_hari": 400,
+   "sudah_claim": true,
+   "hari_ke": 1,
+   "poin_minggu": 4000
   },
   {
    "emel": "oyxf***@gienetic-agent.web.id",
-   "token": "ralat:URLError",
-   "uid": null,
-   "poin_hari": null,
-   "sudah_claim": null,
-   "hari_ke": null,
-   "poin_minggu": 0
+   "token": "hidup",
+   "uid": "579376776408096772",
+   "poin_hari": 400,
+   "sudah_claim": true,
+   "hari_ke": 1,
+   "poin_minggu": 4000
   },
   {
    "emel": "h9a3***@ayogiakbar.cv",
-   "token": "ralat:URLError",
-   "uid": null,
-   "poin_hari": null,
-   "sudah_claim": null,
-   "hari_ke": null,
-   "poin_minggu": 0
+   "token": "hidup",
+   "uid": "579377058093359112",
+   "poin_hari": 400,
+   "sudah_claim": true,
+   "hari_ke": 1,
+   "poin_minggu": 4000
   },
   {
    "emel": "zyuy***@gienetic-agent.web.id",
-   "token": "ralat:URLError",
-   "uid": null,
-   "poin_hari": null,
-   "sudah_claim": null,
-   "hari_ke": null,
-   "poin_minggu": 0
+   "token": "hidup",
+   "uid": "579377285621772296",
+   "poin_hari": 400,
+   "sudah_claim": true,
+   "hari_ke": 1,
+   "poin_minggu": 4000
   },
   {
    "emel": "aemx***@gienetic-agent.web.id",
-   "token": "ralat:URLError",
-   "uid": null,
-   "poin_hari": null,
-   "sudah_claim": null,
-   "hari_ke": null,
-   "poin_minggu": 0
+   "token": "hidup",
+   "uid": "579377536315322370",
+   "poin_hari": 400,
+   "sudah_claim": true,
+   "hari_ke": 1,
+   "poin_minggu": 4000
   },
   {
    "emel": "huto***@ayogiakbar.cv",
-   "token": "ralat:URLError",
-   "uid": null,
-   "poin_hari": null,
-   "sudah_claim": null,
-   "hari_ke": null,
-   "poin_minggu": 0
+   "token": "hidup",
+   "uid": "579377765273972739",
+   "poin_hari": 400,
+   "sudah_claim": true,
+   "hari_ke": 1,
+   "poin_minggu": 4000
   },
   {
    "emel": "wzy7***@ayogiakbar.cv",
-   "token": "ralat:URLError",
-   "uid": null,
-   "poin_hari": null,
-   "sudah_claim": null,
-   "hari_ke": null,
-   "poin_minggu": 0
+   "token": "hidup",
+   "uid": "579378049194795014",
+   "poin_hari": 400,
+   "sudah_claim": true,
+   "hari_ke": 1,
+   "poin_minggu": 4000
   },
   {
    "emel": "6gl5***@gienetic-agent.web.id",
-   "token": "ralat:URLError",
-   "uid": null,
-   "poin_hari": null,
-   "sudah_claim": null,
-   "hari_ke": null,
-   "poin_minggu": 0
+   "token": "hidup",
+   "uid": "579378645368983553",
+   "poin_hari": 400,
+   "sudah_claim": true,
+   "hari_ke": 1,
+   "poin_minggu": 4000
   },
   {
    "emel": "bwre***@ayogiakbar.cv",
-   "token": "ralat:URLError",
-   "uid": null,
-   "poin_hari": null,
-   "sudah_claim": null,
-   "hari_ke": null,
-   "poin_minggu": 0
+   "token": "hidup",
+   "uid": "579378893998931976",
+   "poin_hari": 400,
+   "sudah_claim": true,
+   "hari_ke": 1,
+   "poin_minggu": 4000
   },
   {
    "emel": "q6p7***@ayogiakbar.cv",
-   "token": "ralat:URLError",
-   "uid": null,
-   "poin_hari": null,
-   "sudah_claim": null,
-   "hari_ke": null,
-   "poin_minggu": 0
+   "token": "hidup",
+   "uid": "579379136454868992",
+   "poin_hari": 400,
+   "sudah_claim": true,
+   "hari_ke": 1,
+   "poin_minggu": 4000
   },
   {
    "emel": "uhfl***@ayogiakbar.cv",
-   "token": "ralat:URLError",
-   "uid": null,
-   "poin_hari": null,
-   "sudah_claim": null,
-   "hari_ke": null,
-   "poin_minggu": 0
+   "token": "hidup",
+   "uid": "579379456568344581",
+   "poin_hari": 400,
+   "sudah_claim": true,
+   "hari_ke": 1,
+   "poin_minggu": 4000
   },
   {
    "emel": "nurn***@gienetic-agent.web.id",
-   "token": "ralat:URLError",
-   "uid": null,
-   "poin_hari": null,
-   "sudah_claim": null,
-   "hari_ke": null,
-   "poin_minggu": 0
+   "token": "hidup",
+   "uid": "579379743618134025",
+   "poin_hari": 400,
+   "sudah_claim": true,
+   "hari_ke": 1,
+   "poin_minggu": 4000
   },
   {
    "emel": "y1db***@gienetic-agent.web.id",
-   "token": "ralat:URLError",
-   "uid": null,
-   "poin_hari": null,
-   "sudah_claim": null,
-   "hari_ke": null,
-   "poin_minggu": 0
+   "token": "hidup",
+   "uid": "579379993384730626",
+   "poin_hari": 400,
+   "sudah_claim": true,
+   "hari_ke": 1,
+   "poin_minggu": 4000
   },
   {
    "emel": "oy7c***@ayogiakbar.cv",
-   "token": "ralat:URLError",
-   "uid": null,
-   "poin_hari": null,
-   "sudah_claim": null,
-   "hari_ke": null,
-   "poin_minggu": 0
+   "token": "hidup",
+   "uid": "579380258653478916",
+   "poin_hari": 400,
+   "sudah_claim": true,
+   "hari_ke": 1,
+   "poin_minggu": 4000
   },
   {
    "emel": "rki4***@ayogiakbar.cv",
-   "token": "ralat:URLError",
-   "uid": null,
-   "poin_hari": null,
-   "sudah_claim": null,
-   "hari_ke": null,
-   "poin_minggu": 0
+   "token": "hidup",
+   "uid": "579380576657240069",
+   "poin_hari": 400,
+   "sudah_claim": true,
+   "hari_ke": 1,
+   "poin_minggu": 4000
   },
   {
    "emel": "bea4***@7om.arcadehearth.com",
-   "token": "ralat:URLError",
-   "uid": null,
-   "poin_hari": null,
-   "sudah_claim": null,
-   "hari_ke": null,
-   "poin_minggu": 0
+   "token": "hidup",
+   "uid": "579563989741752320",
+   "poin_hari": 400,
+   "sudah_claim": true,
+   "hari_ke": 1,
+   "poin_minggu": 4000
   },
   {
    "emel": "euni***@7om.arcadehearth.com",
-   "token": "ralat:URLError",
-   "uid": null,
-   "poin_hari": null,
-   "sudah_claim": null,
-   "hari_ke": null,
-   "poin_minggu": 0
+   "token": "hidup",
+   "uid": "579564509650894857",
+   "poin_hari": 400,
+   "sudah_claim": true,
+   "hari_ke": 1,
+   "poin_minggu": 4000
   },
   {
    "emel": "wilo***@7om.arcadehearth.com",
-   "token": "ralat:URLError",
-   "uid": null,
-   "poin_hari": null,
-   "sudah_claim": null,
-   "hari_ke": null,
-   "poin_minggu": 0
+   "token": "hidup",
+   "uid": "579567733283909638",
+   "poin_hari": 400,
+   "sudah_claim": true,
+   "hari_ke": 1,
+   "poin_minggu": 4000
   },
   {
    "emel": "vale***@7om.arcadehearth.com",
-   "token": "ralat:URLError",
-   "uid": null,
-   "poin_hari": null,
-   "sudah_claim": null,
-   "hari_ke": null,
-   "poin_minggu": 0
+   "token": "hidup",
+   "uid": "579568031029157893",
+   "poin_hari": 400,
+   "sudah_claim": true,
+   "hari_ke": 1,
+   "poin_minggu": 4000
   },
   {
    "emel": "gine***@7om.arcadehearth.com",
-   "token": "ralat:URLError",
-   "uid": null,
-   "poin_hari": null,
-   "sudah_claim": null,
-   "hari_ke": null,
-   "poin_minggu": 0
+   "token": "hidup",
+   "uid": "579568271098531844",
+   "poin_hari": 400,
+   "sudah_claim": true,
+   "hari_ke": 1,
+   "poin_minggu": 4000
   }
  ],
  "baki": {},
@@ -946,7 +946,7 @@
     "boleh_tambah": "Boleh — tuntut mata harian / beli kredit",
     "boleh": true,
     "cara_tambah": "Tambah akaun (claim mata) atau beli kredit di platform MiniMax.",
-    "bahagian": 2.3
+    "bahagian": 1.8
    },
    {
     "nama": "MiniMax-M3",
@@ -1059,23 +1059,23 @@
     "kunci": "minimax",
     "penyedia": "MiniMax",
     "model": 4,
-    "req_7": 177,
-    "jumlah_7": 85145,
-    "jumlah_30": 85145,
+    "req_7": 163,
+    "jumlah_7": 79180,
+    "jumlah_30": 79180,
     "jumlah_hari": 0,
     "kuota_jenis": "Kolam mata akaun (claim harian)",
     "boleh_tambah": "Boleh — tuntut mata harian / beli kredit",
     "boleh": true,
     "cara_tambah": "Tambah akaun (claim mata) atau beli kredit di platform MiniMax.",
     "akaun": 31,
-    "sihat": 0,
-    "baki": "0 mata kolam · 31 akaun belum claim"
+    "sihat": 30,
+    "baki": "120,000 mata kolam · 1 akaun belum claim"
    }
   ],
-  "jumlah_7": 85145,
-  "jumlah_30": 85145,
+  "jumlah_7": 79180,
+  "jumlah_30": 79180,
   "jumlah_hari": 0,
-  "req_7": 177,
+  "req_7": 163,
   "baki_mistral": {
    "baki_tok_min": 0,
    "had_tok_min": 0,
@@ -1085,14 +1085,14 @@
    "sihat": 0
   },
   "baki_minimax": {
-   "mata_minggu": 0,
+   "mata_minggu": 120000,
    "akaun": 31,
-   "claim_hari": 0,
-   "baki": 31
+   "claim_hari": 30,
+   "baki": 1
   },
-  "jumlah_models": 10
+  "jumlah_models": 30
  },
- "dikemas": "2026-11-21T19:09:02",
+ "dikemas": "2026-11-23T00:15:08",
  "sumber": "laptop BOZ (9router SQLite + API penyedia)",
  "nota": "Ditapis kepada model MiniMax sahaja (arahan BOZ, 19 Nov 2026). Angka token sejarah kekal dalam graf harian termasuk penyedia yang telah dibuang. Snapshot berkala. Bila laptop aktif, halaman ini automatik bertukar ke mod LANGSUNG dari pelayan setempat."
 }
