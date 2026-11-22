@@ -1,14 +1,14 @@
 {
- "masa": "2026-11-23 02:09:45 WIB",
- "masa_ringkas": "02:09:45",
+ "masa": "2026-11-23 02:24:03 WIB",
+ "masa_ringkas": "02:24:03",
  "ringkas": {
   "token_hari": 0,
   "token_7": 79180,
   "req_hari": 0,
   "model_diguna": 4,
   "model_tersedia": 4,
-  "connection": 31,
-  "connection_sihat": 31,
+  "connection": 30,
+  "connection_sihat": 30,
   "mm_akaun": 31,
   "mm_claim_hari": 30,
   "mm_pool_minggu": 120000,
@@ -386,23 +386,14 @@
    "req_7": 2,
    "in_7": 756,
    "nama": "bea4cd3bd@7om.arcadehearth.com"
-  },
-  {
-   "conn": "8362ab2d-2c0e-4d2c-8034-cb30e95dea1c",
-   "req_hari": 0,
-   "in_hari": 0,
-   "out_hari": 0,
-   "req_7": 2,
-   "in_7": 696,
-   "nama": "eunice4cd43a@7om.arcadehearth.com"
   }
  ],
  "hari": [
   {
    "tarikh": "2026-11-23",
-   "req": 105,
-   "masuk": 14020391,
-   "keluar": 40669
+   "req": 127,
+   "masuk": 15600538,
+   "keluar": 50306
   },
   {
    "tarikh": "2026-11-22",
@@ -1092,7 +1083,7 @@
   },
   "jumlah_models": 30
  },
- "dikemas": "2026-11-23T03:09:45",
+ "dikemas": "2026-11-23T03:24:03",
  "sumber": "laptop BOZ (9router SQLite + API penyedia)",
  "nota": "Ditapis kepada model MiniMax sahaja (arahan BOZ, 19 Nov 2026). Angka token sejarah kekal dalam graf harian termasuk penyedia yang telah dibuang. Snapshot berkala. Bila laptop aktif, halaman ini automatik bertukar ke mod LANGSUNG dari pelayan setempat."
 }
