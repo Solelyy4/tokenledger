@@ -1,6 +1,6 @@
 {
- "masa": "2026-11-23 01:39:02 WIB",
- "masa_ringkas": "01:39:02",
+ "masa": "2026-11-23 01:54:02 WIB",
+ "masa_ringkas": "01:54:02",
  "ringkas": {
   "token_hari": 0,
   "token_7": 79180,
@@ -400,9 +400,9 @@
  "hari": [
   {
    "tarikh": "2026-11-23",
-   "req": 65,
-   "masuk": 11787612,
-   "keluar": 25275
+   "req": 89,
+   "masuk": 13050303,
+   "keluar": 35853
   },
   {
    "tarikh": "2026-11-22",
@@ -946,7 +946,7 @@
     "boleh_tambah": "Boleh — tuntut mata harian / beli kredit",
     "boleh": true,
     "cara_tambah": "Tambah akaun (claim mata) atau beli kredit di platform MiniMax.",
-    "bahagian": 0.5
+    "bahagian": 0.4
    },
    {
     "nama": "MiniMax-M3",
@@ -1092,7 +1092,7 @@
   },
   "jumlah_models": 30
  },
- "dikemas": "2026-11-23T02:39:02",
+ "dikemas": "2026-11-23T02:54:02",
  "sumber": "laptop BOZ (9router SQLite + API penyedia)",
  "nota": "Ditapis kepada model MiniMax sahaja (arahan BOZ, 19 Nov 2026). Angka token sejarah kekal dalam graf harian termasuk penyedia yang telah dibuang. Snapshot berkala. Bila laptop aktif, halaman ini automatik bertukar ke mod LANGSUNG dari pelayan setempat."
 }
