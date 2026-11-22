@@ -1,6 +1,6 @@
 {
- "masa": "2026-11-23 01:54:02 WIB",
- "masa_ringkas": "01:54:02",
+ "masa": "2026-11-23 02:09:45 WIB",
+ "masa_ringkas": "02:09:45",
  "ringkas": {
   "token_hari": 0,
   "token_7": 79180,
@@ -400,9 +400,9 @@
  "hari": [
   {
    "tarikh": "2026-11-23",
-   "req": 89,
-   "masuk": 13050303,
-   "keluar": 35853
+   "req": 105,
+   "masuk": 14020391,
+   "keluar": 40669
   },
   {
    "tarikh": "2026-11-22",
@@ -502,6 +502,14 @@
    "nama": "OVH Keyless",
    "ralat": "[403]: {\"message\":\"Forbidden: authentication failed.  Please generate a new one at https://kepler.ai.cloud.ovh.net/v1/oa",
    "kod": 403,
+   "rate_limit": null,
+   "backoff": 0,
+   "ujian": "unavailable"
+  },
+  {
+   "nama": "figment89showmen@icloud.com",
+   "ralat": "[429]: The usage limit has been reached",
+   "kod": 429,
    "rate_limit": null,
    "backoff": 0,
    "ujian": "unavailable"
@@ -628,14 +636,6 @@
   },
   {
    "nama": "h9a3jr6x@ayogiakbar.cv",
-   "ralat": "[401]: {\"error\":\"invalid access token\"}",
-   "kod": 401,
-   "rate_limit": null,
-   "backoff": 0,
-   "ujian": "unavailable"
-  },
-  {
-   "nama": "oyxft3ey@gienetic-agent.web.id",
    "ralat": "[401]: {\"error\":\"invalid access token\"}",
    "kod": 401,
    "rate_limit": null,
@@ -1092,7 +1092,7 @@
   },
   "jumlah_models": 30
  },
- "dikemas": "2026-11-23T02:54:02",
+ "dikemas": "2026-11-23T03:09:45",
  "sumber": "laptop BOZ (9router SQLite + API penyedia)",
  "nota": "Ditapis kepada model MiniMax sahaja (arahan BOZ, 19 Nov 2026). Angka token sejarah kekal dalam graf harian termasuk penyedia yang telah dibuang. Snapshot berkala. Bila laptop aktif, halaman ini automatik bertukar ke mod LANGSUNG dari pelayan setempat."
 }
