@@ -1,6 +1,6 @@
 {
- "masa": "2026-11-23 14:39:02 WIB",
- "masa_ringkas": "14:39:02",
+ "masa": "2026-11-23 23:36:43 WIB",
+ "masa_ringkas": "23:36:43",
  "ringkas": {
   "token_hari": 0,
   "token_7": 79180,
@@ -10,8 +10,8 @@
   "connection": 29,
   "connection_sihat": 29,
   "mm_akaun": 31,
-  "mm_claim_hari": 30,
-  "mm_pool_minggu": 120000,
+  "mm_claim_hari": 29,
+  "mm_pool_minggu": 116000,
   "provider": 1,
   "mistral_akaun": 0,
   "mistral_sihat": 0,
@@ -382,9 +382,9 @@
  "hari": [
   {
    "tarikh": "2026-11-23",
-   "req": 293,
-   "masuk": 35722601,
-   "keluar": 119456
+   "req": 294,
+   "masuk": 35722676,
+   "keluar": 119466
   },
   {
    "tarikh": "2026-11-22",
@@ -452,6 +452,22 @@
    "nama": "OVH Keyless",
    "ralat": "[403]: {\"message\":\"Forbidden: authentication failed.  Please generate a new one at https://kepler.ai.cloud.ovh.net/v1/oa",
    "kod": 403,
+   "rate_limit": null,
+   "backoff": 0,
+   "ujian": "unavailable"
+  },
+  {
+   "nama": "Kilo Keyless v2",
+   "ralat": "[502]: fetch failed (cause: ECONNREFUSED: connect ECONNREFUSED 127.0.0.1:8894)",
+   "kod": 502,
+   "rate_limit": null,
+   "backoff": 0,
+   "ujian": "unavailable"
+  },
+  {
+   "nama": "LLM7 Keyless",
+   "ralat": "[502]: fetch failed (cause: ECONNREFUSED: connect ECONNREFUSED 127.0.0.1:8894)",
+   "kod": 502,
    "rate_limit": null,
    "backoff": 0,
    "ujian": "unavailable"
@@ -607,22 +623,6 @@
    "rate_limit": null,
    "backoff": 0,
    "ujian": "unavailable"
-  },
-  {
-   "nama": "6gl5aper@gienetic-agent.web.id",
-   "ralat": "[401]: {\"error\":\"invalid access token\"}",
-   "kod": 401,
-   "rate_limit": null,
-   "backoff": 0,
-   "ujian": "unavailable"
-  },
-  {
-   "nama": "wzy7xxvn@ayogiakbar.cv",
-   "ralat": "[401]: {\"error\":\"invalid access token\"}",
-   "kod": 401,
-   "rate_limit": null,
-   "backoff": 0,
-   "ujian": "unavailable"
   }
  ],
  "minimax": [
@@ -691,12 +691,12 @@
   },
   {
    "emel": "ew0n***@gienetic-agent.web.id",
-   "token": "hidup",
-   "uid": "579374303446458369",
-   "poin_hari": 400,
-   "sudah_claim": true,
-   "hari_ke": 1,
-   "poin_minggu": 4000
+   "token": "ralat:URLError",
+   "uid": null,
+   "poin_hari": null,
+   "sudah_claim": null,
+   "hari_ke": null,
+   "poin_minggu": 0
   },
   {
    "emel": "kfnk***@ayogiakbar.cv",
@@ -1050,8 +1050,8 @@
     "boleh": true,
     "cara_tambah": "Tambah akaun (claim mata) atau beli kredit di platform MiniMax.",
     "akaun": 31,
-    "sihat": 30,
-    "baki": "120,000 mata kolam · 1 akaun belum claim"
+    "sihat": 29,
+    "baki": "116,000 mata kolam · 2 akaun belum claim"
    }
   ],
   "jumlah_7": 79180,
@@ -1067,14 +1067,14 @@
    "sihat": 0
   },
   "baki_minimax": {
-   "mata_minggu": 120000,
+   "mata_minggu": 116000,
    "akaun": 31,
-   "claim_hari": 30,
-   "baki": 1
+   "claim_hari": 29,
+   "baki": 2
   },
   "jumlah_models": 30
  },
- "dikemas": "2026-11-23T15:39:02",
+ "dikemas": "2026-11-24T00:36:43",
  "sumber": "laptop BOZ (9router SQLite + API penyedia)",
  "nota": "Ditapis kepada model MiniMax sahaja (arahan BOZ, 19 Nov 2026). Angka token sejarah kekal dalam graf harian termasuk penyedia yang telah dibuang. Snapshot berkala. Bila laptop aktif, halaman ini automatik bertukar ke mod LANGSUNG dari pelayan setempat."
 }
