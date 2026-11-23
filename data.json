@@ -1,17 +1,17 @@
 {
- "masa": "2026-11-23 23:54:02 WIB",
- "masa_ringkas": "23:54:02",
+ "masa": "2026-11-24 00:10:05 WIB",
+ "masa_ringkas": "00:10:05",
  "ringkas": {
   "token_hari": 0,
   "token_7": 79180,
   "req_hari": 0,
   "model_diguna": 4,
   "model_tersedia": 4,
-  "connection": 29,
-  "connection_sihat": 29,
+  "connection": 30,
+  "connection_sihat": 30,
   "mm_akaun": 31,
-  "mm_claim_hari": 29,
-  "mm_pool_minggu": 116000,
+  "mm_claim_hari": 30,
+  "mm_pool_minggu": 120000,
   "provider": 1,
   "mistral_akaun": 0,
   "mistral_sihat": 0,
@@ -377,6 +377,15 @@
    "req_7": 2,
    "in_7": 756,
    "nama": "valeria4cd783@7om.arcadehearth.com"
+  },
+  {
+   "conn": "3aea84c6-f292-4f5f-a1c9-8a3d03a3938a",
+   "req_hari": 0,
+   "in_hari": 0,
+   "out_hari": 0,
+   "req_7": 2,
+   "in_7": 756,
+   "nama": "bea4cd3bd@7om.arcadehearth.com"
   }
  ],
  "hari": [
@@ -691,12 +700,12 @@
   },
   {
    "emel": "ew0n***@gienetic-agent.web.id",
-   "token": "ralat:URLError",
-   "uid": null,
-   "poin_hari": null,
-   "sudah_claim": null,
-   "hari_ke": null,
-   "poin_minggu": 0
+   "token": "hidup",
+   "uid": "579374303446458369",
+   "poin_hari": 400,
+   "sudah_claim": true,
+   "hari_ke": 1,
+   "poin_minggu": 4000
   },
   {
    "emel": "kfnk***@ayogiakbar.cv",
@@ -1050,8 +1059,8 @@
     "boleh": true,
     "cara_tambah": "Tambah akaun (claim mata) atau beli kredit di platform MiniMax.",
     "akaun": 31,
-    "sihat": 29,
-    "baki": "116,000 mata kolam · 2 akaun belum claim"
+    "sihat": 30,
+    "baki": "120,000 mata kolam · 1 akaun belum claim"
    }
   ],
   "jumlah_7": 79180,
@@ -1067,14 +1076,14 @@
    "sihat": 0
   },
   "baki_minimax": {
-   "mata_minggu": 116000,
+   "mata_minggu": 120000,
    "akaun": 31,
-   "claim_hari": 29,
-   "baki": 2
+   "claim_hari": 30,
+   "baki": 1
   },
   "jumlah_models": 30
  },
- "dikemas": "2026-11-24T00:54:02",
+ "dikemas": "2026-11-24T01:10:05",
  "sumber": "laptop BOZ (9router SQLite + API penyedia)",
  "nota": "Ditapis kepada model MiniMax sahaja (arahan BOZ, 19 Nov 2026). Angka token sejarah kekal dalam graf harian termasuk penyedia yang telah dibuang. Snapshot berkala. Bila laptop aktif, halaman ini automatik bertukar ke mod LANGSUNG dari pelayan setempat."
 }
