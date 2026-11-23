@@ -1,14 +1,14 @@
 {
- "masa": "2026-11-23 02:24:03 WIB",
- "masa_ringkas": "02:24:03",
+ "masa": "2026-11-23 12:30:57 WIB",
+ "masa_ringkas": "12:30:57",
  "ringkas": {
   "token_hari": 0,
   "token_7": 79180,
   "req_hari": 0,
   "model_diguna": 4,
   "model_tersedia": 4,
-  "connection": 30,
-  "connection_sihat": 30,
+  "connection": 29,
+  "connection_sihat": 29,
   "mm_akaun": 31,
   "mm_claim_hari": 30,
   "mm_pool_minggu": 120000,
@@ -377,23 +377,14 @@
    "req_7": 2,
    "in_7": 756,
    "nama": "valeria4cd783@7om.arcadehearth.com"
-  },
-  {
-   "conn": "3aea84c6-f292-4f5f-a1c9-8a3d03a3938a",
-   "req_hari": 0,
-   "in_hari": 0,
-   "out_hari": 0,
-   "req_7": 2,
-   "in_7": 756,
-   "nama": "bea4cd3bd@7om.arcadehearth.com"
   }
  ],
  "hari": [
   {
    "tarikh": "2026-11-23",
-   "req": 127,
-   "masuk": 15600538,
-   "keluar": 50306
+   "req": 279,
+   "masuk": 35705288,
+   "keluar": 116756
   },
   {
    "tarikh": "2026-11-22",
@@ -434,49 +425,17 @@
  ],
  "amaran": [
   {
-   "nama": "bozars1tu31n@euploading.com",
-   "ralat": "[401]: {\"error\":\"invalid access token\"}",
-   "kod": 401,
-   "rate_limit": null,
-   "backoff": 0,
-   "ujian": "unavailable"
-  },
-  {
-   "nama": "bea4cd3bd@7om.arcadehearth.com",
-   "ralat": "[401]: {\"error\":\"invalid access token\"}",
-   "kod": 401,
-   "rate_limit": null,
-   "backoff": 0,
-   "ujian": "unavailable"
-  },
-  {
-   "nama": "eunice4cd43a@7om.arcadehearth.com",
-   "ralat": "[401]: {\"error\":\"invalid access token\"}",
-   "kod": 401,
-   "rate_limit": null,
-   "backoff": 0,
-   "ujian": "unavailable"
-  },
-  {
-   "nama": "wilow4cd73c@7om.arcadehearth.com",
-   "ralat": "[401]: {\"error\":\"invalid access token\"}",
-   "kod": 401,
-   "rate_limit": null,
-   "backoff": 0,
-   "ujian": "unavailable"
-  },
-  {
-   "nama": "valeria4cd783@7om.arcadehearth.com",
-   "ralat": "[401]: {\"error\":\"invalid access token\"}",
-   "kod": 401,
-   "rate_limit": null,
-   "backoff": 0,
-   "ujian": "unavailable"
-  },
-  {
    "nama": "ginevra4cd7bb@7om.arcadehearth.com",
    "ralat": "[401]: {\"error\":\"invalid access token\"}",
    "kod": 401,
+   "rate_limit": null,
+   "backoff": 0,
+   "ujian": "unavailable"
+  },
+  {
+   "nama": "Pollinations Free",
+   "ralat": "[502]: fetch failed (cause: ECONNREFUSED: connect ECONNREFUSED 127.0.0.1:8892)",
+   "kod": 502,
    "rate_limit": null,
    "backoff": 0,
    "ujian": "unavailable"
@@ -506,6 +465,62 @@
    "ujian": "unavailable"
   },
   {
+   "nama": "valeria4cd783@7om.arcadehearth.com",
+   "ralat": "[401]: {\"error\":\"invalid access token\"}",
+   "kod": 401,
+   "rate_limit": null,
+   "backoff": 0,
+   "ujian": "unavailable"
+  },
+  {
+   "nama": "finales_armory_7e@icloud.com",
+   "ralat": "[429]: The usage limit has been reached",
+   "kod": 429,
+   "rate_limit": null,
+   "backoff": 0,
+   "ujian": "unavailable"
+  },
+  {
+   "nama": "wilow4cd73c@7om.arcadehearth.com",
+   "ralat": "[401]: {\"error\":\"invalid access token\"}",
+   "kod": 401,
+   "rate_limit": null,
+   "backoff": 0,
+   "ujian": "unavailable"
+  },
+  {
+   "nama": "demand_burly_5j@icloud.com",
+   "ralat": "[429]: The usage limit has been reached",
+   "kod": 429,
+   "rate_limit": null,
+   "backoff": 0,
+   "ujian": "unavailable"
+  },
+  {
+   "nama": "eunice4cd43a@7om.arcadehearth.com",
+   "ralat": "[401]: {\"error\":\"invalid access token\"}",
+   "kod": 401,
+   "rate_limit": null,
+   "backoff": 0,
+   "ujian": "unavailable"
+  },
+  {
+   "nama": "folks-oddment.6a@icloud.com",
+   "ralat": "[429]: The usage limit has been reached",
+   "kod": 429,
+   "rate_limit": null,
+   "backoff": 0,
+   "ujian": "unavailable"
+  },
+  {
+   "nama": "bea4cd3bd@7om.arcadehearth.com",
+   "ralat": "[401]: {\"error\":\"invalid access token\"}",
+   "kod": 401,
+   "rate_limit": null,
+   "backoff": 0,
+   "ujian": "unavailable"
+  },
+  {
    "nama": "w2drwnxl@ayogiakbar.cv",
    "ralat": "[401]: {\"error\":\"invalid access token\"}",
    "kod": 401,
@@ -522,14 +537,6 @@
    "ujian": "unavailable"
   },
   {
-   "nama": "ew0nnack@gienetic-agent.web.id",
-   "ralat": "[401]: {\"error\":\"invalid access token\"}",
-   "kod": 401,
-   "rate_limit": null,
-   "backoff": 0,
-   "ujian": "unavailable"
-  },
-  {
    "nama": "rki4fxe3@ayogiakbar.cv",
    "ralat": "[401]: {\"error\":\"invalid access token\"}",
    "kod": 401,
@@ -538,7 +545,23 @@
    "ujian": "unavailable"
   },
   {
+   "nama": "bozars1tu31n@euploading.com",
+   "ralat": "[401]: {\"error\":\"invalid access token\"}",
+   "kod": 401,
+   "rate_limit": null,
+   "backoff": 0,
+   "ujian": "unavailable"
+  },
+  {
    "nama": "oy7cfcj0@ayogiakbar.cv",
+   "ralat": "[401]: {\"error\":\"invalid access token\"}",
+   "kod": 401,
+   "rate_limit": null,
+   "backoff": 0,
+   "ujian": "unavailable"
+  },
+  {
+   "nama": "ew0nnack@gienetic-agent.web.id",
    "ralat": "[401]: {\"error\":\"invalid access token\"}",
    "kod": 401,
    "rate_limit": null,
@@ -595,38 +618,6 @@
   },
   {
    "nama": "wzy7xxvn@ayogiakbar.cv",
-   "ralat": "[401]: {\"error\":\"invalid access token\"}",
-   "kod": 401,
-   "rate_limit": null,
-   "backoff": 0,
-   "ujian": "unavailable"
-  },
-  {
-   "nama": "huto5xut@ayogiakbar.cv",
-   "ralat": "[401]: {\"error\":\"invalid access token\"}",
-   "kod": 401,
-   "rate_limit": null,
-   "backoff": 0,
-   "ujian": "unavailable"
-  },
-  {
-   "nama": "aemx36bs@gienetic-agent.web.id",
-   "ralat": "[401]: {\"error\":\"invalid access token\"}",
-   "kod": 401,
-   "rate_limit": null,
-   "backoff": 0,
-   "ujian": "unavailable"
-  },
-  {
-   "nama": "zyuy7itd@gienetic-agent.web.id",
-   "ralat": "[401]: {\"error\":\"invalid access token\"}",
-   "kod": 401,
-   "rate_limit": null,
-   "backoff": 0,
-   "ujian": "unavailable"
-  },
-  {
-   "nama": "h9a3jr6x@ayogiakbar.cv",
    "ralat": "[401]: {\"error\":\"invalid access token\"}",
    "kod": 401,
    "rate_limit": null,
@@ -926,18 +917,18 @@
     "masuk_hari": 0,
     "keluar_hari": 0,
     "jumlah_hari": 0,
-    "req_7": 147,
-    "masuk_7": 54064,
-    "keluar_7": 18890,
-    "jumlah_7": 72954,
-    "req_30": 147,
-    "jumlah_30": 72954,
+    "req_7": 136,
+    "masuk_7": 49836,
+    "keluar_7": 18392,
+    "jumlah_7": 68228,
+    "req_30": 136,
+    "jumlah_30": 68228,
     "terakhir": "2026-11-19T14:05:15.182Z",
     "kuota_jenis": "Kolam mata akaun (claim harian)",
     "boleh_tambah": "Boleh — tuntut mata harian / beli kredit",
     "boleh": true,
     "cara_tambah": "Tambah akaun (claim mata) atau beli kredit di platform MiniMax.",
-    "bahagian": 0.4
+    "bahagian": 0.2
    },
    {
     "nama": "MiniMax-M3",
@@ -947,12 +938,12 @@
     "masuk_hari": 0,
     "keluar_hari": 0,
     "jumlah_hari": 0,
-    "req_7": 17,
-    "masuk_7": 6572,
-    "keluar_7": 487,
-    "jumlah_7": 7059,
-    "req_30": 17,
-    "jumlah_30": 7059,
+    "req_7": 14,
+    "masuk_7": 5431,
+    "keluar_7": 389,
+    "jumlah_7": 5820,
+    "req_30": 14,
+    "jumlah_30": 5820,
     "terakhir": "2026-11-18T22:23:31.218Z",
     "kuota_jenis": "Kolam mata akaun (claim harian)",
     "boleh_tambah": "Boleh — tuntut mata harian / beli kredit",
@@ -1010,12 +1001,12 @@
     "masuk_hari": 0,
     "keluar_hari": 0,
     "jumlah_hari": 0,
-    "req_7": 15,
-    "masuk_7": 552,
-    "keluar_7": 438,
-    "jumlah_7": 990,
-    "req_30": 15,
-    "jumlah_30": 990,
+    "req_7": 13,
+    "masuk_7": 474,
+    "keluar_7": 368,
+    "jumlah_7": 842,
+    "req_30": 13,
+    "jumlah_30": 842,
     "terakhir": "2026-11-18T09:58:15.156Z",
     "kuota_jenis": "Kolam mata akaun (claim harian)",
     "boleh_tambah": "Boleh — tuntut mata harian / beli kredit",
@@ -1083,7 +1074,7 @@
   },
   "jumlah_models": 30
  },
- "dikemas": "2026-11-23T03:24:03",
+ "dikemas": "2026-11-23T13:30:57",
  "sumber": "laptop BOZ (9router SQLite + API penyedia)",
  "nota": "Ditapis kepada model MiniMax sahaja (arahan BOZ, 19 Nov 2026). Angka token sejarah kekal dalam graf harian termasuk penyedia yang telah dibuang. Snapshot berkala. Bila laptop aktif, halaman ini automatik bertukar ke mod LANGSUNG dari pelayan setempat."
 }
