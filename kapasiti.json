@@ -1,5 +1,5 @@
 {
- "masa": "2026-11-23 03:31:34",
+ "masa": "2026-11-23 12:02:48",
  "lane": {
   "minimax_pool": {
    "jumlah": 142,
@@ -20,7 +20,7 @@
      "kod": 200,
      "req_hari": 1000,
      "tpm": 8000,
-     "baki_req": 999
+     "baki_req": 998
     },
     "openai/gpt-oss-20b": {
      "kod": 200,
@@ -43,13 +43,13 @@
   }
  },
  "guna_hari_ini": {
-  "jumlah": 16049022,
+  "jumlah": 28058777,
   "ikut_provider": {
    "codex": {
-    "req": 132,
-    "masuk": 15996821,
-    "keluar": 52201,
-    "jumlah": 16049022
+    "req": 224,
+    "masuk": 27963130,
+    "keluar": 95647,
+    "jumlah": 28058777
    }
   }
  },
