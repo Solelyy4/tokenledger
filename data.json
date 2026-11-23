@@ -1,6 +1,6 @@
 {
- "masa": "2026-11-24 00:10:05 WIB",
- "masa_ringkas": "00:10:05",
+ "masa": "2026-11-24 00:24:01 WIB",
+ "masa_ringkas": "00:24:01",
  "ringkas": {
   "token_hari": 0,
   "token_7": 79180,
@@ -390,6 +390,12 @@
  ],
  "hari": [
   {
+   "tarikh": "2026-11-24",
+   "req": 1,
+   "masuk": 1684,
+   "keluar": 278
+  },
+  {
    "tarikh": "2026-11-23",
    "req": 294,
    "masuk": 35722676,
@@ -424,12 +430,6 @@
    "req": 127,
    "masuk": 769180,
    "keluar": 102594
-  },
-  {
-   "tarikh": "2026-11-17",
-   "req": 43,
-   "masuk": 905677,
-   "keluar": 121692
   }
  ],
  "amaran": [
@@ -1083,7 +1083,7 @@
   },
   "jumlah_models": 30
  },
- "dikemas": "2026-11-24T01:10:05",
+ "dikemas": "2026-11-24T01:24:01",
  "sumber": "laptop BOZ (9router SQLite + API penyedia)",
  "nota": "Ditapis kepada model MiniMax sahaja (arahan BOZ, 19 Nov 2026). Angka token sejarah kekal dalam graf harian termasuk penyedia yang telah dibuang. Snapshot berkala. Bila laptop aktif, halaman ini automatik bertukar ke mod LANGSUNG dari pelayan setempat."
 }
