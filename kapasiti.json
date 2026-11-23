@@ -1,5 +1,5 @@
 {
- "masa": "2026-11-23 19:50:34",
+ "masa": "2026-11-24 01:51:31",
  "lane": {
   "minimax_pool": {
    "jumlah": 142,
@@ -11,25 +11,25 @@
   "groq": {
    "model": {
     "qwen/qwen3.8-27b": {
-     "kod": 200,
-     "req_hari": 1000,
-     "tpm": 8000,
-     "baki_req": 999
+     "kod": 403,
+     "req_hari": 0,
+     "tpm": 0,
+     "baki_req": 0
     },
     "openai/gpt-oss-120b": {
-     "kod": 200,
-     "req_hari": 1000,
-     "tpm": 8000,
-     "baki_req": 999
+     "kod": 403,
+     "req_hari": 0,
+     "tpm": 0,
+     "baki_req": 0
     },
     "openai/gpt-oss-20b": {
-     "kod": 200,
-     "req_hari": 1000,
-     "tpm": 8000,
-     "baki_req": 999
+     "kod": 403,
+     "req_hari": 0,
+     "tpm": 0,
+     "baki_req": 0
     }
    },
-   "req_hari": 3000
+   "req_hari": 0
   },
   "pollinations": {
    "lulus": 0,
@@ -43,32 +43,26 @@
   }
  },
  "guna_hari_ini": {
-  "jumlah": 35842057,
+  "jumlah": 5916,
   "ikut_provider": {
-   "codex": {
-    "req": 257,
-    "masuk": 35673983,
-    "keluar": 105418,
-    "jumlah": 35779401
-   },
    "opencode": {
-    "req": 36,
-    "masuk": 48618,
-    "keluar": 14038,
-    "jumlah": 62656
+    "req": 3,
+    "masuk": 5030,
+    "keluar": 886,
+    "jumlah": 5916
    }
   }
  },
  "siling_harian": {
   "minimax": 1844154,
-  "groq": 750000,
+  "groq": 0,
   "pollinations": 70000,
-  "jumlah_harian": 2664154,
+  "jumlah_harian": 1914154,
   "asas": {
    "token_per_mata_minimax": 32.5,
    "mata_per_akaun_hari": 400,
    "akaun_minimax": 142,
-   "req_per_hari_groq": 3000,
+   "req_per_hari_groq": 0,
    "token_per_req_groq": 250
   }
  }
