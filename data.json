@@ -1,6 +1,6 @@
 {
- "masa": "2026-11-24 20:09:06 WIB",
- "masa_ringkas": "20:09:06",
+ "masa": "2026-11-24 20:25:21 WIB",
+ "masa_ringkas": "20:25:21",
  "ringkas": {
   "token_hari": 3239,
   "token_7": 82419,
@@ -10,8 +10,8 @@
   "connection": 30,
   "connection_sihat": 30,
   "mm_akaun": 31,
-  "mm_claim_hari": 30,
-  "mm_pool_minggu": 120000,
+  "mm_claim_hari": 28,
+  "mm_pool_minggu": 112000,
   "provider": 1,
   "mistral_akaun": 0,
   "mistral_sihat": 0,
@@ -889,12 +889,12 @@
   },
   {
    "emel": "wilo***@7om.arcadehearth.com",
-   "token": "hidup",
-   "uid": "579567733283909638",
-   "poin_hari": 400,
-   "sudah_claim": true,
-   "hari_ke": 1,
-   "poin_minggu": 4000
+   "token": "ralat:URLError",
+   "uid": null,
+   "poin_hari": null,
+   "sudah_claim": null,
+   "hari_ke": null,
+   "poin_minggu": 0
   },
   {
    "emel": "vale***@7om.arcadehearth.com",
@@ -907,12 +907,12 @@
   },
   {
    "emel": "gine***@7om.arcadehearth.com",
-   "token": "hidup",
-   "uid": "579568271098531844",
-   "poin_hari": 400,
-   "sudah_claim": true,
-   "hari_ke": 1,
-   "poin_minggu": 4000
+   "token": "ralat:URLError",
+   "uid": null,
+   "poin_hari": null,
+   "sudah_claim": null,
+   "hari_ke": null,
+   "poin_minggu": 0
   }
  ],
  "baki": {},
@@ -1059,8 +1059,8 @@
     "boleh": true,
     "cara_tambah": "Tambah akaun (claim mata) atau beli kredit di platform MiniMax.",
     "akaun": 31,
-    "sihat": 30,
-    "baki": "120,000 mata kolam · 1 akaun belum claim"
+    "sihat": 28,
+    "baki": "112,000 mata kolam · 3 akaun belum claim"
    }
   ],
   "jumlah_7": 82419,
@@ -1076,14 +1076,14 @@
    "sihat": 0
   },
   "baki_minimax": {
-   "mata_minggu": 120000,
+   "mata_minggu": 112000,
    "akaun": 31,
-   "claim_hari": 30,
-   "baki": 1
+   "claim_hari": 28,
+   "baki": 3
   },
   "jumlah_models": 30
  },
- "dikemas": "2026-11-24T21:09:08",
+ "dikemas": "2026-11-24T21:25:21",
  "sumber": "laptop BOZ (9router SQLite + API penyedia)",
  "nota": "Ditapis kepada model MiniMax sahaja (arahan BOZ, 19 Nov 2026). Angka token sejarah kekal dalam graf harian termasuk penyedia yang telah dibuang. Snapshot berkala. Bila laptop aktif, halaman ini automatik bertukar ke mod LANGSUNG dari pelayan setempat."
 }
