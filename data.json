@@ -1,10 +1,10 @@
 {
- "masa": "2026-11-24 23:54:03 WIB",
- "masa_ringkas": "23:54:03",
+ "masa": "2026-11-25 00:09:40 WIB",
+ "masa_ringkas": "00:09:40",
  "ringkas": {
-  "token_hari": 3239,
-  "token_7": 82419,
-  "req_hari": 8,
+  "token_hari": 0,
+  "token_7": 69330,
+  "req_hari": 0,
   "model_diguna": 4,
   "model_tersedia": 4,
   "connection": 30,
@@ -24,48 +24,48 @@
  "model": [
   {
    "model": "MiniMax-M3.1-flash-preview",
-   "req_hari": 2,
-   "in_hari": 688,
-   "out_hari": 74,
-   "req_7": 138,
-   "in_7": 50524,
-   "out_7": 18466,
+   "req_hari": 0,
+   "in_hari": 0,
+   "out_hari": 0,
+   "req_7": 131,
+   "in_7": 47825,
+   "out_7": 18285,
    "ralat": 0,
    "terakhir": "2026-11-23T20:00:10.901Z",
    "baki": "tidak dilaporkan"
   },
   {
    "model": "MiniMax-M3",
-   "req_hari": 2,
-   "in_hari": 792,
-   "out_hari": 74,
-   "req_7": 16,
-   "in_7": 6223,
-   "out_7": 463,
+   "req_hari": 0,
+   "in_hari": 0,
+   "out_hari": 0,
+   "req_7": 4,
+   "in_7": 1520,
+   "out_7": 89,
    "ralat": 0,
    "terakhir": "2026-11-23T20:00:08.520Z",
    "baki": "tidak dilaporkan"
   },
   {
    "model": "MiniMax-M3.1",
-   "req_hari": 2,
-   "in_hari": 736,
-   "out_hari": 106,
-   "req_7": 9,
-   "in_7": 3261,
-   "out_7": 318,
+   "req_hari": 0,
+   "in_hari": 0,
+   "out_hari": 0,
+   "req_7": 2,
+   "in_7": 736,
+   "out_7": 106,
    "ralat": 0,
    "terakhir": "2026-11-23T20:00:09.087Z",
    "baki": "tidak dilaporkan"
   },
   {
    "model": "MiniMax-M3.1-preview",
-   "req_hari": 2,
-   "in_hari": 688,
-   "out_hari": 81,
-   "req_7": 8,
-   "in_7": 2926,
-   "out_7": 238,
+   "req_hari": 0,
+   "in_hari": 0,
+   "out_hari": 0,
+   "req_7": 2,
+   "in_7": 688,
+   "out_7": 81,
    "ralat": 0,
    "terakhir": "2026-11-23T20:00:11.716Z",
    "baki": "tidak dilaporkan"
@@ -119,20 +119,20 @@
  "connection_guna": [
   {
    "conn": "4bddfb4a-5ae1-4431-8101-d423cde2fbdc",
-   "req_hari": 1,
-   "in_hari": 344,
-   "out_hari": 38,
-   "req_7": 8,
-   "in_7": 2204,
+   "req_hari": 0,
+   "in_hari": 0,
+   "out_hari": 0,
+   "req_7": 6,
+   "in_7": 2135,
    "nama": "q6p7pc17@ayogiakbar.cv"
   },
   {
    "conn": "50e4d417-dd14-499e-8783-0ae0ebcf0e17",
-   "req_hari": 1,
-   "in_hari": 344,
-   "out_hari": 43,
-   "req_7": 8,
-   "in_7": 2202,
+   "req_hari": 0,
+   "in_hari": 0,
+   "out_hari": 0,
+   "req_7": 6,
+   "in_7": 2133,
    "nama": "y1dbsvpe@gienetic-agent.web.id"
   },
   {
@@ -140,17 +140,17 @@
    "req_hari": 0,
    "in_hari": 0,
    "out_hari": 0,
-   "req_7": 8,
-   "in_7": 2322,
+   "req_7": 6,
+   "in_7": 2247,
    "nama": "nurnlc5v@gienetic-agent.web.id"
   },
   {
    "conn": "ea0db0c6-f863-4834-b05d-4177e39ac42e",
-   "req_hari": 1,
-   "in_hari": 396,
-   "out_hari": 39,
-   "req_7": 8,
-   "in_7": 2558,
+   "req_hari": 0,
+   "in_hari": 0,
+   "out_hari": 0,
+   "req_7": 6,
+   "in_7": 2175,
    "nama": "bozw72obrm7z@euploading.com"
   },
   {
@@ -158,8 +158,8 @@
    "req_hari": 0,
    "in_hari": 0,
    "out_hari": 0,
-   "req_7": 7,
-   "in_7": 2174,
+   "req_7": 5,
+   "in_7": 1731,
    "nama": "oy7cfcj0@ayogiakbar.cv"
   },
   {
@@ -167,17 +167,17 @@
    "req_hari": 0,
    "in_hari": 0,
    "out_hari": 0,
-   "req_7": 7,
-   "in_7": 2613,
+   "req_7": 5,
+   "in_7": 1872,
    "nama": "w2drwnxl@ayogiakbar.cv"
   },
   {
    "conn": "1da60f76-f279-4c09-93f1-6ef6e65e2aad",
-   "req_hari": 1,
-   "in_hari": 396,
-   "out_hari": 36,
-   "req_7": 7,
-   "in_7": 2480,
+   "req_hari": 0,
+   "in_hari": 0,
+   "out_hari": 0,
+   "req_7": 5,
+   "in_7": 2043,
    "nama": "m04rrh2f@gienetic-agent.web.id"
   },
   {
@@ -185,8 +185,8 @@
    "req_hari": 0,
    "in_hari": 0,
    "out_hari": 0,
-   "req_7": 7,
-   "in_7": 2526,
+   "req_7": 5,
+   "in_7": 1779,
    "nama": "bozw8so7n6mx@euploading.com"
   },
   {
@@ -194,8 +194,8 @@
    "req_hari": 0,
    "in_hari": 0,
    "out_hari": 0,
-   "req_7": 7,
-   "in_7": 2113,
+   "req_7": 5,
+   "in_7": 1731,
    "nama": "boztj11ct8f2@euploading.com"
   },
   {
@@ -203,17 +203,17 @@
    "req_hari": 0,
    "in_hari": 0,
    "out_hari": 0,
-   "req_7": 7,
-   "in_7": 2576,
+   "req_7": 5,
+   "in_7": 1779,
    "nama": "bwreccw9@ayogiakbar.cv"
   },
   {
    "conn": "46ee6ce9-4cba-4e61-828a-8ca26ff15292",
-   "req_hari": 1,
-   "in_hari": 396,
-   "out_hari": 35,
-   "req_7": 7,
-   "in_7": 2527,
+   "req_hari": 0,
+   "in_hari": 0,
+   "out_hari": 0,
+   "req_7": 5,
+   "in_7": 1782,
    "nama": "huto5xut@ayogiakbar.cv"
   },
   {
@@ -221,8 +221,8 @@
    "req_hari": 0,
    "in_hari": 0,
    "out_hari": 0,
-   "req_7": 7,
-   "in_7": 1900,
+   "req_7": 5,
+   "in_7": 1826,
    "nama": "bozm6zvezxxe@euploading.com"
   },
   {
@@ -230,8 +230,8 @@
    "req_hari": 0,
    "in_hari": 0,
    "out_hari": 0,
-   "req_7": 7,
-   "in_7": 2405,
+   "req_7": 5,
+   "in_7": 1971,
    "nama": "kfnkzu1t@ayogiakbar.cv"
   },
   {
@@ -239,17 +239,17 @@
    "req_hari": 0,
    "in_hari": 0,
    "out_hari": 0,
-   "req_7": 7,
-   "in_7": 2220,
+   "req_7": 5,
+   "in_7": 1791,
    "nama": "uhflqycg@ayogiakbar.cv"
   },
   {
    "conn": "6cdbbca3-855b-43f6-991a-a92656bfcafa",
-   "req_hari": 1,
-   "in_hari": 344,
-   "out_hari": 38,
-   "req_7": 7,
-   "in_7": 2579,
+   "req_hari": 0,
+   "in_hari": 0,
+   "out_hari": 0,
+   "req_7": 5,
+   "in_7": 1790,
    "nama": "6gl5aper@gienetic-agent.web.id"
   },
   {
@@ -257,8 +257,8 @@
    "req_hari": 0,
    "in_hari": 0,
    "out_hari": 0,
-   "req_7": 7,
-   "in_7": 2576,
+   "req_7": 5,
+   "in_7": 1782,
    "nama": "boziygw64qi7@euploading.com"
   },
   {
@@ -266,17 +266,17 @@
    "req_hari": 0,
    "in_hari": 0,
    "out_hari": 0,
-   "req_7": 7,
-   "in_7": 2354,
+   "req_7": 5,
+   "in_7": 1911,
    "nama": "bozkt3eu0uvl@euploading.com"
   },
   {
    "conn": "d769d114-4148-4697-b85d-622461d59a3e",
-   "req_hari": 1,
-   "in_hari": 396,
-   "out_hari": 37,
-   "req_7": 7,
-   "in_7": 2527,
+   "req_hari": 0,
+   "in_hari": 0,
+   "out_hari": 0,
+   "req_7": 5,
+   "in_7": 1842,
    "nama": "aemx36bs@gienetic-agent.web.id"
   },
   {
@@ -284,17 +284,26 @@
    "req_hari": 0,
    "in_hari": 0,
    "out_hari": 0,
-   "req_7": 7,
-   "in_7": 2165,
+   "req_7": 5,
+   "in_7": 1731,
    "nama": "ew0nnack@gienetic-agent.web.id"
   },
   {
+   "conn": "f2c85f6b-5585-4611-acc4-320cb32d1502",
+   "req_hari": 0,
+   "in_hari": 0,
+   "out_hari": 0,
+   "req_7": 5,
+   "in_7": 1846,
+   "nama": "lin92wic@ayogiakbar.cv"
+  },
+  {
    "conn": "fb5991e6-b90c-44ae-9fcc-88e8a8cc4658",
-   "req_hari": 1,
-   "in_hari": 396,
-   "out_hari": 35,
-   "req_7": 7,
-   "in_7": 2339,
+   "req_hari": 0,
+   "in_hari": 0,
+   "out_hari": 0,
+   "req_7": 5,
+   "in_7": 1902,
    "nama": "zyuy7itd@gienetic-agent.web.id"
   },
   {
@@ -302,8 +311,8 @@
    "req_hari": 0,
    "in_hari": 0,
    "out_hari": 0,
-   "req_7": 7,
-   "in_7": 2594,
+   "req_7": 5,
+   "in_7": 1791,
    "nama": "rki4fxe3@ayogiakbar.cv"
   },
   {
@@ -311,8 +320,8 @@
    "req_hari": 0,
    "in_hari": 0,
    "out_hari": 0,
-   "req_7": 6,
-   "in_7": 2191,
+   "req_7": 4,
+   "in_7": 1506,
    "nama": "h9a3jr6x@ayogiakbar.cv"
   },
   {
@@ -320,8 +329,8 @@
    "req_hari": 0,
    "in_hari": 0,
    "out_hari": 0,
-   "req_7": 6,
-   "in_7": 2309,
+   "req_7": 4,
+   "in_7": 1564,
    "nama": "wzy7xxvn@ayogiakbar.cv"
   },
   {
@@ -329,60 +338,51 @@
    "req_hari": 0,
    "in_hari": 0,
    "out_hari": 0,
-   "req_7": 6,
-   "in_7": 1823,
+   "req_7": 4,
+   "in_7": 1446,
    "nama": "oyxft3ey@gienetic-agent.web.id"
-  },
-  {
-   "conn": "f2c85f6b-5585-4611-acc4-320cb32d1502",
-   "req_hari": 0,
-   "in_hari": 0,
-   "out_hari": 0,
-   "req_7": 6,
-   "in_7": 1879,
-   "nama": "lin92wic@ayogiakbar.cv"
   },
   {
    "conn": "0ad08398-f4a5-4654-a7c6-4e6c2df3e23b",
    "req_hari": 0,
    "in_hari": 0,
    "out_hari": 0,
-   "req_7": 5,
-   "in_7": 1910,
+   "req_7": 3,
+   "in_7": 1111,
    "nama": "bozars1tu31n@euploading.com"
   },
   {
    "conn": "18bffdcc-8ba0-4033-820d-769964b73630",
-   "req_hari": 1,
-   "in_hari": 344,
-   "out_hari": 49,
+   "req_hari": 0,
+   "in_hari": 0,
+   "out_hari": 0,
    "req_7": 3,
    "in_7": 1040,
    "nama": "wilow4cd73c@7om.arcadehearth.com"
   },
   {
    "conn": "2788de06-2b50-4ba3-8e9a-02522744c8d7",
-   "req_hari": 1,
-   "in_hari": 344,
-   "out_hari": 36,
+   "req_hari": 0,
+   "in_hari": 0,
+   "out_hari": 0,
    "req_7": 3,
    "in_7": 1100,
    "nama": "valeria4cd783@7om.arcadehearth.com"
   },
   {
    "conn": "3aea84c6-f292-4f5f-a1c9-8a3d03a3938a",
-   "req_hari": 1,
-   "in_hari": 396,
-   "out_hari": 46,
+   "req_hari": 0,
+   "in_hari": 0,
+   "out_hari": 0,
    "req_7": 3,
    "in_7": 1152,
    "nama": "bea4cd3bd@7om.arcadehearth.com"
   },
   {
    "conn": "8362ab2d-2c0e-4d2c-8034-cb30e95dea1c",
-   "req_hari": 1,
-   "in_hari": 392,
-   "out_hari": 57,
+   "req_hari": 0,
+   "in_hari": 0,
+   "out_hari": 0,
    "req_7": 3,
    "in_7": 1088,
    "nama": "eunice4cd43a@7om.arcadehearth.com"
@@ -1050,10 +1050,10 @@
     "kunci": "minimax",
     "penyedia": "MiniMax",
     "model": 4,
-    "req_7": 171,
-    "jumlah_7": 82419,
-    "jumlah_30": 82419,
-    "jumlah_hari": 3239,
+    "req_7": 139,
+    "jumlah_7": 69330,
+    "jumlah_30": 69330,
+    "jumlah_hari": 0,
     "kuota_jenis": "Kolam mata akaun (claim harian)",
     "boleh_tambah": "Boleh — tuntut mata harian / beli kredit",
     "boleh": true,
@@ -1063,10 +1063,10 @@
     "baki": "120,000 mata kolam · 1 akaun belum claim"
    }
   ],
-  "jumlah_7": 82419,
-  "jumlah_30": 82419,
-  "jumlah_hari": 3239,
-  "req_7": 171,
+  "jumlah_7": 69330,
+  "jumlah_30": 69330,
+  "jumlah_hari": 0,
+  "req_7": 139,
   "baki_mistral": {
    "baki_tok_min": 0,
    "had_tok_min": 0,
@@ -1083,7 +1083,7 @@
   },
   "jumlah_models": 30
  },
- "dikemas": "2026-11-25T00:54:03",
+ "dikemas": "2026-11-25T01:09:45",
  "sumber": "laptop BOZ (9router SQLite + API penyedia)",
  "nota": "Ditapis kepada model MiniMax sahaja (arahan BOZ, 19 Nov 2026). Angka token sejarah kekal dalam graf harian termasuk penyedia yang telah dibuang. Snapshot berkala. Bila laptop aktif, halaman ini automatik bertukar ke mod LANGSUNG dari pelayan setempat."
 }
