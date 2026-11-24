@@ -1,6 +1,6 @@
 {
- "masa": "2026-11-25 01:24:02 WIB",
- "masa_ringkas": "01:24:02",
+ "masa": "2026-11-25 01:39:32 WIB",
+ "masa_ringkas": "01:39:32",
  "ringkas": {
   "token_hari": 2736,
   "token_7": 72066,
@@ -391,9 +391,9 @@
  "hari": [
   {
    "tarikh": "2026-11-25",
-   "req": 16,
-   "masuk": 3967,
-   "keluar": 249
+   "req": 18,
+   "masuk": 4059,
+   "keluar": 286
   },
   {
    "tarikh": "2026-11-24",
@@ -483,32 +483,32 @@
   },
   {
    "nama": "figment89showmen@icloud.com",
-   "ralat": "[429]: The usage limit has been reached",
-   "kod": 429,
+   "ralat": "[400]: {\"detail\":\"The 'gpt-6-sol' model is not supported when using Codex with a ChatGPT account.\",\"error\":{\"type\":\"inva",
+   "kod": 400,
    "rate_limit": null,
    "backoff": 0,
    "ujian": "unavailable"
   },
   {
    "nama": "finales_armory_7e@icloud.com",
-   "ralat": "[429]: The usage limit has been reached",
-   "kod": 429,
+   "ralat": "[400]: {\"detail\":\"The 'gpt-6-sol' model is not supported when using Codex with a ChatGPT account.\",\"error\":{\"type\":\"inva",
+   "kod": 400,
    "rate_limit": null,
    "backoff": 0,
    "ujian": "unavailable"
   },
   {
    "nama": "demand_burly_5j@icloud.com",
-   "ralat": "[429]: The usage limit has been reached",
-   "kod": 429,
+   "ralat": "[400]: {\"detail\":\"The 'gpt-6-astra' model is not supported when using Codex with a ChatGPT account.\",\"error\":{\"type\":\"in",
+   "kod": 400,
    "rate_limit": null,
    "backoff": 0,
    "ujian": "unavailable"
   },
   {
    "nama": "folks-oddment.6a@icloud.com",
-   "ralat": "[429]: The usage limit has been reached",
-   "kod": 429,
+   "ralat": "[400]: {\"detail\":\"The 'gpt-6-astra' model is not supported when using Codex with a ChatGPT account.\",\"error\":{\"type\":\"in",
+   "kod": 400,
    "rate_limit": null,
    "backoff": 0,
    "ujian": "unavailable"
@@ -1009,9 +1009,9 @@
    "claim_hari": 30,
    "baki": 1
   },
-  "jumlah_models": 30
+  "jumlah_models": 32
  },
- "dikemas": "2026-11-25T02:24:02",
+ "dikemas": "2026-11-25T02:39:33",
  "sumber": "laptop BOZ (9router SQLite + API penyedia)",
  "nota": "Ditapis kepada model MiniMax sahaja (arahan BOZ, 19 Nov 2026). Angka token sejarah kekal dalam graf harian termasuk penyedia yang telah dibuang. Snapshot berkala. Bila laptop aktif, halaman ini automatik bertukar ke mod LANGSUNG dari pelayan setempat."
 }
