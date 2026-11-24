@@ -1,5 +1,5 @@
 {
- "masa": "2026-11-24 20:29:02",
+ "masa": "2026-11-25 02:30:01",
  "lane": {
   "minimax_pool": {
    "jumlah": 142,
@@ -14,7 +14,7 @@
      "kod": 200,
      "req_hari": 1000,
      "tpm": 8000,
-     "baki_req": 999
+     "baki_req": 995
     },
     "openai/gpt-oss-120b": {
      "kod": 200,
@@ -43,19 +43,19 @@
   }
  },
  "guna_hari_ini": {
-  "jumlah": 21472,
+  "jumlah": 4345,
   "ikut_provider": {
    "anthropic-compatible-5ecd2209-dad0-4557-af88-f9a4f54b6841": {
-    "req": 12,
-    "masuk": 4488,
-    "keluar": 489,
-    "jumlah": 4977
+    "req": 13,
+    "masuk": 3792,
+    "keluar": 157,
+    "jumlah": 3949
    },
-   "opencode": {
-    "req": 8,
-    "masuk": 13611,
-    "keluar": 2884,
-    "jumlah": 16495
+   "openai-compatible-chat-ba275ccc-c8b6-4a78-9bec-dd1266a23901": {
+    "req": 5,
+    "masuk": 267,
+    "keluar": 129,
+    "jumlah": 396
    }
   }
  },
