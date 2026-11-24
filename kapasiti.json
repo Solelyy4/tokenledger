@@ -1,32 +1,19 @@
 {
- "masa": "2026-11-24 01:51:31",
+ "masa": "2026-11-24 14:27:19",
  "lane": {
   "minimax_pool": {
-   "jumlah": 142,
-   "aktif": 142,
-   "panggilan": 675,
-   "masuk": 140146,
-   "keluar": 359112
+   "ralat": "ProxyError"
   },
   "groq": {
    "model": {
     "qwen/qwen3.8-27b": {
-     "kod": 403,
-     "req_hari": 0,
-     "tpm": 0,
-     "baki_req": 0
+     "kod": "ProxyError"
     },
     "openai/gpt-oss-120b": {
-     "kod": 403,
-     "req_hari": 0,
-     "tpm": 0,
-     "baki_req": 0
+     "kod": "ProxyError"
     },
     "openai/gpt-oss-20b": {
-     "kod": 403,
-     "req_hari": 0,
-     "tpm": 0,
-     "baki_req": 0
+     "kod": "ProxyError"
     }
    },
    "req_hari": 0
@@ -43,25 +30,31 @@
   }
  },
  "guna_hari_ini": {
-  "jumlah": 5916,
+  "jumlah": 21472,
   "ikut_provider": {
+   "anthropic-compatible-5ecd2209-dad0-4557-af88-f9a4f54b6841": {
+    "req": 12,
+    "masuk": 4488,
+    "keluar": 489,
+    "jumlah": 4977
+   },
    "opencode": {
-    "req": 3,
-    "masuk": 5030,
-    "keluar": 886,
-    "jumlah": 5916
+    "req": 8,
+    "masuk": 13611,
+    "keluar": 2884,
+    "jumlah": 16495
    }
   }
  },
  "siling_harian": {
-  "minimax": 1844154,
+  "minimax": 0,
   "groq": 0,
   "pollinations": 70000,
-  "jumlah_harian": 1914154,
+  "jumlah_harian": 70000,
   "asas": {
    "token_per_mata_minimax": 32.5,
    "mata_per_akaun_hari": 400,
-   "akaun_minimax": 142,
+   "akaun_minimax": 0,
    "req_per_hari_groq": 0,
    "token_per_req_groq": 250
   }
