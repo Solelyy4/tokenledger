@@ -1,6 +1,6 @@
 {
- "masa": "2026-11-25 14:54:02 WIB",
- "masa_ringkas": "14:54:02",
+ "masa": "2026-11-25 15:09:33 WIB",
+ "masa_ringkas": "15:09:33",
  "ringkas": {
   "token_hari": 2736,
   "token_7": 72066,
@@ -9,7 +9,7 @@
   "model_tersedia": 4,
   "connection": 29,
   "connection_sihat": 29,
-  "mm_akaun": 31,
+  "mm_akaun": 30,
   "mm_claim_hari": 29,
   "mm_pool_minggu": 116000,
   "provider": 1,
@@ -627,15 +627,6 @@
  ],
  "minimax": [
   {
-   "emel": "boza***@euploading.com",
-   "token": "ralat:HTTPError",
-   "uid": null,
-   "poin_hari": null,
-   "sudah_claim": null,
-   "hari_ke": null,
-   "poin_minggu": 0
-  },
-  {
    "emel": "bozm***@euploading.com",
    "token": "hidup",
    "uid": "579355255186812930",
@@ -772,12 +763,12 @@
   },
   {
    "emel": "huto***@ayogiakbar.cv",
-   "token": "ralat:SSLError",
-   "uid": null,
-   "poin_hari": null,
-   "sudah_claim": null,
-   "hari_ke": null,
-   "poin_minggu": 0
+   "token": "hidup",
+   "uid": "579377765273972739",
+   "poin_hari": 400,
+   "sudah_claim": true,
+   "hari_ke": 1,
+   "poin_minggu": 4000
   },
   {
    "emel": "wzy7***@ayogiakbar.cv",
@@ -898,12 +889,12 @@
   },
   {
    "emel": "gine***@7om.arcadehearth.com",
-   "token": "hidup",
-   "uid": "579568271098531844",
-   "poin_hari": 400,
-   "sudah_claim": true,
-   "hari_ke": 1,
-   "poin_minggu": 4000
+   "token": "ralat:HTTPError",
+   "uid": null,
+   "poin_hari": null,
+   "sudah_claim": null,
+   "hari_ke": null,
+   "poin_minggu": 0
   }
  ],
  "baki": {},
@@ -1049,9 +1040,9 @@
     "boleh_tambah": "Boleh — tuntut mata harian / beli kredit",
     "boleh": true,
     "cara_tambah": "Tambah akaun (claim mata) atau beli kredit di platform MiniMax.",
-    "akaun": 31,
+    "akaun": 30,
     "sihat": 29,
-    "baki": "116,000 mata kolam · 2 akaun belum claim"
+    "baki": "116,000 mata kolam · 1 akaun belum claim"
    }
   ],
   "jumlah_7": 72066,
@@ -1068,13 +1059,13 @@
   },
   "baki_minimax": {
    "mata_minggu": 116000,
-   "akaun": 31,
+   "akaun": 30,
    "claim_hari": 29,
-   "baki": 2
+   "baki": 1
   },
   "jumlah_models": 32
  },
- "dikemas": "2026-11-25T15:54:02",
+ "dikemas": "2026-11-25T16:09:33",
  "sumber": "laptop BOZ (9router SQLite + API penyedia)",
  "nota": "Ditapis kepada model MiniMax sahaja (arahan BOZ, 19 Nov 2026). Angka token sejarah kekal dalam graf harian termasuk penyedia yang telah dibuang. Snapshot berkala. Bila laptop aktif, halaman ini automatik bertukar ke mod LANGSUNG dari pelayan setempat."
 }
