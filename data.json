@@ -1,6 +1,6 @@
 {
- "masa": "2026-11-25 01:54:06 WIB",
- "masa_ringkas": "01:54:06",
+ "masa": "2026-11-25 12:56:22 WIB",
+ "masa_ringkas": "12:56:22",
  "ringkas": {
   "token_hari": 2736,
   "token_7": 72066,
@@ -391,9 +391,9 @@
  "hari": [
   {
    "tarikh": "2026-11-25",
-   "req": 18,
-   "masuk": 4059,
-   "keluar": 286
+   "req": 20,
+   "masuk": 4156,
+   "keluar": 320
   },
   {
    "tarikh": "2026-11-24",
@@ -433,6 +433,14 @@
   }
  ],
  "amaran": [
+  {
+   "nama": "ginevra4cd7bb@7om.arcadehearth.com",
+   "ralat": "[401]: {\"error\":\"invalid access token\"}",
+   "kod": 401,
+   "rate_limit": null,
+   "backoff": 0,
+   "ujian": "unavailable"
+  },
   {
    "nama": "Pollinations Free",
    "ralat": "[502]: fetch failed (cause: ECONNREFUSED: connect ECONNREFUSED 127.0.0.1:8892)",
@@ -483,32 +491,80 @@
   },
   {
    "nama": "figment89showmen@icloud.com",
-   "ralat": "[400]: {\"detail\":\"The 'gpt-6-sol' model is not supported when using Codex with a ChatGPT account.\",\"error\":{\"type\":\"inva",
-   "kod": 400,
+   "ralat": "[429]: The usage limit has been reached",
+   "kod": 429,
+   "rate_limit": null,
+   "backoff": 0,
+   "ujian": "unavailable"
+  },
+  {
+   "nama": "valeria4cd783@7om.arcadehearth.com",
+   "ralat": "[401]: {\"error\":\"invalid access token\"}",
+   "kod": 401,
    "rate_limit": null,
    "backoff": 0,
    "ujian": "unavailable"
   },
   {
    "nama": "finales_armory_7e@icloud.com",
-   "ralat": "[400]: {\"detail\":\"The 'gpt-6-sol' model is not supported when using Codex with a ChatGPT account.\",\"error\":{\"type\":\"inva",
-   "kod": 400,
+   "ralat": "[429]: The usage limit has been reached",
+   "kod": 429,
+   "rate_limit": null,
+   "backoff": 0,
+   "ujian": "unavailable"
+  },
+  {
+   "nama": "wilow4cd73c@7om.arcadehearth.com",
+   "ralat": "[401]: {\"error\":\"invalid access token\"}",
+   "kod": 401,
    "rate_limit": null,
    "backoff": 0,
    "ujian": "unavailable"
   },
   {
    "nama": "demand_burly_5j@icloud.com",
-   "ralat": "[400]: {\"detail\":\"The 'gpt-6-astra' model is not supported when using Codex with a ChatGPT account.\",\"error\":{\"type\":\"in",
-   "kod": 400,
+   "ralat": "[429]: The usage limit has been reached",
+   "kod": 429,
+   "rate_limit": null,
+   "backoff": 0,
+   "ujian": "unavailable"
+  },
+  {
+   "nama": "eunice4cd43a@7om.arcadehearth.com",
+   "ralat": "[401]: {\"error\":\"invalid access token\"}",
+   "kod": 401,
    "rate_limit": null,
    "backoff": 0,
    "ujian": "unavailable"
   },
   {
    "nama": "folks-oddment.6a@icloud.com",
-   "ralat": "[400]: {\"detail\":\"The 'gpt-6-astra' model is not supported when using Codex with a ChatGPT account.\",\"error\":{\"type\":\"in",
-   "kod": 400,
+   "ralat": "[429]: The usage limit has been reached",
+   "kod": 429,
+   "rate_limit": null,
+   "backoff": 0,
+   "ujian": "unavailable"
+  },
+  {
+   "nama": "bea4cd3bd@7om.arcadehearth.com",
+   "ralat": "[401]: {\"error\":\"invalid access token\"}",
+   "kod": 401,
+   "rate_limit": null,
+   "backoff": 0,
+   "ujian": "unavailable"
+  },
+  {
+   "nama": "w2drwnxl@ayogiakbar.cv",
+   "ralat": "[401]: {\"error\":\"invalid access token\"}",
+   "kod": 401,
+   "rate_limit": null,
+   "backoff": 0,
+   "ujian": "unavailable"
+  },
+  {
+   "nama": "kfnkzu1t@ayogiakbar.cv",
+   "ralat": "[401]: {\"error\":\"invalid access token\"}",
+   "kod": 401,
    "rate_limit": null,
    "backoff": 0,
    "ujian": "unavailable"
@@ -538,6 +594,30 @@
    "ujian": "unavailable"
   },
   {
+   "nama": "ew0nnack@gienetic-agent.web.id",
+   "ralat": "[401]: {\"error\":\"invalid access token\"}",
+   "kod": 401,
+   "rate_limit": null,
+   "backoff": 0,
+   "ujian": "unavailable"
+  },
+  {
+   "nama": "y1dbsvpe@gienetic-agent.web.id",
+   "ralat": "[401]: {\"error\":\"invalid access token\"}",
+   "kod": 401,
+   "rate_limit": null,
+   "backoff": 0,
+   "ujian": "unavailable"
+  },
+  {
+   "nama": "nurnlc5v@gienetic-agent.web.id",
+   "ralat": "[401]: {\"error\":\"invalid access token\"}",
+   "kod": 401,
+   "rate_limit": null,
+   "backoff": 0,
+   "ujian": "unavailable"
+  },
+  {
    "nama": "uhflqycg@ayogiakbar.cv",
    "ralat": "[401]: {\"error\":\"invalid access token\"}",
    "kod": 401,
@@ -546,15 +626,7 @@
    "ujian": "unavailable"
   },
   {
-   "nama": "oyxft3ey@gienetic-agent.web.id",
-   "ralat": "[401]: {\"error\":\"invalid access token\"}",
-   "kod": 401,
-   "rate_limit": null,
-   "backoff": 0,
-   "ujian": "unavailable"
-  },
-  {
-   "nama": "bozw8so7n6mx@euploading.com",
+   "nama": "q6p7pc17@ayogiakbar.cv",
    "ralat": "[401]: {\"error\":\"invalid access token\"}",
    "kod": 401,
    "rate_limit": null,
@@ -850,10 +922,10 @@
     "nama": "MiniMax-M3.1-flash-preview",
     "penyedia": "MiniMax",
     "penyedia_kunci": "minimax",
-    "req_hari": 4,
-    "masuk_hari": 1248,
-    "keluar_hari": 91,
-    "jumlah_hari": 1339,
+    "req_hari": 2,
+    "masuk_hari": 560,
+    "keluar_hari": 17,
+    "jumlah_hari": 577,
     "req_7": 140,
     "masuk_7": 51084,
     "keluar_7": 18483,
@@ -871,10 +943,10 @@
     "nama": "MiniMax-M3",
     "penyedia": "MiniMax",
     "penyedia_kunci": "minimax",
-    "req_hari": 5,
-    "masuk_hari": 1684,
-    "keluar_hari": 110,
-    "jumlah_hari": 1794,
+    "req_hari": 3,
+    "masuk_hari": 892,
+    "keluar_hari": 36,
+    "jumlah_hari": 928,
     "req_7": 19,
     "masuk_7": 7115,
     "keluar_7": 499,
@@ -892,10 +964,10 @@
     "nama": "MiniMax-M3.1",
     "penyedia": "MiniMax",
     "penyedia_kunci": "minimax",
-    "req_hari": 4,
-    "masuk_hari": 1356,
-    "keluar_hari": 127,
-    "jumlah_hari": 1483,
+    "req_hari": 2,
+    "masuk_hari": 620,
+    "keluar_hari": 21,
+    "jumlah_hari": 641,
     "req_7": 11,
     "masuk_7": 3881,
     "keluar_7": 339,
@@ -913,10 +985,10 @@
     "nama": "MiniMax-M3.1-preview",
     "penyedia": "MiniMax",
     "penyedia_kunci": "minimax",
-    "req_hari": 4,
-    "masuk_hari": 1248,
-    "keluar_hari": 111,
-    "jumlah_hari": 1359,
+    "req_hari": 2,
+    "masuk_hari": 560,
+    "keluar_hari": 30,
+    "jumlah_hari": 590,
     "req_7": 10,
     "masuk_7": 3486,
     "keluar_7": 268,
@@ -934,10 +1006,10 @@
     "nama": "MiniMax-M2.5",
     "penyedia": "MiniMax",
     "penyedia_kunci": "minimax",
-    "req_hari": 4,
-    "masuk_hari": 1344,
-    "keluar_hari": 94,
-    "jumlah_hari": 1438,
+    "req_hari": 2,
+    "masuk_hari": 552,
+    "keluar_hari": 21,
+    "jumlah_hari": 573,
     "req_7": 17,
     "masuk_7": 1818,
     "keluar_7": 462,
@@ -955,10 +1027,10 @@
     "nama": "MiniMax-M2.7-highspeed",
     "penyedia": "MiniMax",
     "penyedia_kunci": "minimax",
-    "req_hari": 4,
-    "masuk_hari": 1400,
-    "keluar_hari": 113,
-    "jumlah_hari": 1513,
+    "req_hari": 2,
+    "masuk_hari": 608,
+    "keluar_hari": 32,
+    "jumlah_hari": 640,
     "req_7": 10,
     "masuk_7": 1610,
     "keluar_7": 253,
@@ -1011,7 +1083,7 @@
   },
   "jumlah_models": 32
  },
- "dikemas": "2026-11-25T02:54:07",
+ "dikemas": "2026-11-25T13:56:32",
  "sumber": "laptop BOZ (9router SQLite + API penyedia)",
  "nota": "Ditapis kepada model MiniMax sahaja (arahan BOZ, 19 Nov 2026). Angka token sejarah kekal dalam graf harian termasuk penyedia yang telah dibuang. Snapshot berkala. Bila laptop aktif, halaman ini automatik bertukar ke mod LANGSUNG dari pelayan setempat."
 }

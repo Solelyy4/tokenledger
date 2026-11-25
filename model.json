@@ -1,5 +1,5 @@
 {
- "masa": "2026-11-25T02:54:07",
+ "masa": "2026-11-25T13:56:34",
  "keterangan": "Ujian panggilan sebenar ke gateway 9router (max_tokens kecil, 1-2 pusingan).",
  "bilangan": {
   "jumlah": 25,
@@ -134,22 +134,76 @@
    "sebab": ""
   },
   {
+   "model": "mistral/mistral-large-latest",
+   "lulus": false,
+   "median": 0.01,
+   "status": "404",
+   "kelas": "GAGAL",
+   "jawapan": "",
+   "sebab": "No active credentials for provider: mistral"
+  },
+  {
+   "model": "mistral/mistral-medium-latest",
+   "lulus": false,
+   "median": 0.02,
+   "status": "404",
+   "kelas": "GAGAL",
+   "jawapan": "",
+   "sebab": "No active credentials for provider: mistral"
+  },
+  {
+   "model": "kgw/kwaipilot/kat-coder-pro-v2.5:free",
+   "lulus": false,
+   "median": 0.03,
+   "status": "404",
+   "kelas": "GAGAL",
+   "jawapan": "",
+   "sebab": "No active credentials for provider: kilo-gateway"
+  },
+  {
+   "model": "kgw/kilo-auto/frontier",
+   "lulus": false,
+   "median": 0.03,
+   "status": "404",
+   "kelas": "GAGAL",
+   "jawapan": "",
+   "sebab": "No active credentials for provider: kilo-gateway"
+  },
+  {
    "model": "mmf/mimo-auto",
    "lulus": false,
-   "median": 0.26,
-   "status": 502,
+   "median": 0.29,
+   "status": "502",
    "kelas": "GAGAL",
    "jawapan": "",
    "sebab": "[502]: MiMo bootstrap failed: 404"
   },
   {
-   "model": "kgw/kwaipilot/kat-coder-pro-v2.5:free",
+   "model": "oc/muse-spark-1.2-contributor-free",
    "lulus": false,
-   "median": 0.38,
-   "status": 503,
+   "median": 0.31,
+   "status": "400",
    "kelas": "GAGAL",
    "jawapan": "",
-   "sebab": "[kilo-gateway/kwaipilot/kat-coder-pro-v2.5:free] [404]: {\"error\":\"The requested model 'kwaipilot/kat-coder-pro-v2.5:free"
+   "sebab": "[400]: {\"error\":{\"type\":\"server_error\",\"message\":\"Upstream request failed: Model is unavailable.\"}}"
+  },
+  {
+   "model": "oc/union-alpha",
+   "lulus": false,
+   "median": 0.35,
+   "status": "400",
+   "kelas": "GAGAL",
+   "jawapan": "",
+   "sebab": "[400]: {\"type\":\"error\",\"error\":{\"type\":\"api_error\",\"message\":\"Upstream request failed: Model is unavailable.\"}}"
+  },
+  {
+   "model": "oc/muse-spark-1.3-contributor-free",
+   "lulus": false,
+   "median": 0.37,
+   "status": "400",
+   "kelas": "GAGAL",
+   "jawapan": "",
+   "sebab": "[400]: {\"error\":{\"type\":\"server_error\",\"message\":\"Upstream request failed: Model is unavailable.\"}}"
   },
   {
    "model": "kgw/nvidia/nemotron-3-super-120b-a12b:free",
@@ -161,13 +215,13 @@
    "sebab": "[kilo-gateway/nvidia/nemotron-3-super-120b-a12b:free] [404]: {\"error\":\"The requested model 'nvidia/nemotron-3-super-120b"
   },
   {
-   "model": "kgw/kilo-auto/frontier",
+   "model": "oc/jev-1.13-free",
    "lulus": false,
-   "median": 3.36,
-   "status": 503,
+   "median": 1.32,
+   "status": "400",
    "kelas": "GAGAL",
    "jawapan": "",
-   "sebab": "[kilo-gateway/kilo-auto/frontier] [401]: {\"error\":{\"code\":\"PAID_MODEL_AUTH_REQUIRED\",\"message\":\"You need to sign in to u"
+   "sebab": "[400]: {\"type\":\"error\",\"error\":{\"type\":\"ModelProtocolUnsupported\",\"message\":\"Model does not support this protocol.\"}}"
   },
   {
    "model": "kgw/kilo-auto/balanced",
@@ -177,60 +231,6 @@
    "kelas": "GAGAL",
    "jawapan": "",
    "sebab": "[kilo-gateway/kilo-auto/balanced] [401]: {\"error\":{\"code\":\"PAID_MODEL_AUTH_REQUIRED\",\"message\":\"You need to sign in to u"
-  },
-  {
-   "model": "oc/muse-spark-1.2-contributor-free",
-   "lulus": false,
-   "median": 9.03,
-   "status": 502,
-   "kelas": "GAGAL",
-   "jawapan": "",
-   "sebab": "[502]: wreq-js unavailable (Cannot read properties of undefined (reading 'resolve')) — install the optional wreq-js depe"
-  },
-  {
-   "model": "oc/union-alpha",
-   "lulus": false,
-   "median": 9.03,
-   "status": 502,
-   "kelas": "GAGAL",
-   "jawapan": "",
-   "sebab": "[502]: wreq-js unavailable (Cannot read properties of undefined (reading 'resolve')) — install the optional wreq-js depe"
-  },
-  {
-   "model": "oc/jev-1.13-free",
-   "lulus": false,
-   "median": 9.04,
-   "status": 502,
-   "kelas": "GAGAL",
-   "jawapan": "",
-   "sebab": "[502]: wreq-js unavailable (Cannot read properties of undefined (reading 'resolve')) — install the optional wreq-js depe"
-  },
-  {
-   "model": "oc/muse-spark-1.3-contributor-free",
-   "lulus": false,
-   "median": 9.05,
-   "status": 502,
-   "kelas": "GAGAL",
-   "jawapan": "",
-   "sebab": "[502]: wreq-js unavailable (Cannot read properties of undefined (reading 'resolve')) — install the optional wreq-js depe"
-  },
-  {
-   "model": "mistral/mistral-medium-latest",
-   "lulus": false,
-   "median": 12.53,
-   "status": 503,
-   "kelas": "GAGAL",
-   "jawapan": "",
-   "sebab": "[mistral/mistral-medium-latest] [429]: {\"object\":\"error\",\"message\":\"Rate limit exceeded\",\"type\":\"rate_limited\",\"param\":n"
-  },
-  {
-   "model": "mistral/mistral-large-latest",
-   "lulus": false,
-   "median": 60.0,
-   "status": "RALAT",
-   "kelas": "GAGAL",
-   "jawapan": "",
-   "sebab": "TimeoutError"
   }
  ]
 }
