@@ -1,6 +1,6 @@
 {
- "masa": "2026-11-25 14:09:04 WIB",
- "masa_ringkas": "14:09:04",
+ "masa": "2026-11-25 14:25:11 WIB",
+ "masa_ringkas": "14:25:11",
  "ringkas": {
   "token_hari": 2736,
   "token_7": 72066,
@@ -10,8 +10,8 @@
   "connection": 30,
   "connection_sihat": 30,
   "mm_akaun": 31,
-  "mm_claim_hari": 30,
-  "mm_pool_minggu": 120000,
+  "mm_claim_hari": 29,
+  "mm_pool_minggu": 116000,
   "provider": 1,
   "mistral_akaun": 0,
   "mistral_sihat": 0,
@@ -781,12 +781,12 @@
   },
   {
    "emel": "huto***@ayogiakbar.cv",
-   "token": "hidup",
-   "uid": "579377765273972739",
-   "poin_hari": 400,
-   "sudah_claim": true,
-   "hari_ke": 1,
-   "poin_minggu": 4000
+   "token": "ralat:SSLError",
+   "uid": null,
+   "poin_hari": null,
+   "sudah_claim": null,
+   "hari_ke": null,
+   "poin_minggu": 0
   },
   {
    "emel": "wzy7***@ayogiakbar.cv",
@@ -1059,8 +1059,8 @@
     "boleh": true,
     "cara_tambah": "Tambah akaun (claim mata) atau beli kredit di platform MiniMax.",
     "akaun": 31,
-    "sihat": 30,
-    "baki": "120,000 mata kolam · 1 akaun belum claim"
+    "sihat": 29,
+    "baki": "116,000 mata kolam · 2 akaun belum claim"
    }
   ],
   "jumlah_7": 72066,
@@ -1076,14 +1076,14 @@
    "sihat": 0
   },
   "baki_minimax": {
-   "mata_minggu": 120000,
+   "mata_minggu": 116000,
    "akaun": 31,
-   "claim_hari": 30,
-   "baki": 1
+   "claim_hari": 29,
+   "baki": 2
   },
   "jumlah_models": 32
  },
- "dikemas": "2026-11-25T15:09:04",
+ "dikemas": "2026-11-25T15:25:11",
  "sumber": "laptop BOZ (9router SQLite + API penyedia)",
  "nota": "Ditapis kepada model MiniMax sahaja (arahan BOZ, 19 Nov 2026). Angka token sejarah kekal dalam graf harian termasuk penyedia yang telah dibuang. Snapshot berkala. Bila laptop aktif, halaman ini automatik bertukar ke mod LANGSUNG dari pelayan setempat."
 }
