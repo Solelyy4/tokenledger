@@ -1,14 +1,14 @@
 {
- "masa": "2026-11-25 14:39:02 WIB",
- "masa_ringkas": "14:39:02",
+ "masa": "2026-11-25 14:54:02 WIB",
+ "masa_ringkas": "14:54:02",
  "ringkas": {
   "token_hari": 2736,
   "token_7": 72066,
   "req_hari": 9,
   "model_diguna": 4,
   "model_tersedia": 4,
-  "connection": 30,
-  "connection_sihat": 30,
+  "connection": 29,
+  "connection_sihat": 29,
   "mm_akaun": 31,
   "mm_claim_hari": 29,
   "mm_pool_minggu": 116000,
@@ -352,15 +352,6 @@
    "nama": "ginevra4cd7bb@7om.arcadehearth.com"
   },
   {
-   "conn": "0ad08398-f4a5-4654-a7c6-4e6c2df3e23b",
-   "req_hari": 0,
-   "in_hari": 0,
-   "out_hari": 0,
-   "req_7": 3,
-   "in_7": 1111,
-   "nama": "bozars1tu31n@euploading.com"
-  },
-  {
    "conn": "18bffdcc-8ba0-4033-820d-769964b73630",
    "req_hari": 0,
    "in_hari": 0,
@@ -578,14 +569,6 @@
    "ujian": "unavailable"
   },
   {
-   "nama": "bozars1tu31n@euploading.com",
-   "ralat": "[401]: {\"error\":\"invalid access token\"}",
-   "kod": 401,
-   "rate_limit": null,
-   "backoff": 0,
-   "ujian": "unavailable"
-  },
-  {
    "nama": "oy7cfcj0@ayogiakbar.cv",
    "ralat": "[401]: {\"error\":\"invalid access token\"}",
    "kod": 401,
@@ -627,6 +610,14 @@
   },
   {
    "nama": "q6p7pc17@ayogiakbar.cv",
+   "ralat": "[401]: {\"error\":\"invalid access token\"}",
+   "kod": 401,
+   "rate_limit": null,
+   "backoff": 0,
+   "ujian": "unavailable"
+  },
+  {
+   "nama": "bwreccw9@ayogiakbar.cv",
    "ralat": "[401]: {\"error\":\"invalid access token\"}",
    "kod": 401,
    "rate_limit": null,
@@ -1083,7 +1074,7 @@
   },
   "jumlah_models": 32
  },
- "dikemas": "2026-11-25T15:39:02",
+ "dikemas": "2026-11-25T15:54:02",
  "sumber": "laptop BOZ (9router SQLite + API penyedia)",
  "nota": "Ditapis kepada model MiniMax sahaja (arahan BOZ, 19 Nov 2026). Angka token sejarah kekal dalam graf harian termasuk penyedia yang telah dibuang. Snapshot berkala. Bila laptop aktif, halaman ini automatik bertukar ke mod LANGSUNG dari pelayan setempat."
 }
