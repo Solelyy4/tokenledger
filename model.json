@@ -1,5 +1,5 @@
 {
- "masa": "2026-11-26T03:24:03",
+ "masa": "2026-11-26T15:04:31",
  "keterangan": "Ujian panggilan sebenar ke gateway 9router (max_tokens kecil, 1-2 pusingan).",
  "bilangan": {
   "jumlah": 25,
@@ -143,18 +143,9 @@
    "sebab": "No active credentials for provider: mistral"
   },
   {
-   "model": "mistral/mistral-medium-latest",
-   "lulus": false,
-   "median": 0.02,
-   "status": "404",
-   "kelas": "GAGAL",
-   "jawapan": "",
-   "sebab": "No active credentials for provider: mistral"
-  },
-  {
    "model": "kgw/kwaipilot/kat-coder-pro-v2.5:free",
    "lulus": false,
-   "median": 0.03,
+   "median": 0.01,
    "status": "404",
    "kelas": "GAGAL",
    "jawapan": "",
@@ -163,16 +154,25 @@
   {
    "model": "kgw/kilo-auto/frontier",
    "lulus": false,
-   "median": 0.03,
+   "median": 0.01,
    "status": "404",
    "kelas": "GAGAL",
    "jawapan": "",
    "sebab": "No active credentials for provider: kilo-gateway"
   },
   {
+   "model": "mistral/mistral-medium-latest",
+   "lulus": false,
+   "median": 0.03,
+   "status": "404",
+   "kelas": "GAGAL",
+   "jawapan": "",
+   "sebab": "No active credentials for provider: mistral"
+  },
+  {
    "model": "mmf/mimo-auto",
    "lulus": false,
-   "median": 0.29,
+   "median": 0.22,
    "status": "502",
    "kelas": "GAGAL",
    "jawapan": "",
@@ -181,7 +181,16 @@
   {
    "model": "oc/muse-spark-1.2-contributor-free",
    "lulus": false,
-   "median": 0.31,
+   "median": 0.28,
+   "status": "400",
+   "kelas": "GAGAL",
+   "jawapan": "",
+   "sebab": "[400]: {\"error\":{\"type\":\"server_error\",\"message\":\"Upstream request failed: Model is unavailable.\"}}"
+  },
+  {
+   "model": "oc/muse-spark-1.3-contributor-free",
+   "lulus": false,
+   "median": 0.3,
    "status": "400",
    "kelas": "GAGAL",
    "jawapan": "",
@@ -190,20 +199,11 @@
   {
    "model": "oc/union-alpha",
    "lulus": false,
-   "median": 0.35,
+   "median": 0.32,
    "status": "400",
    "kelas": "GAGAL",
    "jawapan": "",
    "sebab": "[400]: {\"type\":\"error\",\"error\":{\"type\":\"api_error\",\"message\":\"Upstream request failed: Model is unavailable.\"}}"
-  },
-  {
-   "model": "oc/muse-spark-1.3-contributor-free",
-   "lulus": false,
-   "median": 0.37,
-   "status": "400",
-   "kelas": "GAGAL",
-   "jawapan": "",
-   "sebab": "[400]: {\"error\":{\"type\":\"server_error\",\"message\":\"Upstream request failed: Model is unavailable.\"}}"
   },
   {
    "model": "kgw/nvidia/nemotron-3-super-120b-a12b:free",
@@ -217,7 +217,7 @@
   {
    "model": "oc/jev-1.13-free",
    "lulus": false,
-   "median": 1.32,
+   "median": 0.57,
    "status": "400",
    "kelas": "GAGAL",
    "jawapan": "",
