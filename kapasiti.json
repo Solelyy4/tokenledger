@@ -1,5 +1,5 @@
 {
- "masa": "2026-11-26 00:46:55",
+ "masa": "2026-11-26 11:55:40",
  "lane": {
   "minimax_pool": {
    "jumlah": 142,
@@ -14,7 +14,7 @@
      "kod": 200,
      "req_hari": 1000,
      "tpm": 8000,
-     "baki_req": 998
+     "baki_req": 999
     },
     "openai/gpt-oss-120b": {
      "kod": 200,
