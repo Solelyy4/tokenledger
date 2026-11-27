@@ -1,5 +1,5 @@
 {
- "masa": "2026-11-27T02:09:02",
+ "masa": "2026-11-27T16:53:04",
  "keterangan": "Ujian panggilan sebenar ke gateway 9router (max_tokens kecil, 1-2 pusingan).",
  "bilangan": {
   "jumlah": 25,
@@ -134,7 +134,7 @@
    "sebab": ""
   },
   {
-   "model": "mistral/mistral-large-latest",
+   "model": "mistral/mistral-medium-latest",
    "lulus": false,
    "median": 0.01,
    "status": "404",
@@ -152,43 +152,25 @@
    "sebab": "No active credentials for provider: kilo-gateway"
   },
   {
-   "model": "kgw/kilo-auto/frontier",
+   "model": "mistral/mistral-large-latest",
    "lulus": false,
-   "median": 0.01,
-   "status": "404",
-   "kelas": "GAGAL",
-   "jawapan": "",
-   "sebab": "No active credentials for provider: kilo-gateway"
-  },
-  {
-   "model": "mistral/mistral-medium-latest",
-   "lulus": false,
-   "median": 0.03,
+   "median": 0.02,
    "status": "404",
    "kelas": "GAGAL",
    "jawapan": "",
    "sebab": "No active credentials for provider: mistral"
   },
   {
-   "model": "mmf/mimo-auto",
+   "model": "kgw/kilo-auto/frontier",
    "lulus": false,
-   "median": 0.22,
-   "status": "502",
+   "median": 0.02,
+   "status": "404",
    "kelas": "GAGAL",
    "jawapan": "",
-   "sebab": "[502]: MiMo bootstrap failed: 404"
+   "sebab": "No active credentials for provider: kilo-gateway"
   },
   {
    "model": "oc/muse-spark-1.2-contributor-free",
-   "lulus": false,
-   "median": 0.28,
-   "status": "400",
-   "kelas": "GAGAL",
-   "jawapan": "",
-   "sebab": "[400]: {\"error\":{\"type\":\"server_error\",\"message\":\"Upstream request failed: Model is unavailable.\"}}"
-  },
-  {
-   "model": "oc/muse-spark-1.3-contributor-free",
    "lulus": false,
    "median": 0.3,
    "status": "400",
@@ -206,6 +188,24 @@
    "sebab": "[400]: {\"type\":\"error\",\"error\":{\"type\":\"api_error\",\"message\":\"Upstream request failed: Model is unavailable.\"}}"
   },
   {
+   "model": "oc/muse-spark-1.3-contributor-free",
+   "lulus": false,
+   "median": 0.33,
+   "status": "400",
+   "kelas": "GAGAL",
+   "jawapan": "",
+   "sebab": "[400]: {\"error\":{\"type\":\"server_error\",\"message\":\"Upstream request failed: Model is unavailable.\"}}"
+  },
+  {
+   "model": "mmf/mimo-auto",
+   "lulus": false,
+   "median": 0.34,
+   "status": "502",
+   "kelas": "GAGAL",
+   "jawapan": "",
+   "sebab": "[502]: MiMo bootstrap failed: 404"
+  },
+  {
    "model": "kgw/nvidia/nemotron-3-super-120b-a12b:free",
    "lulus": false,
    "median": 0.46,
@@ -217,7 +217,7 @@
   {
    "model": "oc/jev-1.13-free",
    "lulus": false,
-   "median": 0.57,
+   "median": 0.69,
    "status": "400",
    "kelas": "GAGAL",
    "jawapan": "",

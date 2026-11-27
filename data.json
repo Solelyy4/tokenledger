@@ -1,6 +1,6 @@
 {
- "masa": "2026-11-27 01:09:02 WIB",
- "masa_ringkas": "01:09:02",
+ "masa": "2026-11-27 15:53:04 WIB",
+ "masa_ringkas": "15:53:04",
  "ringkas": {
   "token_hari": 0,
   "token_7": 5975,
@@ -856,27 +856,6 @@
  "modal": {
   "model": [
    {
-    "nama": "MiniMax-M3.1-flash-preview",
-    "penyedia": "MiniMax",
-    "penyedia_kunci": "minimax",
-    "req_hari": 0,
-    "masuk_hari": 0,
-    "keluar_hari": 0,
-    "jumlah_hari": 0,
-    "req_7": 65,
-    "masuk_7": 23606,
-    "keluar_7": 16012,
-    "jumlah_7": 39618,
-    "req_30": 65,
-    "jumlah_30": 39618,
-    "terakhir": "2026-11-24T18:24:01.682Z",
-    "kuota_jenis": "Kolam mata akaun (claim harian)",
-    "boleh_tambah": "Boleh — tuntut mata harian / beli kredit",
-    "boleh": true,
-    "cara_tambah": "Tambah akaun (claim mata) atau beli kredit di platform MiniMax.",
-    "bahagian": 0.1
-   },
-   {
     "nama": "MiniMax-M3",
     "penyedia": "MiniMax",
     "penyedia_kunci": "minimax",
@@ -980,6 +959,27 @@
     "boleh": true,
     "cara_tambah": "Tambah akaun (claim mata) atau beli kredit di platform MiniMax.",
     "bahagian": 0.0
+   },
+   {
+    "nama": "MiniMax-M3.1-flash-preview",
+    "penyedia": "MiniMax",
+    "penyedia_kunci": "minimax",
+    "req_hari": 0,
+    "masuk_hari": 0,
+    "keluar_hari": 0,
+    "jumlah_hari": 0,
+    "req_7": 4,
+    "masuk_7": 1248,
+    "keluar_7": 91,
+    "jumlah_7": 1339,
+    "req_30": 4,
+    "jumlah_30": 1339,
+    "terakhir": "2026-11-24T18:24:01.682Z",
+    "kuota_jenis": "Kolam mata akaun (claim harian)",
+    "boleh_tambah": "Boleh — tuntut mata harian / beli kredit",
+    "boleh": true,
+    "cara_tambah": "Tambah akaun (claim mata) atau beli kredit di platform MiniMax.",
+    "bahagian": 0.0
    }
   ],
   "penyedia": [
@@ -1020,7 +1020,7 @@
   },
   "jumlah_models": 29
  },
- "dikemas": "2026-11-27T02:09:02",
+ "dikemas": "2026-11-27T16:53:04",
  "sumber": "laptop BOZ (9router SQLite + API penyedia)",
  "nota": "Ditapis kepada model MiniMax sahaja (arahan BOZ, 19 Nov 2026). Angka token sejarah kekal dalam graf harian termasuk penyedia yang telah dibuang. Snapshot berkala. Bila laptop aktif, halaman ini automatik bertukar ke mod LANGSUNG dari pelayan setempat."
 }
